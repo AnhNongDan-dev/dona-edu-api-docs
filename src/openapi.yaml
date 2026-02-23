@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: School API
+  title: Dona edu API
   version: 0.1.0
   license:
     name: Proprietary
@@ -10,14 +10,10 @@ servers:
   - url: http://localhost:8080
 
 tags:
-  - name: Classes
-    description: Class management APIs
+
 
 paths:
-  /classes:
-    $ref: ./paths/classes.yaml#/classes
-  /classes/{classId}:
-    $ref: ./paths/classes.yaml#/classById
+
 
 components:
   securitySchemes:
