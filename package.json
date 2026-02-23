@@ -1,0 +1,12 @@
+{
+  "name": "school-api-contract",
+  "private": true,
+  "devDependencies": {
+    "@redocly/cli": "^1.30.0"
+  },
+  "scripts": {
+    "lint": "redocly lint src/openapi.yaml",
+    "bundle": "redocly bundle src/openapi.yaml -o docs/openapi.bundle.yaml",
+    "build": "npm run lint && npm run bundle"
+  }
+}

@@ -1,0 +1,174 @@
+openapi: 3.0.3
+info:
+  title: School API
+  version: 0.1.0
+  license:
+    name: Proprietary
+    url: https://donasky.com/license
+servers:
+  - url: https://api.yourdomain.com
+  - url: http://localhost:8080
+security:
+  - BearerAuth: []
+tags:
+  - name: Classes
+    description: Class management APIs
+paths:
+  /classes:
+    post:
+      tags:
+        - Classes
+      summary: Create a class (with students)
+      operationId: createClass
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClassRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassDetail'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /classes/{classId}:
+    get:
+      tags:
+        - Classes
+      summary: Get class detail
+      operationId: getClassById
+      parameters:
+        - in: path
+          name: classId
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassDetail'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    CreateStudent:
+      type: object
+      required:
+        - fullName
+      properties:
+        fullName:
+          type: string
+          maxLength: 150
+          example: Nguyễn Văn A
+        dob:
+          type: string
+          format: date
+          example: '2010-09-01'
+    CreateClassRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          maxLength: 100
+          example: 10A1
+        schoolYear:
+          type: string
+          example: 2025-2026
+        students:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateStudent'
+    Class:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: 10A1
+        schoolYear:
+          type: string
+          example: 2025-2026
+    Student:
+      type: object
+      required:
+        - id
+        - fullName
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 101
+        fullName:
+          type: string
+          example: Nguyễn Văn A
+        dob:
+          type: string
+          format: date
+          nullable: true
+          example: '2010-09-01'
+    ClassDetail:
+      allOf:
+        - $ref: '#/components/schemas/Class'
+        - type: object
+          properties:
+            students:
+              type: array
+              items:
+                $ref: '#/components/schemas/Student'
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          example: VALIDATION_ERROR
+        message:
+          type: string
+          example: Invalid request
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            sample:
+              value:
+                code: VALIDATION_ERROR
+                message: name is required
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            sample:
+              value:
+                code: NOT_FOUND
+                message: Class not found
