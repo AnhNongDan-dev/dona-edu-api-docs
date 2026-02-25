@@ -21,5 +21,20 @@ ResetPasswordRequest:
 ChangePasswordRequest:
   $ref: ./auth.yaml#/ChangePasswordRequest
 
+
+AdminUserSummary:
+  $ref: ./admin.yaml#/AdminUserSummary
+AdminUserDetail:
+  $ref: ./admin.yaml#/AdminUserDetail
+AdminUserListResponse:
+  $ref: ./admin.yaml#/AdminUserListResponse
+AdminLockRequest:
+  $ref: ./admin.yaml#/AdminLockRequest
+AdminResetPasswordRequest:
+  $ref: ./admin.yaml#/AdminResetPasswordRequest
+AdminResetPasswordResponse:
+  $ref: ./admin.yaml#/AdminResetPasswordResponse
+
+
 ErrorResponse:
   $ref: ./common.yaml#/ErrorResponse

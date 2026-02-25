@@ -240,3 +240,189 @@
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
         $ref: ../components/responses/errors.yaml#/Error403
+
+
+/admin/users:
+  get:
+    tags:
+      - Admin
+    summary: List users (admin)
+    operationId: adminListUsers
+    parameters:
+      - name: q
+        in: query
+        required: false
+        description: Search by email/username/displayName
+        schema:
+          type: string
+
+      - name: role
+        in: query
+        required: false
+        schema:
+          type: string
+
+      - name: isLocked
+        in: query
+        required: false
+        schema:
+          type: boolean
+
+      - name: isVerified
+        in: query
+        required: false
+        schema:
+          type: boolean
+
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+          minimum: 1
+
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+          minimum: 1
+          maximum: 100
+
+      - name: sort
+        in: query
+        required: false
+        description: "Example: createdAt,desc | username,asc"
+        schema:
+          type: string
+          example: "createdAt,desc"
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/admin.yaml#/AdminUserListResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+
+
+/admin/users/{userId}:
+  get:
+    tags: [Admin]
+    summary: Get user detail (admin)
+    operationId: adminGetUserDetail
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema: { type: integer, format: int64 }
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/admin.yaml#/AdminUserDetail
+      "401": { $ref: ../components/responses/errors.yaml#/Error401 }
+      "403": { $ref: ../components/responses/errors.yaml#/Error403 }
+      "404": { $ref: ../components/responses/errors.yaml#/Error404 }
+
+
+/admin/users/{userId}/lock:
+  put:
+    tags: [Admin]
+    summary: Lock a user account
+    operationId: adminLockUser
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema: { type: integer, format: int64 }
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/admin.yaml#/AdminLockRequest
+          examples:
+            sample:
+              value:
+                reason: "Suspicious activity / spam"
+    responses:
+      "200":
+        description: Locked
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "400": { $ref: ../components/responses/errors.yaml#/Error400 }
+      "401": { $ref: ../components/responses/errors.yaml#/Error401 }
+      "403": { $ref: ../components/responses/errors.yaml#/Error403 }
+      "404": { $ref: ../components/responses/errors.yaml#/Error404 }
+      "409": { $ref: ../components/responses/errors.yaml#/Error409 }
+
+/admin/users/{userId}/unlock:
+  put:
+    tags: [Admin]
+    summary: Unlock a user account
+    operationId: adminUnlockUser
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema: { type: integer, format: int64 }
+    responses:
+      "200":
+        description: Unlocked
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "401": { $ref: ../components/responses/errors.yaml#/Error401 }
+      "403": { $ref: ../components/responses/errors.yaml#/Error403 }
+      "404": { $ref: ../components/responses/errors.yaml#/Error404 }
+      "409": { $ref: ../components/responses/errors.yaml#/Error409 }
+
+/admin/users/{userId}/reset-password:
+  put:
+    tags: [Admin]
+    summary: Reset user password (admin)
+    description: |
+      Resets user's password and (optionally) sends the new password to user's email.
+      tempPassword may be omitted depending on security policy.
+    operationId: adminResetUserPassword
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema: { type: integer, format: int64 }
+    requestBody:
+      required: false
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/admin.yaml#/AdminResetPasswordRequest
+          examples:
+            send_email:
+              value:
+                sendEmail: true
+    responses:
+      "200":
+        description: Reset success
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/admin.yaml#/AdminResetPasswordResponse
+      "400": { $ref: ../components/responses/errors.yaml#/Error400 }
+      "401": { $ref: ../components/responses/errors.yaml#/Error401 }
+      "403": { $ref: ../components/responses/errors.yaml#/Error403 }
+      "404": { $ref: ../components/responses/errors.yaml#/Error404 }
+      "409": { $ref: ../components/responses/errors.yaml#/Error409 }
+      "429": { $ref: ../components/responses/errors.yaml#/Error429 }
