@@ -472,12 +472,8 @@
           application/json:
             schema:
               $ref: ../components/schemas/user.yaml#/UserSearchResponse
-      "400":
-        $ref: ../components/responses/errors.yaml#/Error400
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
-      "403":
-        $ref: ../components/responses/errors.yaml#/Error403
 
 /users/{userId}:
   get:
@@ -501,7 +497,5 @@
               $ref: ../components/schemas/user.yaml#/UserPublicDetail
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
-      "403":
-        $ref: ../components/responses/errors.yaml#/Error403
       "404":
         $ref: ../components/responses/errors.yaml#/Error404

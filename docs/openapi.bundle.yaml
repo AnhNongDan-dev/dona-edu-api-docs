@@ -493,12 +493,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserSearchResponse'
-        '400':
-          $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
-        '403':
-          $ref: '#/components/responses/Error403'
   /users/{userId}:
     get:
       tags:
@@ -521,8 +517,6 @@ paths:
                 $ref: '#/components/schemas/UserPublicDetail'
         '401':
           $ref: '#/components/responses/Error401'
-        '403':
-          $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
 components:
