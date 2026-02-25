@@ -1,0 +1,21 @@
+ErrorResponse:
+  type: object
+  required: [code, message]
+  properties:
+    code:
+      type: string
+      example: E_VALIDATION
+    message:
+      type: string
+      example: Invalid request
+    details:
+      type: object
+      additionalProperties: true
+
+SimpleOkResponse:
+  type: object
+  required: [ok]
+  properties:
+    ok:
+      type: boolean
+      example: true
