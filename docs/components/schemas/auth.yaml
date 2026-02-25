@@ -2,93 +2,33 @@ RegisterRequest:
   type: object
   required: [email, password, displayName]
   properties:
-    email: { type: string, format: email, example: "student01@dona.edu.vn" }
-    password: { type: string, format: password, minLength: 8, example: "P@ssw0rd123" }
-    displayName: { type: string, maxLength: 100, example: "Nguyễn Văn A" }
+    email:
+      type: string
+      format: email
+      example: "student01@dona.edu.vn"
+    password:
+      type: string
+      format: password
+      minLength: 8
+      example: "P@ssw0rd123"
+    displayName:
+      type: string
+      minLength: 1
+      maxLength: 100
+      example: "Nguyễn Văn A"
 
 RegisterResponse:
   type: object
   required: [userId, email, isVerified]
   properties:
-    userId: { type: integer, format: int64, example: 1001 }
-    email: { type: string, format: email, example: "student01@dona.edu.vn" }
-    isVerified: { type: boolean, example: false }
-
-VerifyRequest:
-  type: object
-  required: [token]
-  properties:
-    token: { type: string, example: "vfy_eyJhbGciOi..." }
-
-ResendVerifyRequest:
-  type: object
-  required: [email]
-  properties:
-    email: { type: string, format: email, example: "student01@dona.edu.vn" }
-
-LoginRequest:
-  type: object
-  required: [email, password]
-  properties:
-    email: { type: string, format: email, example: "student01@dona.edu.vn" }
-    password: { type: string, format: password, example: "P@ssw0rd123" }
-
-MeResponse:
-  type: object
-  required: [id, email, displayName, role, isVerified]
-  properties:
-    id: { type: integer, format: int64, example: 1001 }
-    email: { type: string, format: email, example: "student01@dona.edu.vn" }
-    displayName: { type: string, example: "Nguyễn Văn A" }
-    role: { type: string, example: "STUDENT" }
-    isVerified: { type: boolean, example: true }
-
-TokenPair:
-  type: object
-  required: [accessToken, tokenType, expiresIn]
-  properties:
-    accessToken:
-      type: string
-      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-    tokenType:
-      type: string
-      example: "Bearer"
-    expiresIn:
+    userId:
       type: integer
-      format: int32
-      description: seconds
-      example: 3600
-    refreshToken:
+      format: int64
+      example: 1001
+    email:
       type: string
-      nullable: true
-      description: Optional if you implement refresh flow
-      example: "rfr_eyJhbGciOi..."
-
-LoginResponse:
-  type: object
-  required: [user, tokens]
-  properties:
-    user:
-      $ref: ./auth.yaml#/MeResponse
-    tokens:
-      $ref: ./auth.yaml#/TokenPair
-
-ForgotPasswordRequest:
-  type: object
-  required: [email]
-  properties:
-    email: { type: string, format: email, example: "student01@dona.edu.vn" }
-
-ResetPasswordRequest:
-  type: object
-  required: [token, newPassword]
-  properties:
-    token: { type: string, example: "rst_eyJhbGciOi..." }
-    newPassword: { type: string, format: password, minLength: 8, example: "NewP@ssw0rd123" }
-
-ChangePasswordRequest:
-  type: object
-  required: [currentPassword, newPassword]
-  properties:
-    currentPassword: { type: string, format: password, example: "P@ssw0rd123" }
-    newPassword: { type: string, format: password, minLength: 8, example: "NewP@ssw0rd123" }
+      format: email
+      example: "student01@dona.edu.vn"
+    isVerified:
+      type: boolean
+      example: false

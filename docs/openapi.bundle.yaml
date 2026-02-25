@@ -11,9 +11,6 @@ servers:
 
 tags:
   - name: Auth
-    description: Authentication & account security
-  - name: Submission
-  - name: Leaderboard
 
 paths:
   $ref: ./paths/auth.yaml
@@ -21,12 +18,9 @@ paths:
 components:
   securitySchemes:
     $ref: ./components/security.yaml
-
   schemas:
     $ref: ./components/schemas/index.yaml
-
   responses:
     $ref: ./components/responses/errors.yaml
-
 security:
   - BearerAuth: []

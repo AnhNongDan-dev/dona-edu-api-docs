@@ -11,11 +11,3 @@ ErrorResponse:
     details:
       type: object
       additionalProperties: true
-
-SimpleOkResponse:
-  type: object
-  required: [ok]
-  properties:
-    ok:
-      type: boolean
-      example: true

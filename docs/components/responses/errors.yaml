@@ -5,27 +5,6 @@ Error400:
       schema:
         $ref: ../schemas/common.yaml#/ErrorResponse
 
-Error401:
-  description: Unauthorized
-  content:
-    application/json:
-      schema:
-        $ref: ../schemas/common.yaml#/ErrorResponse
-
-Error403:
-  description: Forbidden
-  content:
-    application/json:
-      schema:
-        $ref: ../schemas/common.yaml#/ErrorResponse
-
-Error404:
-  description: Not Found
-  content:
-    application/json:
-      schema:
-        $ref: ../schemas/common.yaml#/ErrorResponse
-
 Error409:
   description: Conflict
   content:
