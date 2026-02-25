@@ -16,6 +16,8 @@ tags:
     description: Admin management APIs
   - name: Users
     description: User search & public profiles
+  - name: Rooms
+    description: Room management APIs
 
 paths:
   $ref: ./paths/auth.yaml
