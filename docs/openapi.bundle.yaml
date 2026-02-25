@@ -178,7 +178,7 @@ paths:
     post:
       tags:
         - Auth
-      summary: Request password reset email
+      summary: Forgot password
       operationId: authForgotPassword
       security: []
       requestBody:
