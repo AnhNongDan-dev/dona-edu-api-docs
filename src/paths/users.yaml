@@ -1,0 +1,71 @@
+usersSearch:
+  get:
+    tags: [Users]
+    summary: Search users
+    operationId: usersSearch
+    parameters:
+      - name: q
+        in: query
+        required: true
+        description: "Keyword to search by username or displayName"
+        schema:
+          type: string
+          minLength: 1
+          example: "nguyen"
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+          minimum: 1
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+          minimum: 1
+          maximum: 100
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/user.yaml#/UserSearchResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+
+userById:
+  parameters:
+    - name: userId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  get:
+    tags: [Users]
+    summary: Get user public profile
+    operationId: usersGetById
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/user.yaml#/UserPublicDetail
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404

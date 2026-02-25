@@ -35,7 +35,6 @@ paths:
               $ref: '#/components/schemas/RegisterRequest'
             examples:
               sample:
-                summary: Register a student account
                 value:
                   email: student01@dona.edu.vn
                   username: student01
@@ -48,25 +47,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegisterResponse'
-              examples:
-                created:
-                  value:
-                    userId: 1001
-                    email: student01@dona.edu.vn
-                    username: student01
-                    displayName: Nguyễn Văn A
-                    isVerified: false
         '400':
           $ref: '#/components/responses/Error400'
         '409':
           $ref: '#/components/responses/Error409'
-        '429':
-          $ref: '#/components/responses/Error429'
   /auth/verify:
     post:
       tags:
         - Auth
-      summary: Verify email by token
+      summary: Verify account email by token
       operationId: authVerify
       security: []
       requestBody:
@@ -116,6 +105,8 @@ paths:
                 $ref: '#/components/schemas/SimpleOkResponse'
         '400':
           $ref: '#/components/responses/Error400'
+        '429':
+          $ref: '#/components/responses/Error429'
   /auth/login:
     post:
       tags:
@@ -151,6 +142,8 @@ paths:
           $ref: '#/components/responses/Error401'
         '403':
           $ref: '#/components/responses/Error403'
+        '429':
+          $ref: '#/components/responses/Error429'
   /auth/logout:
     post:
       tags:
@@ -185,7 +178,8 @@ paths:
     post:
       tags:
         - Auth
-      summary: Forgot password
+      summary: Send a temporary password to email
+      description: Generates a one-time temporary password and sends it to the user's email. Always returns OK to prevent account enumeration.
       operationId: authForgotPassword
       security: []
       requestBody:
@@ -200,42 +194,15 @@ paths:
                   email: student01@dona.edu.vn
       responses:
         '200':
-          description: Sent (always ok to avoid user enumeration)
+          description: Sent (always ok)
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SimpleOkResponse'
         '400':
           $ref: '#/components/responses/Error400'
-  /auth/reset-password:
-    post:
-      tags:
-        - Auth
-      summary: Reset password using token
-      operationId: authResetPassword
-      security: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ResetPasswordRequest'
-            examples:
-              sample:
-                value:
-                  token: rst_eyJhbGciOi...
-                  newPassword: NewP@ssw0rd123
-      responses:
-        '200':
-          description: Reset success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
-        '400':
-          $ref: '#/components/responses/Error400'
-        '404':
-          $ref: '#/components/responses/Error404'
+        '429':
+          $ref: '#/components/responses/Error429'
   /auth/change-password:
     post:
       tags:
@@ -318,30 +285,41 @@ paths:
           schema:
             type: string
             example: createdAt,desc
+        - name: include
+          in: query
+          required: false
+          description: Optional. Use 'detail' to include more fields per item.
+          schema:
+            type: string
+            enum:
+              - detail
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminUserListResponse'
+                oneOf:
+                  - $ref: '#/components/schemas/AdminUserListResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
   /admin/users/{userId}:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
     get:
       tags:
         - Admin
       summary: Get user detail (admin)
       operationId: adminGetUserDetail
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
       responses:
         '200':
           description: OK
@@ -349,25 +327,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminUserDetail'
-        '400':
-          $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
   /admin/users/{userId}/lock:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
     put:
       tags:
         - Admin
       summary: Lock a user account
       operationId: adminLockUser
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
       requestBody:
         required: true
         content:
@@ -389,21 +367,25 @@ paths:
           $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
   /admin/users/{userId}/unlock:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
     put:
       tags:
         - Admin
       summary: Unlock a user account
       operationId: adminUnlockUser
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
       responses:
         '200':
           description: Unlocked
@@ -411,28 +393,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SimpleOkResponse'
-        '400':
-          $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
   /admin/users/{userId}/reset-password:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
     put:
       tags:
         - Admin
       summary: Reset user password (admin)
-      description: |
-        Resets user's password and (optionally) sends the new password to user's email.
-        tempPassword may be omitted depending on security policy.
+      description: Resets user's password and optionally sends the new password to user's email.
       operationId: adminResetUserPassword
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
       requestBody:
         required: false
         content:
@@ -454,14 +436,20 @@ paths:
           $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '429':
+          $ref: '#/components/responses/Error429'
   /users/search:
     get:
       tags:
         - Users
       summary: Search users
-      operationId: userSearch
+      operationId: usersSearch
       parameters:
         - name: q
           in: query
@@ -495,21 +483,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserSearchResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
   /users/{userId}:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
     get:
       tags:
         - Users
       summary: Get user public profile
-      operationId: userGetById
-      parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
+      operationId: usersGetById
       responses:
         '200':
           description: OK
@@ -519,6 +511,8 @@ paths:
                 $ref: '#/components/schemas/UserPublicDetail'
         '401':
           $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
   /rooms:
@@ -555,7 +549,6 @@ paths:
         - name: q
           in: query
           required: false
-          description: Search by room name
           schema:
             type: string
         - name: isArchived
@@ -601,18 +594,18 @@ paths:
         '403':
           $ref: '#/components/responses/Error403'
   /rooms/{roomId}:
+    parameters:
+      - name: roomId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
     get:
       tags:
         - Rooms
       summary: Get room detail
       operationId: roomGetDetail
-      parameters:
-        - name: roomId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
       responses:
         '200':
           description: OK
@@ -631,13 +624,6 @@ paths:
         - Rooms
       summary: Update room
       operationId: roomUpdate
-      parameters:
-        - name: roomId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
       requestBody:
         required: true
         content:
@@ -666,13 +652,6 @@ paths:
         - Rooms
       summary: Delete room
       operationId: roomDelete
-      parameters:
-        - name: roomId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
       responses:
         '200':
           description: Deleted
@@ -689,18 +668,18 @@ paths:
         '409':
           $ref: '#/components/responses/Error409'
   /rooms/{roomId}/archive:
+    parameters:
+      - name: roomId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
     put:
       tags:
         - Rooms
       summary: Archive room
       operationId: roomArchive
-      parameters:
-        - name: roomId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
       responses:
         '200':
           description: Archived
@@ -922,21 +901,6 @@ components:
           type: string
           format: email
           example: student01@dona.edu.vn
-    ResetPasswordRequest:
-      type: object
-      required:
-        - token
-        - newPassword
-      properties:
-        token:
-          type: string
-          description: Reset token from email
-          example: rst_eyJhbGciOi...
-        newPassword:
-          type: string
-          format: password
-          minLength: 8
-          example: NewP@ssw0rd123
     ChangePasswordRequest:
       type: object
       required:
@@ -1268,6 +1232,21 @@ components:
         isPublic:
           type: boolean
           nullable: true
+    ResetPasswordRequest:
+      type: object
+      required:
+        - token
+        - newPassword
+      properties:
+        token:
+          type: string
+          description: Reset token from email
+          example: rst_eyJhbGciOi...
+        newPassword:
+          type: string
+          format: password
+          minLength: 8
+          example: NewP@ssw0rd123
   responses:
     Error400:
       description: Bad Request
@@ -1339,21 +1318,6 @@ components:
               value:
                 code: E_JOB_FAILED
                 message: Job failed
-    Error429:
-      description: Too Many Requests
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            E_RATE_LIMITED:
-              value:
-                code: E_RATE_LIMITED
-                message: Rate limited
-            E_TOO_MANY_ATTEMPTS:
-              value:
-                code: E_TOO_MANY_ATTEMPTS
-                message: Too many attempts
     Error404:
       description: Not Found
       content:
@@ -1373,6 +1337,21 @@ components:
               value:
                 code: E_FILE_NOT_FOUND
                 message: File not found
+    Error429:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            E_RATE_LIMITED:
+              value:
+                code: E_RATE_LIMITED
+                message: Rate limited
+            E_TOO_MANY_ATTEMPTS:
+              value:
+                code: E_TOO_MANY_ATTEMPTS
+                message: Too many attempts
     Error401:
       description: Unauthorized
       content:

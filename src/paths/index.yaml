@@ -1,0 +1,45 @@
+# src/paths/index.yaml
+
+# Auth
+/auth/register:
+  $ref: ./auth.yaml#/authRegister
+/auth/verify:
+  $ref: ./auth.yaml#/authVerify
+/auth/resend-verify:
+  $ref: ./auth.yaml#/authResendVerify
+/auth/login:
+  $ref: ./auth.yaml#/authLogin
+/auth/logout:
+  $ref: ./auth.yaml#/authLogout
+/auth/me:
+  $ref: ./auth.yaml#/authMe
+/auth/forgot-password:
+  $ref: ./auth.yaml#/authForgotPassword
+/auth/change-password:
+  $ref: ./auth.yaml#/authChangePassword
+
+# Admin
+/admin/users:
+  $ref: ./admin.yaml#/adminUsers
+/admin/users/{userId}:
+  $ref: ./admin.yaml#/adminUserById
+/admin/users/{userId}/lock:
+  $ref: ./admin.yaml#/adminUserLock
+/admin/users/{userId}/unlock:
+  $ref: ./admin.yaml#/adminUserUnlock
+/admin/users/{userId}/reset-password:
+  $ref: ./admin.yaml#/adminUserResetPassword
+
+# Users
+/users/search:
+  $ref: ./users.yaml#/usersSearch
+/users/{userId}:
+  $ref: ./users.yaml#/userById
+
+# Rooms
+/rooms:
+  $ref: ./rooms.yaml#/roomsCollection
+/rooms/{roomId}:
+  $ref: ./rooms.yaml#/roomById
+/rooms/{roomId}/archive:
+  $ref: ./rooms.yaml#/roomArchive
