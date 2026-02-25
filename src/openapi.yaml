@@ -10,17 +10,17 @@ servers:
   - url: http://localhost:8080
 
 tags:
-
+  - name: Auth
 
 paths:
-
+  $ref: ./paths/auth.yaml
 
 components:
   securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
+    $ref: ./components/security.yaml
+  schemas:
+    $ref: ./components/schemas/index.yaml
+  responses:
+    $ref: ./components/responses/errors.yaml
 security:
   - BearerAuth: []

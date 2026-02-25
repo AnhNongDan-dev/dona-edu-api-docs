@@ -1,25 +1,605 @@
 openapi: 3.0.3
 info:
-  title: Dona Edu - Online Judge API
-  version: 1.0.0
+  title: Dona edu API
+  version: 0.1.0
   license:
     name: Proprietary
     url: https://donasky.com/license
-
 servers:
-  - url: https://api.yourdomain.com
+  - url: https://donasky.com
   - url: http://localhost:8080
-
 security:
   - BearerAuth: []
-
-tags: []
-
-paths: {}
-
+tags:
+  - name: Auth
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register new account
+      operationId: authRegister
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+            examples:
+              sample:
+                summary: Register a student account
+                value:
+                  email: student01@dona.edu.vn
+                  username: student01
+                  password: P@ssw0rd123
+                  displayName: Nguyễn Văn A
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+              examples:
+                created:
+                  value:
+                    userId: 1001
+                    email: student01@dona.edu.vn
+                    username: student01
+                    displayName: Nguyễn Văn A
+                    isVerified: false
+        '400':
+          $ref: '#/components/responses/Error400'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '429':
+          $ref: '#/components/responses/Error429'
+  /auth/verify:
+    post:
+      tags:
+        - Auth
+      summary: Verify email by token
+      operationId: authVerify
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyRequest'
+            examples:
+              sample:
+                value:
+                  token: vfy_eyJhbGciOi...
+      responses:
+        '200':
+          description: Verified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '404':
+          $ref: '#/components/responses/Error404'
+  /auth/resend-verify:
+    post:
+      tags:
+        - Auth
+      summary: Resend verification email
+      operationId: authResendVerify
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResendVerifyRequest'
+            examples:
+              sample:
+                value:
+                  email: student01@dona.edu.vn
+      responses:
+        '200':
+          description: Sent (always ok to avoid user enumeration)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      operationId: authLogin
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            examples:
+              login_by_email:
+                value:
+                  login: student01@dona.edu.vn
+                  password: P@ssw0rd123
+              login_by_username:
+                value:
+                  login: student01
+                  password: P@ssw0rd123
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout
+      operationId: authLogout
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '401':
+          $ref: '#/components/responses/Error401'
+  /auth/me:
+    get:
+      tags:
+        - Auth
+      summary: Get current user profile
+      operationId: authMe
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeResponse'
+        '401':
+          $ref: '#/components/responses/Error401'
+  /auth/forgot-password:
+    post:
+      tags:
+        - Auth
+      summary: Forgot password
+      operationId: authForgotPassword
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotPasswordRequest'
+            examples:
+              sample:
+                value:
+                  email: student01@dona.edu.vn
+      responses:
+        '200':
+          description: Sent (always ok to avoid user enumeration)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+  /auth/reset-password:
+    post:
+      tags:
+        - Auth
+      summary: Reset password using token
+      operationId: authResetPassword
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+            examples:
+              sample:
+                value:
+                  token: rst_eyJhbGciOi...
+                  newPassword: NewP@ssw0rd123
+      responses:
+        '200':
+          description: Reset success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '404':
+          $ref: '#/components/responses/Error404'
+  /auth/change-password:
+    post:
+      tags:
+        - Auth
+      summary: Change password (logged-in user)
+      operationId: authChangePassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+            examples:
+              sample:
+                value:
+                  currentPassword: P@ssw0rd123
+                  newPassword: NewP@ssw0rd123
+      responses:
+        '200':
+          description: Changed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
 components:
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+  schemas:
+    RegisterRequest:
+      type: object
+      required:
+        - email
+        - username
+        - password
+        - displayName
+      properties:
+        email:
+          type: string
+          format: email
+          example: student01@dona.edu.vn
+        username:
+          type: string
+          description: Unique username for login / display
+          minLength: 3
+          maxLength: 30
+          pattern: ^[a-zA-Z0-9_\.]+$
+          example: student01
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 72
+          example: P@ssw0rd123
+        displayName:
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: Nguyễn Văn A
+    RegisterResponse:
+      type: object
+      required:
+        - userId
+        - email
+        - username
+        - displayName
+        - isVerified
+      properties:
+        userId:
+          type: integer
+          format: int64
+          example: 1001
+        email:
+          type: string
+          format: email
+          example: student01@dona.edu.vn
+        username:
+          type: string
+          example: student01
+        displayName:
+          type: string
+          example: Nguyễn Văn A
+        isVerified:
+          type: boolean
+          example: false
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          example: E_VALIDATION
+        message:
+          type: string
+          example: Invalid request
+        details:
+          type: object
+          additionalProperties: true
+          properties:
+            fieldErrors:
+              type: array
+              description: Validation errors per field
+              items:
+                type: object
+                required:
+                  - field
+                  - reason
+                properties:
+                  field:
+                    type: string
+                    example: email
+                  reason:
+                    type: string
+                    example: must be a well-formed email address
+    VerifyRequest:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          description: Verify token from email
+          example: vfy_eyJhbGciOi...
+    SimpleOkResponse:
+      type: object
+      required:
+        - ok
+      properties:
+        ok:
+          type: boolean
+          example: true
+    ResendVerifyRequest:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+          example: student01@dona.edu.vn
+    LoginRequest:
+      type: object
+      required:
+        - login
+        - password
+      properties:
+        login:
+          type: string
+          description: Email or username
+          example: student01@dona.edu.vn
+        password:
+          type: string
+          format: password
+          example: P@ssw0rd123
+    MeResponse:
+      type: object
+      required:
+        - id
+        - email
+        - username
+        - displayName
+        - role
+        - isVerified
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1001
+        email:
+          type: string
+          format: email
+          example: student01@dona.edu.vn
+        username:
+          type: string
+          example: student01
+        displayName:
+          type: string
+          example: Nguyễn Văn A
+        role:
+          type: string
+          example: STUDENT
+        isVerified:
+          type: boolean
+          example: true
+    TokenPair:
+      type: object
+      required:
+        - accessToken
+        - tokenType
+        - expiresIn
+      properties:
+        accessToken:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        tokenType:
+          type: string
+          example: Bearer
+        expiresIn:
+          type: integer
+          format: int32
+          description: seconds
+          example: 3600
+        refreshToken:
+          type: string
+          nullable: true
+          description: Optional (only if you implement refresh flow)
+          example: rfr_eyJhbGciOi...
+    LoginResponse:
+      type: object
+      required:
+        - user
+        - tokens
+      properties:
+        user:
+          $ref: '#/components/schemas/MeResponse'
+        tokens:
+          $ref: '#/components/schemas/TokenPair'
+    ForgotPasswordRequest:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+          example: student01@dona.edu.vn
+    ResetPasswordRequest:
+      type: object
+      required:
+        - token
+        - newPassword
+      properties:
+        token:
+          type: string
+          description: Reset token from email
+          example: rst_eyJhbGciOi...
+        newPassword:
+          type: string
+          format: password
+          minLength: 8
+          example: NewP@ssw0rd123
+    ChangePasswordRequest:
+      type: object
+      required:
+        - currentPassword
+        - newPassword
+      properties:
+        currentPassword:
+          type: string
+          format: password
+          example: P@ssw0rd123
+        newPassword:
+          type: string
+          format: password
+          minLength: 8
+          example: NewP@ssw0rd123
+  responses:
+    Error400:
+      description: Bad Request (validation error)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            validation_email_invalid:
+              summary: Invalid email format
+              value:
+                code: E_VALIDATION
+                message: Validation failed
+                details:
+                  fieldErrors:
+                    - field: email
+                      reason: must be a well-formed email address
+            validation_username_pattern:
+              summary: Username has invalid characters
+              value:
+                code: E_VALIDATION
+                message: Validation failed
+                details:
+                  fieldErrors:
+                    - field: username
+                      reason: must match ^[a-zA-Z0-9_\\.]+$
+            validation_password_weak:
+              summary: Weak password
+              value:
+                code: E_PASSWORD_WEAK
+                message: Password does not meet complexity requirements
+                details:
+                  fieldErrors:
+                    - field: password
+                      reason: min 8 chars, must include upper/lower/digit/special
+    Error409:
+      description: Conflict (duplicate email/username)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            email_exists:
+              summary: Email already exists
+              value:
+                code: E_EMAIL_ALREADY_EXISTS
+                message: Email already exists
+            username_exists:
+              summary: Username already exists
+              value:
+                code: E_USERNAME_ALREADY_EXISTS
+                message: Username already exists
+    Error429:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            rate_limited:
+              value:
+                code: E_RATE_LIMITED
+                message: Too many requests, please try again later
+    Error404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            token_not_found:
+              value:
+                code: E_TOKEN_NOT_FOUND
+                message: Token not found
+            token_expired:
+              value:
+                code: E_TOKEN_EXPIRED
+                message: Token expired
+    Error401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            invalid_credentials:
+              value:
+                code: E_AUTH_INVALID_CREDENTIALS
+                message: Invalid login or password
+            token_invalid:
+              value:
+                code: E_AUTH_INVALID_TOKEN
+                message: Token is invalid or expired
+    Error403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            account_not_verified:
+              value:
+                code: E_ACCOUNT_NOT_VERIFIED
+                message: Please verify your email before login
+            current_password_wrong:
+              value:
+                code: E_CURRENT_PASSWORD_WRONG
+                message: Current password is incorrect

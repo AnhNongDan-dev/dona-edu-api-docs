@@ -1,0 +1,115 @@
+Error400:
+  description: Bad Request (validation error)
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorResponse
+      examples:
+        validation_email_invalid:
+          summary: Invalid email format
+          value:
+            code: E_VALIDATION
+            message: Validation failed
+            details:
+              fieldErrors:
+                - field: email
+                  reason: must be a well-formed email address
+
+        validation_username_pattern:
+          summary: Username has invalid characters
+          value:
+            code: E_VALIDATION
+            message: Validation failed
+            details:
+              fieldErrors:
+                - field: username
+                  reason: must match ^[a-zA-Z0-9_\\.]+$
+
+        validation_password_weak:
+          summary: Weak password
+          value:
+            code: E_PASSWORD_WEAK
+            message: Password does not meet complexity requirements
+            details:
+              fieldErrors:
+                - field: password
+                  reason: min 8 chars, must include upper/lower/digit/special
+Error401:
+  description: Unauthorized
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorResponse
+      examples:
+        invalid_credentials:
+          value:
+            code: E_AUTH_INVALID_CREDENTIALS
+            message: Invalid login or password
+        token_invalid:
+          value:
+            code: E_AUTH_INVALID_TOKEN
+            message: Token is invalid or expired
+
+Error403:
+  description: Forbidden
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorResponse
+      examples:
+        account_not_verified:
+          value:
+            code: E_ACCOUNT_NOT_VERIFIED
+            message: Please verify your email before login
+        current_password_wrong:
+          value:
+            code: E_CURRENT_PASSWORD_WRONG
+            message: Current password is incorrect
+
+Error404:
+  description: Not Found
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorResponse
+      examples:
+        token_not_found:
+          value:
+            code: E_TOKEN_NOT_FOUND
+            message: Token not found
+        token_expired:
+          value:
+            code: E_TOKEN_EXPIRED
+            message: Token expired
+
+Error409:
+  description: Conflict (duplicate email/username)
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorResponse
+      examples:
+        email_exists:
+          summary: Email already exists
+          value:
+            code: E_EMAIL_ALREADY_EXISTS
+            message: Email already exists
+
+        username_exists:
+          summary: Username already exists
+          value:
+            code: E_USERNAME_ALREADY_EXISTS
+            message: Username already exists
+
+Error429:
+  description: Too Many Requests
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorResponse
+      examples:
+        rate_limited:
+          value:
+            code: E_RATE_LIMITED
+            message: Too many requests, please try again later
+
