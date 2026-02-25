@@ -321,10 +321,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminUserListResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
-        '403':
-          $ref: '#/components/responses/Error403'
   /admin/users/{userId}:
     get:
       tags:
@@ -345,10 +345,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminUserDetail'
+        '400':
+          $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
-        '403':
-          $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
   /admin/users/{userId}/lock:
@@ -385,12 +385,8 @@ paths:
           $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
-        '403':
-          $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
-        '409':
-          $ref: '#/components/responses/Error409'
   /admin/users/{userId}/unlock:
     put:
       tags:
@@ -411,14 +407,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SimpleOkResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
-        '403':
-          $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
-        '409':
-          $ref: '#/components/responses/Error409'
   /admin/users/{userId}/reset-password:
     put:
       tags:
@@ -456,14 +450,8 @@ paths:
           $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
-        '403':
-          $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
-        '409':
-          $ref: '#/components/responses/Error409'
-        '429':
-          $ref: '#/components/responses/Error429'
 components:
   securitySchemes:
     BearerAuth:
@@ -810,56 +798,75 @@ components:
           example: X9p2@K1m
   responses:
     Error400:
-      description: Bad Request (validation error)
+      description: Bad Request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            validation_email_invalid:
-              summary: Invalid email format
+            E_INVALID_REQUEST:
+              value:
+                code: E_INVALID_REQUEST
+                message: Invalid request
+            E_VALIDATION:
               value:
                 code: E_VALIDATION
-                message: Validation failed
-                details:
-                  fieldErrors:
-                    - field: email
-                      reason: must be a well-formed email address
-            validation_username_pattern:
-              summary: Username has invalid characters
+                message: Validation error
+            E_MISSING_FIELD:
               value:
-                code: E_VALIDATION
-                message: Validation failed
-                details:
-                  fieldErrors:
-                    - field: username
-                      reason: must match ^[a-zA-Z0-9_\\.]+$
-            validation_password_weak:
-              summary: Weak password
+                code: E_MISSING_FIELD
+                message: Missing required field
+            E_INVALID_FIELD_FORMAT:
               value:
-                code: E_PASSWORD_WEAK
-                message: Password does not meet complexity requirements
-                details:
-                  fieldErrors:
-                    - field: password
-                      reason: min 8 chars, must include upper/lower/digit/special
+                code: E_INVALID_FIELD_FORMAT
+                message: Invalid field format
+            E_INVALID_ENUM:
+              value:
+                code: E_INVALID_ENUM
+                message: Invalid enum value
+            E_MALFORMED_JSON:
+              value:
+                code: E_MALFORMED_JSON
+                message: Malformed JSON
     Error409:
-      description: Conflict (duplicate email/username)
+      description: Conflict
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            email_exists:
-              summary: Email already exists
+            E_CONFLICT:
               value:
-                code: E_EMAIL_ALREADY_EXISTS
-                message: Email already exists
-            username_exists:
-              summary: Username already exists
+                code: E_CONFLICT
+                message: Conflict
+            E_ALREADY_EXISTS:
               value:
-                code: E_USERNAME_ALREADY_EXISTS
-                message: Username already exists
+                code: E_ALREADY_EXISTS
+                message: Already exists
+            E_DUPLICATE:
+              value:
+                code: E_DUPLICATE
+                message: Duplicate data
+            E_VERSION_CONFLICT:
+              value:
+                code: E_VERSION_CONFLICT
+                message: Version conflict
+            E_STATE_INVALID:
+              value:
+                code: E_STATE_INVALID
+                message: Invalid state
+            E_RULE_VIOLATION:
+              value:
+                code: E_RULE_VIOLATION
+                message: Business rule violation
+            E_JOB_NOT_READY:
+              value:
+                code: E_JOB_NOT_READY
+                message: Job not ready
+            E_JOB_FAILED:
+              value:
+                code: E_JOB_FAILED
+                message: Job failed
     Error429:
       description: Too Many Requests
       content:
@@ -867,10 +874,14 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            rate_limited:
+            E_RATE_LIMITED:
               value:
                 code: E_RATE_LIMITED
-                message: Too many requests, please try again later
+                message: Rate limited
+            E_TOO_MANY_ATTEMPTS:
+              value:
+                code: E_TOO_MANY_ATTEMPTS
+                message: Too many attempts
     Error404:
       description: Not Found
       content:
@@ -878,14 +889,18 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            token_not_found:
+            E_NOT_FOUND:
               value:
-                code: E_TOKEN_NOT_FOUND
-                message: Token not found
-            token_expired:
+                code: E_NOT_FOUND
+                message: Not found
+            E_REFERENCE_NOT_FOUND:
               value:
-                code: E_TOKEN_EXPIRED
-                message: Token expired
+                code: E_REFERENCE_NOT_FOUND
+                message: Referenced resource not found
+            E_FILE_NOT_FOUND:
+              value:
+                code: E_FILE_NOT_FOUND
+                message: File not found
     Error401:
       description: Unauthorized
       content:
@@ -893,14 +908,30 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            invalid_credentials:
+            E_AUTH_REQUIRED:
               value:
-                code: E_AUTH_INVALID_CREDENTIALS
-                message: Invalid login or password
-            token_invalid:
+                code: E_AUTH_REQUIRED
+                message: Authentication required
+            E_AUTH_INVALID_TOKEN:
               value:
                 code: E_AUTH_INVALID_TOKEN
-                message: Token is invalid or expired
+                message: Invalid token
+            E_AUTH_TOKEN_EXPIRED:
+              value:
+                code: E_AUTH_TOKEN_EXPIRED
+                message: Token expired
+            E_AUTH_SESSION_REVOKED:
+              value:
+                code: E_AUTH_SESSION_REVOKED
+                message: Session revoked
+            E_AUTH_INVALID_CREDENTIALS:
+              value:
+                code: E_AUTH_INVALID_CREDENTIALS
+                message: Invalid credentials
+            E_AUTH_MFA_INVALID:
+              value:
+                code: E_AUTH_MFA_INVALID
+                message: Invalid MFA/OTP
     Error403:
       description: Forbidden
       content:
@@ -908,11 +939,166 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            account_not_verified:
+            E_FORBIDDEN:
               value:
-                code: E_ACCOUNT_NOT_VERIFIED
-                message: Please verify your email before login
-            current_password_wrong:
+                code: E_FORBIDDEN
+                message: Forbidden
+            E_AUTH_ACCOUNT_DISABLED:
               value:
-                code: E_CURRENT_PASSWORD_WRONG
-                message: Current password is incorrect
+                code: E_AUTH_ACCOUNT_DISABLED
+                message: Account disabled
+            E_AUTH_NOT_VERIFIED:
+              value:
+                code: E_AUTH_NOT_VERIFIED
+                message: Account not verified
+            E_AUTH_MFA_REQUIRED:
+              value:
+                code: E_AUTH_MFA_REQUIRED
+                message: MFA required
+            E_ROLE_NOT_ALLOWED:
+              value:
+                code: E_ROLE_NOT_ALLOWED
+                message: Role not allowed
+            E_RESOURCE_ACCESS_DENIED:
+              value:
+                code: E_RESOURCE_ACCESS_DENIED
+                message: Resource access denied
+            E_NOT_ALLOWED:
+              value:
+                code: E_NOT_ALLOWED
+                message: Operation not allowed
+            E_CAPTCHA_REQUIRED:
+              value:
+                code: E_CAPTCHA_REQUIRED
+                message: Captcha required
+    Error412:
+      description: Precondition Failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            E_PRECONDITION_FAILED:
+              value:
+                code: E_PRECONDITION_FAILED
+                message: Precondition failed
+    Error413:
+      description: Payload Too Large
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            E_PAYLOAD_TOO_LARGE:
+              value:
+                code: E_PAYLOAD_TOO_LARGE
+                message: Payload too large
+            E_FILE_TOO_LARGE:
+              value:
+                code: E_FILE_TOO_LARGE
+                message: File too large
+    Error415:
+      description: Unsupported Media Type
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            E_UNSUPPORTED_MEDIA_TYPE:
+              value:
+                code: E_UNSUPPORTED_MEDIA_TYPE
+                message: Unsupported media type
+            E_FILE_TYPE_NOT_ALLOWED:
+              value:
+                code: E_FILE_TYPE_NOT_ALLOWED
+                message: File type not allowed
+    Error422:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            E_UNPROCESSABLE_ENTITY:
+              value:
+                code: E_UNPROCESSABLE_ENTITY
+                message: Unprocessable entity
+    Error500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            E_INTERNAL:
+              value:
+                code: E_INTERNAL
+                message: Internal error
+    Error501:
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            E_NOT_IMPLEMENTED:
+              value:
+                code: E_NOT_IMPLEMENTED
+                message: Not implemented
+    Error502:
+      description: Bad Gateway
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            E_DEPENDENCY_FAILURE:
+              value:
+                code: E_DEPENDENCY_FAILURE
+                message: Dependency failure
+            E_NETWORK_ERROR:
+              value:
+                code: E_NETWORK_ERROR
+                message: Network error
+    Error503:
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            E_DEPENDENCY_UNAVAILABLE:
+              value:
+                code: E_DEPENDENCY_UNAVAILABLE
+                message: Dependency unavailable
+            E_QUEUE_OVERLOADED:
+              value:
+                code: E_QUEUE_OVERLOADED
+                message: Queue overloaded
+            E_RETRY_LATER:
+              value:
+                code: E_RETRY_LATER
+                message: Retry later
+            E_STORAGE_FAILURE:
+              value:
+                code: E_STORAGE_FAILURE
+                message: Storage failure
+            E_UNAVAILABLE:
+              value:
+                code: E_UNAVAILABLE
+                message: Service unavailable
+    Error504:
+      description: Gateway Timeout
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            E_DEPENDENCY_TIMEOUT:
+              value:
+                code: E_DEPENDENCY_TIMEOUT
+                message: Dependency timeout
+            E_TIMEOUT:
+              value:
+                code: E_TIMEOUT
+                message: Timeout

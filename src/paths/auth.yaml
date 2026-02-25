@@ -307,10 +307,10 @@
           application/json:
             schema:
               $ref: ../components/schemas/admin.yaml#/AdminUserListResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
-      "403":
-        $ref: ../components/responses/errors.yaml#/Error403
 
 
 /admin/users/{userId}:
@@ -330,9 +330,12 @@
           application/json:
             schema:
               $ref: ../components/schemas/admin.yaml#/AdminUserDetail
-      "401": { $ref: ../components/responses/errors.yaml#/Error401 }
-      "403": { $ref: ../components/responses/errors.yaml#/Error403 }
-      "404": { $ref: ../components/responses/errors.yaml#/Error404 }
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
 
 
 /admin/users/{userId}/lock:
@@ -362,11 +365,12 @@
           application/json:
             schema:
               $ref: ../components/schemas/common.yaml#/SimpleOkResponse
-      "400": { $ref: ../components/responses/errors.yaml#/Error400 }
-      "401": { $ref: ../components/responses/errors.yaml#/Error401 }
-      "403": { $ref: ../components/responses/errors.yaml#/Error403 }
-      "404": { $ref: ../components/responses/errors.yaml#/Error404 }
-      "409": { $ref: ../components/responses/errors.yaml#/Error409 }
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
 
 /admin/users/{userId}/unlock:
   put:
@@ -385,10 +389,12 @@
           application/json:
             schema:
               $ref: ../components/schemas/common.yaml#/SimpleOkResponse
-      "401": { $ref: ../components/responses/errors.yaml#/Error401 }
-      "403": { $ref: ../components/responses/errors.yaml#/Error403 }
-      "404": { $ref: ../components/responses/errors.yaml#/Error404 }
-      "409": { $ref: ../components/responses/errors.yaml#/Error409 }
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
 
 /admin/users/{userId}/reset-password:
   put:
@@ -420,9 +426,9 @@
           application/json:
             schema:
               $ref: ../components/schemas/admin.yaml#/AdminResetPasswordResponse
-      "400": { $ref: ../components/responses/errors.yaml#/Error400 }
-      "401": { $ref: ../components/responses/errors.yaml#/Error401 }
-      "403": { $ref: ../components/responses/errors.yaml#/Error403 }
-      "404": { $ref: ../components/responses/errors.yaml#/Error404 }
-      "409": { $ref: ../components/responses/errors.yaml#/Error409 }
-      "429": { $ref: ../components/responses/errors.yaml#/Error429 }
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
