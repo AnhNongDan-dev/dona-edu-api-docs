@@ -1,25 +1,32 @@
 openapi: 3.0.3
 info:
-  title: Dona Edu - Online Judge API
-  version: 1.0.0
+  title: Dona edu API
+  version: 0.1.0
   license:
     name: Proprietary
     url: https://donasky.com/license
-
 servers:
-  - url: https://api.yourdomain.com
+  - url: https://donasky.com
   - url: http://localhost:8080
 
-security:
-  - BearerAuth: []
+tags:
+  - name: Auth
+    description: Authentication & account security
+  - name: Submission
+  - name: Leaderboard
 
-tags: []
-
-paths: {}
+paths:
+  $ref: ./paths/auth.yaml
 
 components:
   securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
+    $ref: ./components/security.yaml
+
+  schemas:
+    $ref: ./components/schemas/index.yaml
+
+  responses:
+    $ref: ./components/responses/errors.yaml
+
+security:
+  - BearerAuth: []
