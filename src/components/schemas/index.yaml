@@ -36,5 +36,13 @@ AdminResetPasswordResponse:
   $ref: ./admin.yaml#/AdminResetPasswordResponse
 
 
+UserPublicSummary:
+  $ref: ./user.yaml#/UserPublicSummary
+UserPublicDetail:
+  $ref: ./user.yaml#/UserPublicDetail
+UserSearchResponse:
+  $ref: ./user.yaml#/UserSearchResponse
+
+
 ErrorResponse:
   $ref: ./common.yaml#/ErrorResponse
