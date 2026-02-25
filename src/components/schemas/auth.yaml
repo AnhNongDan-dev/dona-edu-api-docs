@@ -1,16 +1,27 @@
 RegisterRequest:
   type: object
-  required: [email, password, displayName]
+  required: [email, username, password, displayName]
   properties:
     email:
       type: string
       format: email
       example: "student01@dona.edu.vn"
+
+    username:
+      type: string
+      description: Unique username for login / display
+      minLength: 3
+      maxLength: 30
+      pattern: "^[a-zA-Z0-9_\\.]+$"
+      example: "student01"
+
     password:
       type: string
       format: password
       minLength: 8
+      maxLength: 72
       example: "P@ssw0rd123"
+
     displayName:
       type: string
       minLength: 1
@@ -19,7 +30,7 @@ RegisterRequest:
 
 RegisterResponse:
   type: object
-  required: [userId, email, isVerified]
+  required: [userId, email, username, displayName, isVerified]
   properties:
     userId:
       type: integer
@@ -29,6 +40,12 @@ RegisterResponse:
       type: string
       format: email
       example: "student01@dona.edu.vn"
+    username:
+      type: string
+      example: "student01"
+    displayName:
+      type: string
+      example: "Nguyễn Văn A"
     isVerified:
       type: boolean
       example: false

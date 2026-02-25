@@ -3,13 +3,21 @@
     tags: [Auth]
     summary: Register new account
     operationId: authRegister
-    security: []  # public (override global BearerAuth)
+    security: []
     requestBody:
       required: true
       content:
         application/json:
           schema:
             $ref: ../components/schemas/auth.yaml#/RegisterRequest
+          examples:
+            sample:
+              summary: Register a student account
+              value:
+                email: "student01@dona.edu.vn"
+                username: "student01"
+                password: "P@ssw0rd123"
+                displayName: "Nguyễn Văn A"
     responses:
       "201":
         description: Created
@@ -17,8 +25,14 @@
           application/json:
             schema:
               $ref: ../components/schemas/auth.yaml#/RegisterResponse
-      "400":
-        $ref: ../components/responses/errors.yaml#/Error400
-      "409":
-        description: Email already exists
-        $ref: ../components/responses/errors.yaml#/Error409
+            examples:
+              created:
+                value:
+                  userId: 1001
+                  email: "student01@dona.edu.vn"
+                  username: "student01"
+                  displayName: "Nguyễn Văn A"
+                  isVerified: false
+      "400": { $ref: ../components/responses/errors.yaml#/Error400 }
+      "409": { $ref: ../components/responses/errors.yaml#/Error409 }
+      "429": { $ref: ../components/responses/errors.yaml#/Error429 }

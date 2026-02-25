@@ -11,3 +11,17 @@ ErrorResponse:
     details:
       type: object
       additionalProperties: true
+      properties:
+        fieldErrors:
+          type: array
+          description: Validation errors per field
+          items:
+            type: object
+            required: [field, reason]
+            properties:
+              field:
+                type: string
+                example: email
+              reason:
+                type: string
+                example: must be a well-formed email address

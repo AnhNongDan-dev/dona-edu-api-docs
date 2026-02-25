@@ -26,6 +26,14 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/RegisterRequest'
+            examples:
+              sample:
+                summary: Register a student account
+                value:
+                  email: student01@dona.edu.vn
+                  username: student01
+                  password: P@ssw0rd123
+                  displayName: Nguyễn Văn A
       responses:
         '201':
           description: Created
@@ -33,11 +41,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RegisterResponse'
+              examples:
+                created:
+                  value:
+                    userId: 1001
+                    email: student01@dona.edu.vn
+                    username: student01
+                    displayName: Nguyễn Văn A
+                    isVerified: false
         '400':
           $ref: '#/components/responses/Error400'
         '409':
-          description: Email already exists
           $ref: '#/components/responses/Error409'
+        '429':
+          $ref: '#/components/responses/Error429'
 components:
   securitySchemes:
     BearerAuth:
@@ -49,6 +66,7 @@ components:
       type: object
       required:
         - email
+        - username
         - password
         - displayName
       properties:
@@ -56,10 +74,18 @@ components:
           type: string
           format: email
           example: student01@dona.edu.vn
+        username:
+          type: string
+          description: Unique username for login / display
+          minLength: 3
+          maxLength: 30
+          pattern: ^[a-zA-Z0-9_\.]+$
+          example: student01
         password:
           type: string
           format: password
           minLength: 8
+          maxLength: 72
           example: P@ssw0rd123
         displayName:
           type: string
@@ -71,6 +97,8 @@ components:
       required:
         - userId
         - email
+        - username
+        - displayName
         - isVerified
       properties:
         userId:
@@ -81,6 +109,12 @@ components:
           type: string
           format: email
           example: student01@dona.edu.vn
+        username:
+          type: string
+          example: student01
+        displayName:
+          type: string
+          example: Nguyễn Văn A
         isVerified:
           type: boolean
           example: false
@@ -99,16 +133,82 @@ components:
         details:
           type: object
           additionalProperties: true
+          properties:
+            fieldErrors:
+              type: array
+              description: Validation errors per field
+              items:
+                type: object
+                required:
+                  - field
+                  - reason
+                properties:
+                  field:
+                    type: string
+                    example: email
+                  reason:
+                    type: string
+                    example: must be a well-formed email address
   responses:
     Error400:
-      description: Bad Request
+      description: Bad Request (validation error)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            validation_email_invalid:
+              summary: Invalid email format
+              value:
+                code: E_VALIDATION
+                message: Validation failed
+                details:
+                  fieldErrors:
+                    - field: email
+                      reason: must be a well-formed email address
+            validation_username_pattern:
+              summary: Username has invalid characters
+              value:
+                code: E_VALIDATION
+                message: Validation failed
+                details:
+                  fieldErrors:
+                    - field: username
+                      reason: must match ^[a-zA-Z0-9_\\.]+$
+            validation_password_weak:
+              summary: Weak password
+              value:
+                code: E_PASSWORD_WEAK
+                message: Password does not meet complexity requirements
+                details:
+                  fieldErrors:
+                    - field: password
+                      reason: min 8 chars, must include upper/lower/digit/special
     Error409:
-      description: Conflict
+      description: Conflict (duplicate email/username)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            email_exists:
+              summary: Email already exists
+              value:
+                code: E_EMAIL_ALREADY_EXISTS
+                message: Email already exists
+            username_exists:
+              summary: Username already exists
+              value:
+                code: E_USERNAME_ALREADY_EXISTS
+                message: Username already exists
+    Error429:
+      description: Too Many Requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            rate_limited:
+              value:
+                code: E_RATE_LIMITED
+                message: Too many requests, please try again later
