@@ -34,6 +34,53 @@ Error400:
               fieldErrors:
                 - field: password
                   reason: min 8 chars, must include upper/lower/digit/special
+Error401:
+  description: Unauthorized
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorResponse
+      examples:
+        invalid_credentials:
+          value:
+            code: E_AUTH_INVALID_CREDENTIALS
+            message: Invalid login or password
+        token_invalid:
+          value:
+            code: E_AUTH_INVALID_TOKEN
+            message: Token is invalid or expired
+
+Error403:
+  description: Forbidden
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorResponse
+      examples:
+        account_not_verified:
+          value:
+            code: E_ACCOUNT_NOT_VERIFIED
+            message: Please verify your email before login
+        current_password_wrong:
+          value:
+            code: E_CURRENT_PASSWORD_WRONG
+            message: Current password is incorrect
+
+Error404:
+  description: Not Found
+  content:
+    application/json:
+      schema:
+        $ref: ../schemas/common.yaml#/ErrorResponse
+      examples:
+        token_not_found:
+          value:
+            code: E_TOKEN_NOT_FOUND
+            message: Token not found
+        token_expired:
+          value:
+            code: E_TOKEN_EXPIRED
+            message: Token expired
 
 Error409:
   description: Conflict (duplicate email/username)
@@ -65,3 +112,4 @@ Error429:
           value:
             code: E_RATE_LIMITED
             message: Too many requests, please try again later
+

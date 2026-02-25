@@ -25,3 +25,10 @@ ErrorResponse:
               reason:
                 type: string
                 example: must be a well-formed email address
+SimpleOkResponse:
+  type: object
+  required: [ok]
+  properties:
+    ok:
+      type: boolean
+      example: true

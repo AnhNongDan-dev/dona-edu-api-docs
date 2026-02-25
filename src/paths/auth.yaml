@@ -36,3 +36,207 @@
       "400": { $ref: ../components/responses/errors.yaml#/Error400 }
       "409": { $ref: ../components/responses/errors.yaml#/Error409 }
       "429": { $ref: ../components/responses/errors.yaml#/Error429 }
+
+/auth/verify:
+  post:
+    tags: [Auth]
+    summary: Verify email by token
+    operationId: authVerify
+    security: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/auth.yaml#/VerifyRequest
+          examples:
+            sample:
+              value:
+                token: "vfy_eyJhbGciOi..."
+    responses:
+      "200":
+        description: Verified
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+
+/auth/resend-verify:
+  post:
+    tags: [Auth]
+    summary: Resend verification email
+    operationId: authResendVerify
+    security: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/auth.yaml#/ResendVerifyRequest
+          examples:
+            sample:
+              value:
+                email: "student01@dona.edu.vn"
+    responses:
+      "200":
+        description: Sent (always ok to avoid user enumeration)
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+
+/auth/login:
+  post:
+    tags: [Auth]
+    summary: Login
+    operationId: authLogin
+    security: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/auth.yaml#/LoginRequest
+          examples:
+            login_by_email:
+              value:
+                login: "student01@dona.edu.vn"
+                password: "P@ssw0rd123"
+            login_by_username:
+              value:
+                login: "student01"
+                password: "P@ssw0rd123"
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/auth.yaml#/LoginResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+
+/auth/logout:
+  post:
+    tags: [Auth]
+    summary: Logout
+    operationId: authLogout
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+
+/auth/me:
+  get:
+    tags: [Auth]
+    summary: Get current user profile
+    operationId: authMe
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/auth.yaml#/MeResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+
+/auth/forgot-password:
+  post:
+    tags: [Auth]
+    summary: Request password reset email
+    operationId: authForgotPassword
+    security: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/auth.yaml#/ForgotPasswordRequest
+          examples:
+            sample:
+              value:
+                email: "student01@dona.edu.vn"
+    responses:
+      "200":
+        description: Sent (always ok to avoid user enumeration)
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+
+/auth/reset-password:
+  post:
+    tags: [Auth]
+    summary: Reset password using token
+    operationId: authResetPassword
+    security: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/auth.yaml#/ResetPasswordRequest
+          examples:
+            sample:
+              value:
+                token: "rst_eyJhbGciOi..."
+                newPassword: "NewP@ssw0rd123"
+    responses:
+      "200":
+        description: Reset success
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+
+/auth/change-password:
+  post:
+    tags: [Auth]
+    summary: Change password (logged-in user)
+    operationId: authChangePassword
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/auth.yaml#/ChangePasswordRequest
+          examples:
+            sample:
+              value:
+                currentPassword: "P@ssw0rd123"
+                newPassword: "NewP@ssw0rd123"
+    responses:
+      "200":
+        description: Changed
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403

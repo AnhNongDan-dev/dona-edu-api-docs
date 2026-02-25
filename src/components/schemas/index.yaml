@@ -2,6 +2,24 @@ RegisterRequest:
   $ref: ./auth.yaml#/RegisterRequest
 RegisterResponse:
   $ref: ./auth.yaml#/RegisterResponse
+VerifyRequest:
+  $ref: ./auth.yaml#/VerifyRequest
+ResendVerifyRequest:
+  $ref: ./auth.yaml#/ResendVerifyRequest
+LoginRequest:
+  $ref: ./auth.yaml#/LoginRequest
+TokenPair:
+  $ref: ./auth.yaml#/TokenPair
+LoginResponse:
+  $ref: ./auth.yaml#/LoginResponse
+MeResponse:
+  $ref: ./auth.yaml#/MeResponse
+ForgotPasswordRequest:
+  $ref: ./auth.yaml#/ForgotPasswordRequest
+ResetPasswordRequest:
+  $ref: ./auth.yaml#/ResetPasswordRequest
+ChangePasswordRequest:
+  $ref: ./auth.yaml#/ChangePasswordRequest
 
 ErrorResponse:
   $ref: ./common.yaml#/ErrorResponse
