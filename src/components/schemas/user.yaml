@@ -1,0 +1,66 @@
+UserPublicSummary:
+  type: object
+  required: [id, username, displayName]
+  properties:
+    id:
+      type: integer
+      format: int64
+      example: 1001
+    username:
+      type: string
+      example: "student01"
+    displayName:
+      type: string
+      example: "Nguyễn Văn A"
+    avatarUrl:
+      type: string
+      nullable: true
+      example: "https://cdn.example.com/avatars/1001.png"
+
+UserPublicDetail:
+  type: object
+  required: [id, username, displayName]
+  properties:
+    id:
+      type: integer
+      format: int64
+      example: 1001
+    username:
+      type: string
+      example: "student01"
+    displayName:
+      type: string
+      example: "Nguyễn Văn A"
+    avatarUrl:
+      type: string
+      nullable: true
+      example: "https://cdn.example.com/avatars/1001.png"
+    bio:
+      type: string
+      nullable: true
+      example: "Học sinh lớp 10 chuyên Toán"
+    createdAt:
+      type: string
+      format: date-time
+      nullable: true
+
+UserSearchResponse:
+  type: object
+  required: [items, page, size, total]
+  properties:
+    items:
+      type: array
+      items:
+        $ref: ./user.yaml#/UserPublicSummary
+    page:
+      type: integer
+      format: int32
+      example: 1
+    size:
+      type: integer
+      format: int32
+      example: 20
+    total:
+      type: integer
+      format: int64
+      example: 120

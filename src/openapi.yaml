@@ -11,6 +11,11 @@ servers:
 
 tags:
   - name: Auth
+    description: Authentication APIs
+  - name: Admin
+    description: Admin management APIs
+  - name: Users
+    description: User search & public profiles
 
 paths:
   $ref: ./paths/auth.yaml
