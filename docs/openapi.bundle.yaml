@@ -8,19 +8,107 @@ info:
 servers:
   - url: https://donasky.com
   - url: http://localhost:8080
-
-tags:
-  - name: Auth
-
-paths:
-  $ref: ./paths/auth.yaml
-
-components:
-  securitySchemes:
-    $ref: ./components/security.yaml
-  schemas:
-    $ref: ./components/schemas/index.yaml
-  responses:
-    $ref: ./components/responses/errors.yaml
 security:
   - BearerAuth: []
+tags:
+  - name: Auth
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register new account
+      operationId: authRegister
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '409':
+          description: Email already exists
+          $ref: '#/components/responses/Error409'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    RegisterRequest:
+      type: object
+      required:
+        - email
+        - password
+        - displayName
+      properties:
+        email:
+          type: string
+          format: email
+          example: student01@dona.edu.vn
+        password:
+          type: string
+          format: password
+          minLength: 8
+          example: P@ssw0rd123
+        displayName:
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: Nguyễn Văn A
+    RegisterResponse:
+      type: object
+      required:
+        - userId
+        - email
+        - isVerified
+      properties:
+        userId:
+          type: integer
+          format: int64
+          example: 1001
+        email:
+          type: string
+          format: email
+          example: student01@dona.edu.vn
+        isVerified:
+          type: boolean
+          example: false
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          example: E_VALIDATION
+        message:
+          type: string
+          example: Invalid request
+        details:
+          type: object
+          additionalProperties: true
+  responses:
+    Error400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Error409:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
