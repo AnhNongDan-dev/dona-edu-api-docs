@@ -1,0 +1,71 @@
+RoomMemberSummary:
+  type: object
+  required: [userId, username, displayName, roleInRoom, joinedAt]
+  properties:
+    userId:
+      type: integer
+      format: int64
+      example: 1001
+    username:
+      type: string
+      example: "student01"
+    displayName:
+      type: string
+      example: "Nguyễn Văn A"
+    roleInRoom:
+      type: string
+      description: Role of the user inside the room
+      enum: [OWNER, TEACHER, STUDENT]
+      example: STUDENT
+    joinedAt:
+      type: string
+      format: date-time
+      example: "2026-02-26T10:00:00Z"
+
+RoomMemberListResponse:
+  type: object
+  required: [items, page, size, total]
+  properties:
+    items:
+      type: array
+      items:
+        $ref: ./room-member.yaml#/RoomMemberSummary
+    page:
+      type: integer
+      format: int32
+      example: 1
+    size:
+      type: integer
+      format: int32
+      example: 20
+    total:
+      type: integer
+      format: int64
+      example: 42
+
+RoomMemberAddRequest:
+  type: object
+  required: [userIds]
+  properties:
+    userIds:
+      type: array
+      minItems: 1
+      items:
+        type: integer
+        format: int64
+      example: [1001, 1002]
+    roleInRoom:
+      type: string
+      nullable: true
+      enum: [TEACHER, STUDENT]
+      description: Optional. Default STUDENT if omitted.
+      example: STUDENT
+
+RoomMemberAddResponse:
+  type: object
+  required: [addedCount]
+  properties:
+    addedCount:
+      type: integer
+      format: int32
+      example: 2

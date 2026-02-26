@@ -44,5 +44,27 @@ UserSearchResponse:
   $ref: ./user.yaml#/UserSearchResponse
 
 
+RoomCreateRequest:
+  $ref: ./room.yaml#/RoomCreateRequest
+RoomUpdateRequest:
+  $ref: ./room.yaml#/RoomUpdateRequest
+RoomSummary:
+  $ref: ./room.yaml#/RoomSummary
+RoomDetail:
+  $ref: ./room.yaml#/RoomDetail
+RoomCreateResponse:
+  $ref: ./room.yaml#/RoomCreateResponse
+RoomListResponse:
+  $ref: ./room.yaml#/RoomListResponse
+
+RoomMemberSummary:
+  $ref: ./room-member.yaml#/RoomMemberSummary
+RoomMemberListResponse:
+  $ref: ./room-member.yaml#/RoomMemberListResponse
+RoomMemberAddRequest:
+  $ref: ./room-member.yaml#/RoomMemberAddRequest
+RoomMemberAddResponse:
+  $ref: ./room-member.yaml#/RoomMemberAddResponse
+
 ErrorResponse:
   $ref: ./common.yaml#/ErrorResponse

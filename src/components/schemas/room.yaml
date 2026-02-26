@@ -1,0 +1,128 @@
+RoomCreateRequest:
+  type: object
+  required: [name]
+  properties:
+    name:
+      type: string
+      minLength: 1
+      maxLength: 200
+      example: "Lớp 10A1 - Tin học"
+    description:
+      type: string
+      nullable: true
+      maxLength: 2000
+      example: "Phòng luyện tập và thi thử"
+    startAt:
+      type: string
+      format: date-time
+      nullable: true
+      example: "2026-03-01T00:00:00Z"
+    endAt:
+      type: string
+      format: date-time
+      nullable: true
+      example: "2026-06-01T00:00:00Z"
+    isPublic:
+      type: boolean
+      default: false
+      example: false
+
+RoomUpdateRequest:
+  type: object
+  properties:
+    name:
+      type: string
+      minLength: 1
+      maxLength: 200
+    description:
+      type: string
+      nullable: true
+      maxLength: 2000
+    startAt:
+      type: string
+      format: date-time
+      nullable: true
+    endAt:
+      type: string
+      format: date-time
+      nullable: true
+    isPublic:
+      type: boolean
+      nullable: true
+
+RoomSummary:
+  type: object
+  required: [id, name, isArchived, createdAt, createdBy]
+  properties:
+    id:
+      type: integer
+      format: int64
+      example: 1
+    name:
+      type: string
+      example: "Lớp 10A1 - Tin học"
+    isPublic:
+      type: boolean
+      example: false
+    isArchived:
+      type: boolean
+      example: false
+    startAt:
+      type: string
+      format: date-time
+      nullable: true
+    endAt:
+      type: string
+      format: date-time
+      nullable: true
+    createdAt:
+      type: string
+      format: date-time
+    createdBy:
+      type: integer
+      format: int64
+      description: Creator userId
+      example: 9001
+
+RoomDetail:
+  allOf:
+    - $ref: ./room.yaml#/RoomSummary
+    - type: object
+      properties:
+        description:
+          type: string
+          nullable: true
+        archivedAt:
+          type: string
+          format: date-time
+          nullable: true
+
+RoomCreateResponse:
+  type: object
+  required: [id]
+  properties:
+    id:
+      type: integer
+      format: int64
+      example: 1
+
+RoomListResponse:
+  type: object
+  required: [items, page, size, total]
+  properties:
+    items:
+      type: array
+      items:
+        $ref: ./room.yaml#/RoomSummary
+    page:
+      type: integer
+      format: int32
+      example: 1
+    size:
+      type: integer
+      format: int32
+      example: 20
+    total:
+      type: integer
+      format: int64
+      example: 120
