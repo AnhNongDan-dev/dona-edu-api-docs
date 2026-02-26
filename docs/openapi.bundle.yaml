@@ -1049,6 +1049,104 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
+  /contests/{contestId}/problems:
+    parameters:
+      - name: contestId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      tags:
+        - Contests
+      summary: List problems assigned to contest
+      operationId: contestListProblems
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContestProblemListResponse'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+    post:
+      tags:
+        - Contests
+      summary: Assign problems to contest
+      operationId: contestAssignProblems
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContestProblemAssignRequest'
+            examples:
+              sample:
+                value:
+                  items:
+                    - problemId: 101
+                      ordinal: 1
+                      score: 100
+                    - problemId: 102
+                      ordinal: 2
+                      score: 100
+      responses:
+        '200':
+          description: Assigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContestProblemAssignResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
+  /contests/{contestId}/problems/{problemId}:
+    parameters:
+      - name: contestId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: problemId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    delete:
+      tags:
+        - Contests
+      summary: Remove a problem from contest
+      operationId: contestRemoveProblem
+      responses:
+        '200':
+          description: Removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
 components:
   securitySchemes:
     BearerAuth:
@@ -1810,6 +1908,91 @@ components:
         isPublic:
           type: boolean
           nullable: true
+    ContestProblemSummary:
+      type: object
+      required:
+        - problemId
+        - ordinal
+        - score
+      properties:
+        problemId:
+          type: integer
+          format: int64
+          example: 101
+        ordinal:
+          type: integer
+          format: int32
+          description: Problem order in contest (1..N)
+          example: 1
+        score:
+          type: number
+          format: float
+          description: Max score for this problem in contest
+          example: 100
+        title:
+          type: string
+          nullable: true
+          description: Optional problem title for display
+          example: A + B
+        isPublished:
+          type: boolean
+          nullable: true
+          description: Optional problem publish flag (if your system has it)
+          example: true
+    ContestProblemListResponse:
+      type: object
+      required:
+        - contestId
+        - items
+      properties:
+        contestId:
+          type: integer
+          format: int64
+          example: 501
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContestProblemSummary'
+    ContestProblemAssignItem:
+      type: object
+      required:
+        - problemId
+      properties:
+        problemId:
+          type: integer
+          format: int64
+          example: 101
+        ordinal:
+          type: integer
+          format: int32
+          nullable: true
+          description: Optional. If omitted, append to the end.
+          example: 1
+        score:
+          type: number
+          format: float
+          nullable: true
+          description: Optional. If omitted, use default problem max score.
+          example: 100
+    ContestProblemAssignRequest:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/ContestProblemAssignItem'
+    ContestProblemAssignResponse:
+      type: object
+      required:
+        - assignedCount
+      properties:
+        assignedCount:
+          type: integer
+          format: int32
+          example: 2
     ResetPasswordRequest:
       type: object
       required:

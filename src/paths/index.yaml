@@ -61,3 +61,9 @@
   $ref: ./contests.yaml#/contestPublish
 /contests/{contestId}/unpublish:
   $ref: ./contests.yaml#/contestUnpublish
+
+#contest problem
+/contests/{contestId}/problems:
+  $ref: ./contests.yaml#/contestProblemsCollection
+/contests/{contestId}/problems/{problemId}:
+  $ref: ./contests.yaml#/contestProblemById

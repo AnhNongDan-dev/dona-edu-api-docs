@@ -223,3 +223,103 @@ contestUnpublish:
         $ref: ../components/responses/errors.yaml#/Error404
       "409":
         $ref: ../components/responses/errors.yaml#/Error409
+
+contestProblemsCollection:
+  parameters:
+    - name: contestId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  get:
+    tags: [Contests]
+    summary: List problems assigned to contest
+    operationId: contestListProblems
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/contest-problem.yaml#/ContestProblemListResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+
+  post:
+    tags: [Contests]
+    summary: Assign problems to contest
+    operationId: contestAssignProblems
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/contest-problem.yaml#/ContestProblemAssignRequest
+          examples:
+            sample:
+              value:
+                items:
+                  - problemId: 101
+                    ordinal: 1
+                    score: 100
+                  - problemId: 102
+                    ordinal: 2
+                    score: 100
+    responses:
+      "200":
+        description: Assigned
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/contest-problem.yaml#/ContestProblemAssignResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
+
+contestProblemById:
+  parameters:
+    - name: contestId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: problemId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  delete:
+    tags: [Contests]
+    summary: Remove a problem from contest
+    operationId: contestRemoveProblem
+    responses:
+      "200":
+        description: Removed
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
