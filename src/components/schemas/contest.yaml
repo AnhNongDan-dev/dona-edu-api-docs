@@ -1,0 +1,131 @@
+ContestCreateRequest:
+  type: object
+  required: [title]
+  properties:
+    title:
+      type: string
+      minLength: 1
+      maxLength: 200
+      example: "Thi thử vòng 1 - Tuần 3"
+    description:
+      type: string
+      nullable: true
+      maxLength: 5000
+      example: "Contest luyện tập cho học sinh"
+    startAt:
+      type: string
+      format: date-time
+      nullable: true
+      example: "2026-03-05T01:00:00Z"
+    endAt:
+      type: string
+      format: date-time
+      nullable: true
+      example: "2026-03-05T03:00:00Z"
+    isPublic:
+      type: boolean
+      default: false
+      example: false
+
+ContestUpdateRequest:
+  type: object
+  properties:
+    title:
+      type: string
+      minLength: 1
+      maxLength: 200
+    description:
+      type: string
+      nullable: true
+      maxLength: 5000
+    startAt:
+      type: string
+      format: date-time
+      nullable: true
+    endAt:
+      type: string
+      format: date-time
+      nullable: true
+    isPublic:
+      type: boolean
+      nullable: true
+
+ContestSummary:
+  type: object
+  required: [id, roomId, title, isPublished, createdAt, createdBy]
+  properties:
+    id:
+      type: integer
+      format: int64
+      example: 501
+    roomId:
+      type: integer
+      format: int64
+      example: 1
+    title:
+      type: string
+      example: "Thi thử vòng 1 - Tuần 3"
+    isPublic:
+      type: boolean
+      example: false
+    isPublished:
+      type: boolean
+      example: false
+    startAt:
+      type: string
+      format: date-time
+      nullable: true
+    endAt:
+      type: string
+      format: date-time
+      nullable: true
+    createdAt:
+      type: string
+      format: date-time
+    createdBy:
+      type: integer
+      format: int64
+      example: 9001
+
+ContestDetail:
+  allOf:
+    - $ref: ./contest.yaml#/ContestSummary
+    - type: object
+      properties:
+        description:
+          type: string
+          nullable: true
+        publishedAt:
+          type: string
+          format: date-time
+          nullable: true
+
+ContestCreateResponse:
+  type: object
+  required: [id]
+  properties:
+    id:
+      type: integer
+      format: int64
+      example: 501
+
+ContestListResponse:
+  type: object
+  required: [items, page, size, total]
+  properties:
+    items:
+      type: array
+      items:
+        $ref: ./contest.yaml#/ContestSummary
+    page:
+      type: integer
+      format: int32
+      example: 1
+    size:
+      type: integer
+      format: int32
+      example: 20
+    total:
+      type: integer
+      format: int64
+      example: 120

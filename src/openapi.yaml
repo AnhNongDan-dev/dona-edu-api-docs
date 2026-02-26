@@ -18,6 +18,8 @@ tags:
     description: User search & public profiles
   - name: Rooms
     description: Room management APIs
+  - name: Contests
+    description: Contest management APIs
 
 paths:
   $ref: ./paths/index.yaml
