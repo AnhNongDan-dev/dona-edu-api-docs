@@ -181,3 +181,130 @@ roomArchive:
         $ref: ../components/responses/errors.yaml#/Error404
       "409":
         $ref: ../components/responses/errors.yaml#/Error409
+
+roomMembers:
+  parameters:
+    - name: roomId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  get:
+    tags: [Rooms]
+    summary: List room members
+    operationId: roomListMembers
+    parameters:
+      - name: q
+        in: query
+        required: false
+        description: "Search by username/displayName"
+        schema:
+          type: string
+      - name: roleInRoom
+        in: query
+        required: false
+        schema:
+          type: string
+          enum: [OWNER, TEACHER, STUDENT]
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+          minimum: 1
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+          minimum: 1
+          maximum: 100
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/room-member.yaml#/RoomMemberListResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+
+  post:
+    tags: [Rooms]
+    summary: Add members to room
+    operationId: roomAddMembers
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/room-member.yaml#/RoomMemberAddRequest
+          examples:
+            add_students:
+              value:
+                userIds: [1001, 1002]
+                roleInRoom: STUDENT
+    responses:
+      "200":
+        description: Added
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/room-member.yaml#/RoomMemberAddResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
+
+roomMemberByUserId:
+  parameters:
+    - name: roomId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+    - name: userId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  delete:
+    tags: [Rooms]
+    summary: Remove member from room
+    operationId: roomRemoveMember
+    responses:
+      "200":
+        description: Removed
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409

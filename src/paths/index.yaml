@@ -43,3 +43,10 @@
   $ref: ./rooms.yaml#/roomById
 /rooms/{roomId}/archive:
   $ref: ./rooms.yaml#/roomArchive
+
+#Room member
+/rooms/{roomId}/members:
+  $ref: ./rooms.yaml#/roomMembers
+
+/rooms/{roomId}/members/{userId}:
+  $ref: ./rooms.yaml#/roomMemberByUserId
