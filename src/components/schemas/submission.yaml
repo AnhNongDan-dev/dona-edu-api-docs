@@ -133,12 +133,11 @@ SubmissionDetailResponse:
 
 SubmissionListResponse:
   type: object
-  required: [items, page, size, total]
+  required: [data, paging]
   properties:
-    items:
+    data:
       type: array
       items:
         $ref: ./submission.yaml#/SubmissionSummary
-    page: { type: integer, format: int32, example: 1 }
-    size: { type: integer, format: int32, example: 20 }
-    total: { type: integer, format: int64, example: 120 }
+    paging:
+      $ref: ./common.yaml#/Paging

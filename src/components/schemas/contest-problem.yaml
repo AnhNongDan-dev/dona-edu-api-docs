@@ -29,16 +29,14 @@ ContestProblemSummary:
 
 ContestProblemListResponse:
   type: object
-  required: [contestId, items]
+  required: [data, paging]
   properties:
-    contestId:
-      type: integer
-      format: int64
-      example: 501
-    items:
+    data:
       type: array
       items:
         $ref: ./contest-problem.yaml#/ContestProblemSummary
+    paging:
+      $ref: ./common.yaml#/Paging
 
 ContestProblemAssignItem:
   type: object

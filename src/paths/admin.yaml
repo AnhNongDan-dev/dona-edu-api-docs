@@ -35,8 +35,8 @@ adminUsers:
         schema:
           type: integer
           format: int32
-          default: 1
-          minimum: 1
+          default: 0
+          minimum: 0
 
       - name: size
         in: query
@@ -51,18 +51,10 @@ adminUsers:
       - name: sort
         in: query
         required: false
-        description: "Example: createdAt,desc | username,asc"
+        description: "Example: createdAt,desc"
         schema:
           type: string
           example: "createdAt,desc"
-
-      - name: include
-        in: query
-        required: false
-        description: "Optional. Use 'detail' to include more fields per item."
-        schema:
-          type: string
-          enum: [detail]
 
     responses:
       "200":
@@ -70,8 +62,7 @@ adminUsers:
         content:
           application/json:
             schema:
-              oneOf:
-                - $ref: ../components/schemas/admin.yaml#/AdminUserListResponse
+              $ref: ../components/schemas/admin.yaml#/AdminUserListResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
