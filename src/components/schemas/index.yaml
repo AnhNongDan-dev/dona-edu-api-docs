@@ -127,13 +127,17 @@ SubmissionListResponse:
 
 LeaderboardRow:
   $ref: ./leaderboard.yaml#/LeaderboardRow
-LeaderboardResponse:
-  $ref: ./leaderboard.yaml#/LeaderboardResponse
+LeaderboardPagedResponse:
+  $ref: ./leaderboard.yaml#/LeaderboardPagedResponse
 
 HealthResponse:
   $ref: ./health.yaml#/HealthResponse
 JudgeHealthResponse:
   $ref: ./health.yaml#/JudgeHealthResponse
 
+Paging:
+  $ref: ./common.yaml#/Paging
+
 ErrorResponse:
   $ref: ./common.yaml#/ErrorResponse
+

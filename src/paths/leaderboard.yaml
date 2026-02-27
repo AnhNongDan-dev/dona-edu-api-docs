@@ -9,15 +9,40 @@ contestLeaderboard:
 
   get:
     tags: [Leaderboard]
-    summary: Get contest leaderboard
+    summary: Get contest leaderboard (paged)
     operationId: contestGetLeaderboard
+    parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+          minimum: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+          minimum: 1
+          maximum: 200
+      - name: sort
+        in: query
+        required: false
+        description: "Example: totalScore,desc | rank,asc | lastSubmissionAt,asc"
+        schema:
+          type: string
+          example: "totalScore,desc"
     responses:
       "200":
         description: OK
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/leaderboard.yaml#/LeaderboardResponse
+              $ref: ../components/schemas/leaderboard.yaml#/LeaderboardPagedResponse
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
