@@ -134,11 +134,11 @@ paths:
             examples:
               login_by_email:
                 value:
-                  login: student01@dona.edu.vn
+                  usernameOrEmail: student01@dona.edu.vn
                   password: P@ssw0rd123
               login_by_username:
                 value:
-                  login: student01
+                  usernameOrEmail: student01
                   password: P@ssw0rd123
       responses:
         '200':
@@ -1850,10 +1850,10 @@ components:
     LoginRequest:
       type: object
       required:
-        - login
+        - usernameOrEmail
         - password
       properties:
-        login:
+        usernameOrEmail:
           type: string
           description: Email or username
           example: student01@dona.edu.vn
