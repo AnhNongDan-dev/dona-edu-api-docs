@@ -570,8 +570,8 @@ paths:
           schema:
             type: integer
             format: int32
-            default: 1
-            minimum: 1
+            default: 0
+            minimum: 0
         - name: size
           in: query
           required: false
@@ -738,8 +738,8 @@ paths:
           schema:
             type: integer
             format: int32
-            default: 1
-            minimum: 1
+            default: 0
+            minimum: 0
         - name: size
           in: query
           required: false
@@ -749,6 +749,13 @@ paths:
             default: 20
             minimum: 1
             maximum: 100
+        - name: sort
+          in: query
+          required: false
+          description: 'Example: createdAt,desc'
+          schema:
+            type: string
+            example: createdAt,desc
       responses:
         '200':
           description: OK
@@ -892,8 +899,8 @@ paths:
           schema:
             type: integer
             format: int32
-            default: 1
-            minimum: 1
+            default: 0
+            minimum: 0
         - name: size
           in: query
           required: false
@@ -1212,8 +1219,8 @@ paths:
           schema:
             type: integer
             format: int32
-            default: 1
-            minimum: 1
+            default: 0
+            minimum: 0
         - name: size
           in: query
           required: false
@@ -1572,8 +1579,8 @@ paths:
           schema:
             type: integer
             format: int32
-            default: 1
-            minimum: 1
+            default: 0
+            minimum: 0
         - name: size
           in: query
           required: false
@@ -2136,27 +2143,15 @@ components:
     RoomListResponse:
       type: object
       required:
-        - items
-        - page
-        - size
-        - total
+        - data
+        - paging
       properties:
-        items:
+        data:
           type: array
           items:
             $ref: '#/components/schemas/RoomSummary'
-        page:
-          type: integer
-          format: int32
-          example: 1
-        size:
-          type: integer
-          format: int32
-          example: 20
-        total:
-          type: integer
-          format: int64
-          example: 120
+        paging:
+          $ref: '#/components/schemas/Paging'
     RoomCreateRequest:
       type: object
       required:
@@ -2263,27 +2258,15 @@ components:
     RoomMemberListResponse:
       type: object
       required:
-        - items
-        - page
-        - size
-        - total
+        - data
+        - paging
       properties:
-        items:
+        data:
           type: array
           items:
             $ref: '#/components/schemas/RoomMemberSummary'
-        page:
-          type: integer
-          format: int32
-          example: 1
-        size:
-          type: integer
-          format: int32
-          example: 20
-        total:
-          type: integer
-          format: int64
-          example: 42
+        paging:
+          $ref: '#/components/schemas/Paging'
     RoomMemberAddRequest:
       type: object
       required:
@@ -2360,27 +2343,15 @@ components:
     ContestListResponse:
       type: object
       required:
-        - items
-        - page
-        - size
-        - total
+        - data
+        - paging
       properties:
-        items:
+        data:
           type: array
           items:
             $ref: '#/components/schemas/ContestSummary'
-        page:
-          type: integer
-          format: int32
-          example: 1
-        size:
-          type: integer
-          format: int32
-          example: 20
-        total:
-          type: integer
-          format: int64
-          example: 120
+        paging:
+          $ref: '#/components/schemas/Paging'
     ContestCreateRequest:
       type: object
       required:
@@ -2579,27 +2550,15 @@ components:
     ProblemListResponse:
       type: object
       required:
-        - items
-        - page
-        - size
-        - total
+        - data
+        - paging
       properties:
-        items:
+        data:
           type: array
           items:
             $ref: '#/components/schemas/ProblemSummary'
-        page:
-          type: integer
-          format: int32
-          example: 1
-        size:
-          type: integer
-          format: int32
-          example: 20
-        total:
-          type: integer
-          format: int64
-          example: 120
+        paging:
+          $ref: '#/components/schemas/Paging'
     ProblemCreateRequest:
       type: object
       required:
@@ -2833,27 +2792,15 @@ components:
     SubmissionListResponse:
       type: object
       required:
-        - items
-        - page
-        - size
-        - total
+        - data
+        - paging
       properties:
-        items:
+        data:
           type: array
           items:
             $ref: '#/components/schemas/SubmissionSummary'
-        page:
-          type: integer
-          format: int32
-          example: 1
-        size:
-          type: integer
-          format: int32
-          example: 20
-        total:
-          type: integer
-          format: int64
-          example: 120
+        paging:
+          $ref: '#/components/schemas/Paging'
     PerTestVerdict:
       type: string
       enum:

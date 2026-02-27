@@ -24,24 +24,14 @@ RoomMemberSummary:
 
 RoomMemberListResponse:
   type: object
-  required: [items, page, size, total]
+  required: [data, paging]
   properties:
-    items:
+    data:
       type: array
       items:
         $ref: ./room-member.yaml#/RoomMemberSummary
-    page:
-      type: integer
-      format: int32
-      example: 1
-    size:
-      type: integer
-      format: int32
-      example: 20
-    total:
-      type: integer
-      format: int64
-      example: 42
+    paging:
+      $ref: ./common.yaml#/Paging
 
 RoomMemberAddRequest:
   type: object
