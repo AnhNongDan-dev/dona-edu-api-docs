@@ -1,0 +1,27 @@
+healthRoot:
+  get:
+    tags: [Health]
+    summary: Health check
+    operationId: healthRoot
+    security: []
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/health.yaml#/HealthResponse
+
+healthJudge:
+  get:
+    tags: [Health]
+    summary: Judge service health check
+    operationId: healthJudge
+    security: []
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/health.yaml#/JudgeHealthResponse

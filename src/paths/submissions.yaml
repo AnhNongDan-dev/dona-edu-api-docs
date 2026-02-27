@@ -143,3 +143,87 @@ submissionById:
         $ref: ../components/responses/errors.yaml#/Error404
       "409":
         $ref: ../components/responses/errors.yaml#/Error409
+
+
+roomSubmissionsList:
+  parameters:
+    - name: roomId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  get:
+    tags: [Submissions]
+    summary: List submissions in a room (teacher/admin)
+    operationId: submissionListByRoom
+    parameters:
+      - name: contestId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: problemId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: userId
+        in: query
+        required: false
+        description: "Filter by student userId"
+        schema:
+          type: integer
+          format: int64
+      - name: judgeStatus
+        in: query
+        required: false
+        schema:
+          $ref: ../components/schemas/submission.yaml#/JudgeStatus
+      - name: verdict
+        in: query
+        required: false
+        schema:
+          $ref: ../components/schemas/submission.yaml#/Verdict
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+          minimum: 1
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+          minimum: 1
+          maximum: 100
+      - name: sort
+        in: query
+        required: false
+        description: "Example: createdAt,desc"
+        schema:
+          type: string
+          example: "createdAt,desc"
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/submission.yaml#/SubmissionListResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
