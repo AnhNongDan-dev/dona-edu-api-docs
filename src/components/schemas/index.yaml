@@ -104,5 +104,26 @@ ProblemDetail:
 ProblemListResponse:
   $ref: ./problem.yaml#/ProblemListResponse
 
+LanguageCode:
+  $ref: ./submission.yaml#/LanguageCode
+JudgeStatus:
+  $ref: ./submission.yaml#/JudgeStatus
+Verdict:
+  $ref: ./submission.yaml#/Verdict
+PerTestVerdict:
+  $ref: ./submission.yaml#/PerTestVerdict
+SubmissionCreateRequest:
+  $ref: ./submission.yaml#/SubmissionCreateRequest
+SubmissionCreatedResponse:
+  $ref: ./submission.yaml#/SubmissionCreatedResponse
+SubmissionSummary:
+  $ref: ./submission.yaml#/SubmissionSummary
+PerTestResult:
+  $ref: ./submission.yaml#/PerTestResult
+SubmissionDetailResponse:
+  $ref: ./submission.yaml#/SubmissionDetailResponse
+SubmissionListResponse:
+  $ref: ./submission.yaml#/SubmissionListResponse
+
 ErrorResponse:
   $ref: ./common.yaml#/ErrorResponse

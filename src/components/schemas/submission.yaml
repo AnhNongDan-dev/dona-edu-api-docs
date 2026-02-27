@@ -1,0 +1,144 @@
+LanguageCode:
+  type: string
+  description: Supported languages
+  enum: [CPP, PY]
+
+JudgeStatus:
+  type: string
+  enum: [QUEUED, JUDGING, DONE, FAILED]
+
+Verdict:
+  type: string
+  enum: [AC, WA, RE, TLE, CE]
+
+PerTestVerdict:
+  type: string
+  enum: [AC, WA, RE, TLE]
+
+SubmissionCreateRequest:
+  type: object
+  required: [language, sourceCode]
+  properties:
+    contestId:
+      type: integer
+      format: int64
+      nullable: true
+      description: "Null = practice. Non-null = submit in contest context."
+      example: 501
+    language:
+      $ref: ./submission.yaml#/LanguageCode
+    sourceCode:
+      type: string
+      description: "Plain source code (Phase 1)"
+      maxLength: 200000
+
+SubmissionCreatedResponse:
+  type: object
+  required: [id, judgeStatus, createdAt]
+  properties:
+    id:
+      type: integer
+      format: int64
+      example: 123
+    judgeStatus:
+      $ref: ./submission.yaml#/JudgeStatus
+    createdAt:
+      type: string
+      format: date-time
+
+SubmissionSummary:
+  type: object
+  required: [id, problemId, userId, language, judgeStatus, createdAt]
+  properties:
+    id: { type: integer, format: int64 }
+    roomId: { type: integer, format: int64, nullable: true }
+    contestId: { type: integer, format: int64, nullable: true }
+    problemId: { type: integer, format: int64 }
+    userId: { type: integer, format: int64 }
+    language:
+      $ref: ./submission.yaml#/LanguageCode
+    judgeStatus:
+      $ref: ./submission.yaml#/JudgeStatus
+    verdict:
+      $ref: ./submission.yaml#/Verdict
+    score:
+      type: number
+      format: float
+      nullable: true
+      description: "Contest score (if contestId != null)"
+    totalTimeMs:
+      type: integer
+      format: int32
+      nullable: true
+      description: "max(timeMs) across tests. Null if CE or not ready."
+    createdAt:
+      type: string
+      format: date-time
+
+PerTestResult:
+  type: object
+  required: [testNo, verdict, timeMs]
+  properties:
+    testNo:
+      type: integer
+      format: int32
+      description: "1..N"
+    verdict:
+      $ref: ./submission.yaml#/PerTestVerdict
+    timeMs:
+      type: integer
+      format: int32
+    memoryKb:
+      type: integer
+      format: int32
+      nullable: true
+
+SubmissionDetailResponse:
+  type: object
+  required: [id, problemId, userId, language, judgeStatus, createdAt]
+  properties:
+    id: { type: integer, format: int64 }
+    roomId: { type: integer, format: int64, nullable: true }
+    contestId: { type: integer, format: int64, nullable: true }
+    problemId: { type: integer, format: int64 }
+    userId: { type: integer, format: int64 }
+    language:
+      $ref: ./submission.yaml#/LanguageCode
+    judgeStatus:
+      $ref: ./submission.yaml#/JudgeStatus
+    verdict:
+      $ref: ./submission.yaml#/Verdict
+    score:
+      type: number
+      format: float
+      nullable: true
+    totalTimeMs:
+      type: integer
+      format: int32
+      nullable: true
+    compileLog:
+      type: string
+      nullable: true
+      description: "Present when verdict=CE"
+    testResults:
+      type: array
+      nullable: true
+      items:
+        $ref: ./submission.yaml#/PerTestResult
+      description: "Present when judgeStatus=DONE and verdict != CE"
+    sourceCode:
+      type: string
+      nullable: true
+      description: "Owner can see; teacher/admin may see based on policy"
+
+SubmissionListResponse:
+  type: object
+  required: [items, page, size, total]
+  properties:
+    items:
+      type: array
+      items:
+        $ref: ./submission.yaml#/SubmissionSummary
+    page: { type: integer, format: int32, example: 1 }
+    size: { type: integer, format: int32, example: 20 }
+    total: { type: integer, format: int64, example: 120 }

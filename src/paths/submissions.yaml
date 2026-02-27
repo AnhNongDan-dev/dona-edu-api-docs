@@ -1,0 +1,145 @@
+problemSubmissionsCreate:
+  parameters:
+    - name: problemId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  post:
+    tags: [Submissions]
+    summary: Create a submission for a problem
+    operationId: submissionCreate
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/submission.yaml#/SubmissionCreateRequest
+          examples:
+            practice:
+              value:
+                language: CPP
+                sourceCode: "#include <bits/stdc++.h>\nint main(){long long a,b;std::cin>>a>>b;std::cout<<a+b;}"
+            contest:
+              value:
+                contestId: 501
+                language: CPP
+                sourceCode: "#include <bits/stdc++.h>\nint main(){long long a,b;std::cin>>a>>b;std::cout<<a+b;}"
+    responses:
+      "201":
+        description: Created
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/submission.yaml#/SubmissionCreatedResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
+
+submissionsList:
+  get:
+    tags: [Submissions]
+    summary: List my submissions
+    operationId: submissionListMine
+    parameters:
+      - name: roomId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: contestId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: problemId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int64
+      - name: judgeStatus
+        in: query
+        required: false
+        schema:
+          $ref: ../components/schemas/submission.yaml#/JudgeStatus
+      - name: verdict
+        in: query
+        required: false
+        schema:
+          $ref: ../components/schemas/submission.yaml#/Verdict
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+          minimum: 1
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+          minimum: 1
+          maximum: 100
+      - name: sort
+        in: query
+        required: false
+        description: "Example: createdAt,desc"
+        schema:
+          type: string
+          example: "createdAt,desc"
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/submission.yaml#/SubmissionListResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+
+submissionById:
+  parameters:
+    - name: submissionId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  get:
+    tags: [Submissions]
+    summary: Get submission detail
+    operationId: submissionGetDetail
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/submission.yaml#/SubmissionDetailResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
