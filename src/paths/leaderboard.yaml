@@ -1,0 +1,26 @@
+contestLeaderboard:
+  parameters:
+    - name: contestId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  get:
+    tags: [Leaderboard]
+    summary: Get contest leaderboard
+    operationId: contestGetLeaderboard
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/leaderboard.yaml#/LeaderboardResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404

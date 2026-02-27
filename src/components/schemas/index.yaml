@@ -125,5 +125,15 @@ SubmissionDetailResponse:
 SubmissionListResponse:
   $ref: ./submission.yaml#/SubmissionListResponse
 
+LeaderboardRow:
+  $ref: ./leaderboard.yaml#/LeaderboardRow
+LeaderboardResponse:
+  $ref: ./leaderboard.yaml#/LeaderboardResponse
+
+HealthResponse:
+  $ref: ./health.yaml#/HealthResponse
+JudgeHealthResponse:
+  $ref: ./health.yaml#/JudgeHealthResponse
+
 ErrorResponse:
   $ref: ./common.yaml#/ErrorResponse

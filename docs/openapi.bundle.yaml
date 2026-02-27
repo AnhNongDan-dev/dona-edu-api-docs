@@ -25,6 +25,10 @@ tags:
     description: Problem management APIs
   - name: Submissions
     description: Submission & judging APIs
+  - name: Leaderboard
+    description: Leaderboard APIs
+  - name: Health
+    description: Health check APIs
 paths:
   /auth/register:
     post:
@@ -1521,6 +1525,142 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
+  /rooms/{roomId}/submissions:
+    parameters:
+      - name: roomId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      tags:
+        - Submissions
+      summary: List submissions in a room (teacher/admin)
+      operationId: submissionListByRoom
+      parameters:
+        - name: contestId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: problemId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: userId
+          in: query
+          required: false
+          description: Filter by student userId
+          schema:
+            type: integer
+            format: int64
+        - name: judgeStatus
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/JudgeStatus'
+        - name: verdict
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Verdict'
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+            minimum: 1
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+            minimum: 1
+            maximum: 100
+        - name: sort
+          in: query
+          required: false
+          description: 'Example: createdAt,desc'
+          schema:
+            type: string
+            example: createdAt,desc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionListResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+  /contests/{contestId}/leaderboard:
+    parameters:
+      - name: contestId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      tags:
+        - Leaderboard
+      summary: Get contest leaderboard
+      operationId: contestGetLeaderboard
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaderboardResponse'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health check
+      operationId: healthRoot
+      security: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /health/judge:
+    get:
+      tags:
+        - Health
+      summary: Judge service health check
+      operationId: healthJudge
+      security: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JudgeHealthResponse'
 components:
   securitySchemes:
     BearerAuth:
@@ -2765,6 +2905,103 @@ components:
           type: string
           nullable: true
           description: Owner can see; teacher/admin may see based on policy
+    LeaderboardRow:
+      type: object
+      required:
+        - rank
+        - userId
+        - displayName
+        - totalScore
+      properties:
+        rank:
+          type: integer
+          format: int32
+          example: 1
+        userId:
+          type: integer
+          format: int64
+          example: 1001
+        username:
+          type: string
+          nullable: true
+          example: student01
+        displayName:
+          type: string
+          example: Nguyễn Văn A
+        problemScores:
+          type: array
+          description: Scores aligned with contest problems order
+          items:
+            type: number
+            format: float
+          example:
+            - 100
+            - 80
+            - 100
+        totalScore:
+          type: number
+          format: float
+          example: 280
+        lastSubmissionAt:
+          type: string
+          format: date-time
+          nullable: true
+    LeaderboardResponse:
+      type: object
+      required:
+        - contestId
+        - rows
+      properties:
+        contestId:
+          type: integer
+          format: int64
+          example: 501
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeaderboardRow'
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          example: UP
+        timestamp:
+          type: string
+          format: date-time
+        details:
+          type: object
+          nullable: true
+          additionalProperties: true
+    JudgeHealthResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          example: UP
+        timestamp:
+          type: string
+          format: date-time
+        queueDepth:
+          type: integer
+          format: int32
+          nullable: true
+          example: 0
+        workers:
+          type: integer
+          format: int32
+          nullable: true
+          example: 2
+        details:
+          type: object
+          nullable: true
+          additionalProperties: true
     ResetPasswordRequest:
       type: object
       required:

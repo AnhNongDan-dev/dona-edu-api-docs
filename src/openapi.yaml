@@ -24,6 +24,10 @@ tags:
     description: Problem management APIs
   - name: Submissions
     description: Submission & judging APIs
+  - name: Leaderboard
+    description: Leaderboard APIs
+  - name: Health
+    description: Health check APIs
 
 paths:
   $ref: ./paths/index.yaml

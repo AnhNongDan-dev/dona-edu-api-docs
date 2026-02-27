@@ -1,0 +1,39 @@
+HealthResponse:
+  type: object
+  required: [status, timestamp]
+  properties:
+    status:
+      type: string
+      example: "UP"
+    timestamp:
+      type: string
+      format: date-time
+    details:
+      type: object
+      nullable: true
+      additionalProperties: true
+
+JudgeHealthResponse:
+  type: object
+  required: [status, timestamp]
+  properties:
+    status:
+      type: string
+      example: "UP"
+    timestamp:
+      type: string
+      format: date-time
+    queueDepth:
+      type: integer
+      format: int32
+      nullable: true
+      example: 0
+    workers:
+      type: integer
+      format: int32
+      nullable: true
+      example: 2
+    details:
+      type: object
+      nullable: true
+      additionalProperties: true

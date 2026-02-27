@@ -85,3 +85,14 @@
   $ref: ./submissions.yaml#/submissionsList
 /submissions/{submissionId}:
   $ref: ./submissions.yaml#/submissionById
+
+/rooms/{roomId}/submissions:
+  $ref: ./submissions.yaml#/roomSubmissionsList
+
+/contests/{contestId}/leaderboard:
+  $ref: ./leaderboard.yaml#/contestLeaderboard
+
+/health:
+  $ref: ./health.yaml#/healthRoot
+/health/judge:
+  $ref: ./health.yaml#/healthJudge

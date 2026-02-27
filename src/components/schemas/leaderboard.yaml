@@ -1,0 +1,47 @@
+LeaderboardRow:
+  type: object
+  required: [rank, userId, displayName, totalScore]
+  properties:
+    rank:
+      type: integer
+      format: int32
+      example: 1
+    userId:
+      type: integer
+      format: int64
+      example: 1001
+    username:
+      type: string
+      nullable: true
+      example: "student01"
+    displayName:
+      type: string
+      example: "Nguyễn Văn A"
+    problemScores:
+      type: array
+      description: "Scores aligned with contest problems order"
+      items:
+        type: number
+        format: float
+      example: [100, 80, 100]
+    totalScore:
+      type: number
+      format: float
+      example: 280
+    lastSubmissionAt:
+      type: string
+      format: date-time
+      nullable: true
+
+LeaderboardResponse:
+  type: object
+  required: [contestId, rows]
+  properties:
+    contestId:
+      type: integer
+      format: int64
+      example: 501
+    rows:
+      type: array
+      items:
+        $ref: ./leaderboard.yaml#/LeaderboardRow
