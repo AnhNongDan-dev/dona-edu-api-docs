@@ -277,8 +277,8 @@ paths:
           schema:
             type: integer
             format: int32
-            default: 1
-            minimum: 1
+            default: 0
+            minimum: 0
         - name: size
           in: query
           required: false
@@ -291,26 +291,17 @@ paths:
         - name: sort
           in: query
           required: false
-          description: 'Example: createdAt,desc | username,asc'
+          description: 'Example: createdAt,desc'
           schema:
             type: string
             example: createdAt,desc
-        - name: include
-          in: query
-          required: false
-          description: Optional. Use 'detail' to include more fields per item.
-          schema:
-            type: string
-            enum:
-              - detail
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/AdminUserListResponse'
+                $ref: '#/components/schemas/AdminUserListResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -475,8 +466,8 @@ paths:
           schema:
             type: integer
             format: int32
-            default: 1
-            minimum: 1
+            default: 0
+            minimum: 0
         - name: size
           in: query
           required: false
@@ -486,6 +477,13 @@ paths:
             default: 20
             minimum: 1
             maximum: 100
+        - name: sort
+          in: query
+          required: false
+          description: 'Example: createdAt,desc'
+          schema:
+            type: string
+            example: createdAt,desc
       responses:
         '200':
           description: OK
@@ -1949,6 +1947,36 @@ components:
           type: string
           format: date-time
           nullable: true
+    Paging:
+      type: object
+      required:
+        - page
+        - size
+        - totalElements
+        - totalPages
+        - hasNext
+      properties:
+        page:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 0
+        size:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          example: 1250
+        totalPages:
+          type: integer
+          format: int32
+          example: 63
+        hasNext:
+          type: boolean
+          example: true
     AdminUserListResponse:
       type: object
       required:
@@ -1957,22 +1985,12 @@ components:
         - size
         - total
       properties:
-        items:
+        data:
           type: array
           items:
             $ref: '#/components/schemas/AdminUserSummary'
-        page:
-          type: integer
-          format: int32
-          example: 1
-        size:
-          type: integer
-          format: int32
-          example: 20
-        total:
-          type: integer
-          format: int64
-          example: 120
+        paging:
+          $ref: '#/components/schemas/Paging'
     AdminUserDetail:
       allOf:
         - $ref: '#/components/schemas/AdminUserSummary'
@@ -2039,27 +2057,15 @@ components:
     UserSearchResponse:
       type: object
       required:
-        - items
-        - page
-        - size
-        - total
+        - data
+        - paging
       properties:
-        items:
+        data:
           type: array
           items:
             $ref: '#/components/schemas/UserPublicSummary'
-        page:
-          type: integer
-          format: int32
-          example: 1
-        size:
-          type: integer
-          format: int32
-          example: 20
-        total:
-          type: integer
-          format: int64
-          example: 120
+        paging:
+          $ref: '#/components/schemas/Paging'
     UserPublicDetail:
       type: object
       required:
@@ -2971,36 +2977,6 @@ components:
           type: string
           format: date-time
           nullable: true
-    Paging:
-      type: object
-      required:
-        - page
-        - size
-        - totalElements
-        - totalPages
-        - hasNext
-      properties:
-        page:
-          type: integer
-          format: int32
-          minimum: 0
-          example: 0
-        size:
-          type: integer
-          format: int32
-          minimum: 1
-          example: 20
-        totalElements:
-          type: integer
-          format: int64
-          example: 1250
-        totalPages:
-          type: integer
-          format: int32
-          example: 63
-        hasNext:
-          type: boolean
-          example: true
     LeaderboardPagedResponse:
       type: object
       required:

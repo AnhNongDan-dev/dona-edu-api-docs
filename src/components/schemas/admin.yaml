@@ -24,13 +24,12 @@ AdminUserListResponse:
   type: object
   required: [items, page, size, total]
   properties:
-    items:
+    data:
       type: array
       items:
         $ref: ./admin.yaml#/AdminUserSummary
-    page: { type: integer, format: int32, example: 1 }
-    size: { type: integer, format: int32, example: 20 }
-    total: { type: integer, format: int64, example: 120 }
+    paging:
+      $ref: ./common.yaml#/Paging
 
 AdminLockRequest:
   type: object

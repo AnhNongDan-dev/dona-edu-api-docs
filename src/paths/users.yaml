@@ -18,8 +18,9 @@ usersSearch:
         schema:
           type: integer
           format: int32
-          default: 1
-          minimum: 1
+          default: 0
+          minimum: 0
+
       - name: size
         in: query
         required: false
@@ -29,6 +30,14 @@ usersSearch:
           default: 20
           minimum: 1
           maximum: 100
+
+      - name: sort
+        in: query
+        required: false
+        description: "Example: createdAt,desc"
+        schema:
+          type: string
+          example: "createdAt,desc"
     responses:
       "200":
         description: OK
