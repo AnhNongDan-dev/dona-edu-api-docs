@@ -66,5 +66,30 @@ RoomMemberAddRequest:
 RoomMemberAddResponse:
   $ref: ./room-member.yaml#/RoomMemberAddResponse
 
+#contest
+ContestCreateRequest:
+  $ref: ./contest.yaml#/ContestCreateRequest
+ContestUpdateRequest:
+  $ref: ./contest.yaml#/ContestUpdateRequest
+ContestSummary:
+  $ref: ./contest.yaml#/ContestSummary
+ContestDetail:
+  $ref: ./contest.yaml#/ContestDetail
+ContestCreateResponse:
+  $ref: ./contest.yaml#/ContestCreateResponse
+ContestListResponse:
+  $ref: ./contest.yaml#/ContestListResponse
+
+ContestProblemSummary:
+  $ref: ./contest-problem.yaml#/ContestProblemSummary
+ContestProblemListResponse:
+  $ref: ./contest-problem.yaml#/ContestProblemListResponse
+ContestProblemAssignItem:
+  $ref: ./contest-problem.yaml#/ContestProblemAssignItem
+ContestProblemAssignRequest:
+  $ref: ./contest-problem.yaml#/ContestProblemAssignRequest
+ContestProblemAssignResponse:
+  $ref: ./contest-problem.yaml#/ContestProblemAssignResponse
+
 ErrorResponse:
   $ref: ./common.yaml#/ErrorResponse

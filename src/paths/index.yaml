@@ -50,3 +50,20 @@
 
 /rooms/{roomId}/members/{userId}:
   $ref: ./rooms.yaml#/roomMemberByUserId
+
+
+#contest
+/rooms/{roomId}/contests:
+  $ref: ./contests.yaml#/roomContestsCollection
+/contests/{contestId}:
+  $ref: ./contests.yaml#/contestById
+/contests/{contestId}/publish:
+  $ref: ./contests.yaml#/contestPublish
+/contests/{contestId}/unpublish:
+  $ref: ./contests.yaml#/contestUnpublish
+
+#contest problem
+/contests/{contestId}/problems:
+  $ref: ./contests.yaml#/contestProblemsCollection
+/contests/{contestId}/problems/{problemId}:
+  $ref: ./contests.yaml#/contestProblemById
