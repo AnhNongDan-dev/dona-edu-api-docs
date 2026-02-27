@@ -74,9 +74,9 @@ ResendVerifyRequest:
 
 LoginRequest:
   type: object
-  required: [login, password]
+  required: [usernameOrEmail, password]
   properties:
-    login:
+    usernameOrEmail:
       type: string
       description: Email or username
       example: "student01@dona.edu.vn"
