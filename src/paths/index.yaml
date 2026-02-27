@@ -77,3 +77,11 @@
   $ref: ./problems.yaml#/problemPublish
 /problems/{problemId}/unpublish:
   $ref: ./problems.yaml#/problemUnpublish
+
+#submission
+/problems/{problemId}/submissions:
+  $ref: ./submissions.yaml#/problemSubmissionsCreate
+/submissions:
+  $ref: ./submissions.yaml#/submissionsList
+/submissions/{submissionId}:
+  $ref: ./submissions.yaml#/submissionById
