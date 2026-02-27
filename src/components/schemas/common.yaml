@@ -32,3 +32,29 @@ SimpleOkResponse:
     ok:
       type: boolean
       example: true
+
+Paging:
+  type: object
+  required: [page, size, totalElements, totalPages, hasNext]
+  properties:
+    page:
+      type: integer
+      format: int32
+      minimum: 0
+      example: 0
+    size:
+      type: integer
+      format: int32
+      minimum: 1
+      example: 20
+    totalElements:
+      type: integer
+      format: int64
+      example: 1250
+    totalPages:
+      type: integer
+      format: int32
+      example: 63
+    hasNext:
+      type: boolean
+      example: true
