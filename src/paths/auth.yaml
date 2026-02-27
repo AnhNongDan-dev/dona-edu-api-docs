@@ -17,6 +17,7 @@ authRegister:
                 username: "student01"
                 password: "P@ssw0rd123"
                 displayName: "Nguyễn Văn A"
+                role: STUDENT
     responses:
       "201":
         description: Created
