@@ -1,0 +1,225 @@
+roomProblemsCollection:
+  parameters:
+    - name: roomId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  post:
+    tags: [Problems]
+    summary: Create problem in room
+    operationId: problemCreateInRoom
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/problem.yaml#/ProblemCreateRequest
+    responses:
+      "201":
+        description: Created
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/problem.yaml#/ProblemCreateResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
+
+  get:
+    tags: [Problems]
+    summary: List problems in room
+    operationId: problemListInRoom
+    parameters:
+      - name: q
+        in: query
+        required: false
+        description: "Search by title"
+        schema:
+          type: string
+      - name: isPublished
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 1
+          minimum: 1
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+          minimum: 1
+          maximum: 100
+      - name: sort
+        in: query
+        required: false
+        description: "Example: createdAt,desc"
+        schema:
+          type: string
+          example: "createdAt,desc"
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/problem.yaml#/ProblemListResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+
+problemById:
+  parameters:
+    - name: problemId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  get:
+    tags: [Problems]
+    summary: Get problem detail
+    operationId: problemGetDetail
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/problem.yaml#/ProblemDetail
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+
+  put:
+    tags: [Problems]
+    summary: Update problem
+    operationId: problemUpdate
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/problem.yaml#/ProblemUpdateRequest
+    responses:
+      "200":
+        description: Updated
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
+
+  delete:
+    tags: [Problems]
+    summary: Delete problem
+    operationId: problemDelete
+    responses:
+      "200":
+        description: Deleted
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
+
+problemPublish:
+  parameters:
+    - name: problemId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  put:
+    tags: [Problems]
+    summary: Publish problem
+    operationId: problemPublish
+    responses:
+      "200":
+        description: Published
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
+
+problemUnpublish:
+  parameters:
+    - name: problemId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  put:
+    tags: [Problems]
+    summary: Unpublish problem
+    operationId: problemUnpublish
+    responses:
+      "200":
+        description: Unpublished
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409

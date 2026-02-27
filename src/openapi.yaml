@@ -20,6 +20,8 @@ tags:
     description: Room management APIs
   - name: Contests
     description: Contest management APIs
+  - name: Problems
+    description: Problem management APIs
 
 paths:
   $ref: ./paths/index.yaml

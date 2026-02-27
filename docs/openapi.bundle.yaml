@@ -21,6 +21,8 @@ tags:
     description: Room management APIs
   - name: Contests
     description: Contest management APIs
+  - name: Problems
+    description: Problem management APIs
 paths:
   /auth/register:
     post:
@@ -1147,6 +1149,228 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
+  /rooms/{roomId}/problems:
+    parameters:
+      - name: roomId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    post:
+      tags:
+        - Problems
+      summary: Create problem in room
+      operationId: problemCreateInRoom
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProblemCreateRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemCreateResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
+    get:
+      tags:
+        - Problems
+      summary: List problems in room
+      operationId: problemListInRoom
+      parameters:
+        - name: q
+          in: query
+          required: false
+          description: Search by title
+          schema:
+            type: string
+        - name: isPublished
+          in: query
+          required: false
+          schema:
+            type: boolean
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+            minimum: 1
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+            minimum: 1
+            maximum: 100
+        - name: sort
+          in: query
+          required: false
+          description: 'Example: createdAt,desc'
+          schema:
+            type: string
+            example: createdAt,desc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemListResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+  /problems/{problemId}:
+    parameters:
+      - name: problemId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      tags:
+        - Problems
+      summary: Get problem detail
+      operationId: problemGetDetail
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+    put:
+      tags:
+        - Problems
+      summary: Update problem
+      operationId: problemUpdate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProblemUpdateRequest'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
+    delete:
+      tags:
+        - Problems
+      summary: Delete problem
+      operationId: problemDelete
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
+  /problems/{problemId}/publish:
+    parameters:
+      - name: problemId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    put:
+      tags:
+        - Problems
+      summary: Publish problem
+      operationId: problemPublish
+      responses:
+        '200':
+          description: Published
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
+  /problems/{problemId}/unpublish:
+    parameters:
+      - name: problemId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    put:
+      tags:
+        - Problems
+      summary: Unpublish problem
+      operationId: problemUnpublish
+      responses:
+        '200':
+          description: Unpublished
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
 components:
   securitySchemes:
     BearerAuth:
@@ -1993,6 +2217,197 @@ components:
           type: integer
           format: int32
           example: 2
+    ProblemSummary:
+      type: object
+      required:
+        - id
+        - roomId
+        - title
+        - isPublished
+        - createdAt
+        - createdBy
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 101
+        roomId:
+          type: integer
+          format: int64
+          example: 1
+        title:
+          type: string
+          example: A + B
+        difficulty:
+          type: string
+          nullable: true
+          example: EASY
+        isPublic:
+          type: boolean
+          example: false
+        isPublished:
+          type: boolean
+          example: false
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: integer
+          format: int64
+          example: 9001
+    ProblemListResponse:
+      type: object
+      required:
+        - items
+        - page
+        - size
+        - total
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProblemSummary'
+        page:
+          type: integer
+          format: int32
+          example: 1
+        size:
+          type: integer
+          format: int32
+          example: 20
+        total:
+          type: integer
+          format: int64
+          example: 120
+    ProblemCreateRequest:
+      type: object
+      required:
+        - title
+        - statement
+        - timeLimitMs
+        - memoryLimitMb
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+          example: A + B
+        statement:
+          type: string
+          minLength: 1
+          maxLength: 50000
+          description: Problem statement (markdown or plain text)
+          example: Given two integers a and b, output a+b.
+        inputSpec:
+          type: string
+          nullable: true
+          maxLength: 20000
+          example: Two integers a and b.
+        outputSpec:
+          type: string
+          nullable: true
+          maxLength: 20000
+          example: Print a+b.
+        constraints:
+          type: string
+          nullable: true
+          maxLength: 20000
+          example: 0 ≤ a,b ≤ 10^9
+        timeLimitMs:
+          type: integer
+          format: int32
+          minimum: 100
+          maximum: 60000
+          example: 1000
+        memoryLimitMb:
+          type: integer
+          format: int32
+          minimum: 32
+          maximum: 2048
+          example: 256
+        difficulty:
+          type: string
+          nullable: true
+          description: Optional difficulty label
+          example: EASY
+        isPublic:
+          type: boolean
+          default: false
+          example: false
+    ProblemCreateResponse:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 101
+    ProblemDetail:
+      allOf:
+        - $ref: '#/components/schemas/ProblemSummary'
+        - type: object
+          properties:
+            statement:
+              type: string
+            inputSpec:
+              type: string
+              nullable: true
+            outputSpec:
+              type: string
+              nullable: true
+            constraints:
+              type: string
+              nullable: true
+            timeLimitMs:
+              type: integer
+              format: int32
+            memoryLimitMb:
+              type: integer
+              format: int32
+            publishedAt:
+              type: string
+              format: date-time
+              nullable: true
+    ProblemUpdateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        statement:
+          type: string
+          minLength: 1
+          maxLength: 50000
+        inputSpec:
+          type: string
+          nullable: true
+          maxLength: 20000
+        outputSpec:
+          type: string
+          nullable: true
+          maxLength: 20000
+        constraints:
+          type: string
+          nullable: true
+          maxLength: 20000
+        timeLimitMs:
+          type: integer
+          format: int32
+          minimum: 100
+          maximum: 60000
+        memoryLimitMb:
+          type: integer
+          format: int32
+          minimum: 32
+          maximum: 2048
+        difficulty:
+          type: string
+          nullable: true
+        isPublic:
+          type: boolean
+          nullable: true
     ResetPasswordRequest:
       type: object
       required:

@@ -67,3 +67,13 @@
   $ref: ./contests.yaml#/contestProblemsCollection
 /contests/{contestId}/problems/{problemId}:
   $ref: ./contests.yaml#/contestProblemById
+
+# problem
+/rooms/{roomId}/problems:
+  $ref: ./problems.yaml#/roomProblemsCollection
+/problems/{problemId}:
+  $ref: ./problems.yaml#/problemById
+/problems/{problemId}/publish:
+  $ref: ./problems.yaml#/problemPublish
+/problems/{problemId}/unpublish:
+  $ref: ./problems.yaml#/problemUnpublish

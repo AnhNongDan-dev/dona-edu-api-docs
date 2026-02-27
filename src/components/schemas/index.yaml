@@ -91,5 +91,18 @@ ContestProblemAssignRequest:
 ContestProblemAssignResponse:
   $ref: ./contest-problem.yaml#/ContestProblemAssignResponse
 
+ProblemCreateRequest:
+  $ref: ./problem.yaml#/ProblemCreateRequest
+ProblemUpdateRequest:
+  $ref: ./problem.yaml#/ProblemUpdateRequest
+ProblemCreateResponse:
+  $ref: ./problem.yaml#/ProblemCreateResponse
+ProblemSummary:
+  $ref: ./problem.yaml#/ProblemSummary
+ProblemDetail:
+  $ref: ./problem.yaml#/ProblemDetail
+ProblemListResponse:
+  $ref: ./problem.yaml#/ProblemListResponse
+
 ErrorResponse:
   $ref: ./common.yaml#/ErrorResponse
