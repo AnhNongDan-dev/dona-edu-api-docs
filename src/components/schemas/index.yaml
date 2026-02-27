@@ -141,3 +141,6 @@ Paging:
 ErrorResponse:
   $ref: ./common.yaml#/ErrorResponse
 
+RegisterRole:
+  $ref: ./auth.yaml#/RegisterRole
+

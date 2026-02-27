@@ -27,6 +27,8 @@ RegisterRequest:
       minLength: 1
       maxLength: 100
       example: "Nguyễn Văn A"
+    role:
+      $ref: ./auth.yaml#/RegisterRole
 
 RegisterResponse:
   type: object
@@ -46,6 +48,8 @@ RegisterResponse:
     displayName:
       type: string
       example: "Nguyễn Văn A"
+    role:
+      $ref: ./auth.yaml#/RegisterRole
     isVerified:
       type: boolean
       example: false
@@ -158,3 +162,8 @@ ChangePasswordRequest:
       format: password
       minLength: 8
       example: "NewP@ssw0rd123"
+
+RegisterRole:
+  type: string
+  enum: [STUDENT, TEACHER]
+  example: STUDENT

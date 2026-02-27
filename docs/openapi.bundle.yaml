@@ -50,6 +50,7 @@ paths:
                   username: student01
                   password: P@ssw0rd123
                   displayName: Nguyễn Văn A
+                  role: STUDENT
       responses:
         '201':
           description: Created
@@ -1723,6 +1724,12 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
+    RegisterRole:
+      type: string
+      enum:
+        - STUDENT
+        - TEACHER
+      example: STUDENT
     RegisterRequest:
       type: object
       required:
@@ -1753,6 +1760,8 @@ components:
           minLength: 1
           maxLength: 100
           example: Nguyễn Văn A
+        role:
+          $ref: '#/components/schemas/RegisterRole'
     RegisterResponse:
       type: object
       required:
@@ -1776,6 +1785,8 @@ components:
         displayName:
           type: string
           example: Nguyễn Văn A
+        role:
+          $ref: '#/components/schemas/RegisterRole'
         isVerified:
           type: boolean
           example: false
