@@ -58,3 +58,13 @@ Paging:
     hasNext:
       type: boolean
       example: true
+
+SuccessResponse:
+  type: object
+  required: [success, data]
+  properties:
+    success:
+      type: boolean
+      enum: [true]
+      example: true
+    data: {}

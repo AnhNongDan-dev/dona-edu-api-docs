@@ -24,7 +24,12 @@ authRegister:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/auth.yaml#/RegisterResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/auth.yaml#/RegisterResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "409":
