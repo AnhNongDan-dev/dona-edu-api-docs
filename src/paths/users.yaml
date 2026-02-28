@@ -44,7 +44,12 @@ usersSearch:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/user.yaml#/UserSearchResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/user.yaml#/UserSearchResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -71,7 +76,12 @@ userById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/user.yaml#/UserPublicDetail
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/user.yaml#/UserPublicDetail
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":

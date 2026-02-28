@@ -90,7 +90,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '400':
           $ref: '#/components/responses/Error400'
         '404':
@@ -118,7 +118,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '400':
           $ref: '#/components/responses/Error400'
         '429':
@@ -151,7 +151,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LoginResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/LoginResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -172,7 +177,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
   /api/v1/auth/me:
@@ -187,7 +192,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MeResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/MeResponse'
         '401':
           $ref: '#/components/responses/Error401'
   /api/v1/auth/forgot-password:
@@ -214,7 +224,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '400':
           $ref: '#/components/responses/Error400'
         '429':
@@ -243,7 +253,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '400':
           $ref: '#/components/responses/Error400'
         '404':
@@ -271,7 +281,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -336,7 +346,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminUserListResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/AdminUserListResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -362,7 +377,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminUserDetail'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/AdminUserDetail'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -398,7 +418,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -428,7 +448,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -467,7 +487,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdminResetPasswordResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/AdminResetPasswordResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -525,7 +550,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserSearchResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/UserSearchResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -551,7 +581,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserPublicDetail'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/UserPublicDetail'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -576,7 +611,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RoomCreateResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/RoomCreateResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -629,7 +669,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RoomListResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/RoomListResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -655,7 +700,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RoomDetail'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/RoomDetail'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -679,7 +729,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -701,7 +751,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -729,7 +779,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -787,17 +837,22 @@ paths:
         - name: sort
           in: query
           required: false
-          description: 'Example: createdAt,desc'
+          description: 'Example: joinedAt,desc'
           schema:
             type: string
-            example: createdAt,desc
+            example: joinedAt,desc
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RoomMemberListResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/RoomMemberListResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -830,7 +885,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RoomMemberAddResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/RoomMemberAddResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -866,7 +926,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -900,7 +960,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContestCreateResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ContestCreateResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -958,7 +1023,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContestListResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ContestListResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -986,7 +1056,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContestDetail'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ContestDetail'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1010,7 +1085,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -1032,7 +1107,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1060,7 +1135,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1088,7 +1163,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1141,7 +1216,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContestProblemListResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ContestProblemListResponse'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1175,7 +1255,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContestProblemAssignResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ContestProblemAssignResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -1211,7 +1296,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1245,7 +1330,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemCreateResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ProblemCreateResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -1303,7 +1393,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemListResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ProblemListResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -1331,7 +1426,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProblemDetail'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ProblemDetail'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1355,7 +1455,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -1377,7 +1477,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1405,7 +1505,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1433,7 +1533,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SimpleOkResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1481,7 +1581,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubmissionCreatedResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/SubmissionCreatedResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -1557,7 +1662,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubmissionListResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/SubmissionListResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -1581,7 +1691,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubmissionDetailResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/SubmissionDetailResponse'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1663,7 +1778,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubmissionListResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/SubmissionListResponse'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -1716,7 +1836,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LeaderboardPagedResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/LeaderboardPagedResponse'
         '401':
           $ref: '#/components/responses/Error401'
         '403':
@@ -1736,7 +1861,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HealthResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/HealthResponse'
   /api/v1/health/judge:
     get:
       tags:
@@ -1750,7 +1880,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JudgeHealthResponse'
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/JudgeHealthResponse'
 components:
   securitySchemes:
     BearerAuth:
@@ -1884,14 +2019,21 @@ components:
           type: string
           description: Verify token from email
           example: vfy_eyJhbGciOi...
-    SimpleOkResponse:
+    SuccessResponseVoid:
       type: object
       required:
-        - ok
+        - success
+        - data
       properties:
-        ok:
+        success:
           type: boolean
+          enum:
+            - true
           example: true
+        data:
+          type: object
+          nullable: true
+          example: null
     ResendVerifyRequest:
       type: object
       required:

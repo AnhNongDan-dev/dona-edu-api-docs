@@ -3,7 +3,7 @@ authRegister:
     tags: [Auth]
     summary: Register new account
     operationId: authRegister
-    security: []   # public
+    security: []
     requestBody:
       required: true
       content:
@@ -57,7 +57,7 @@ authVerify:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "404":
@@ -85,7 +85,7 @@ authResendVerify:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "429":
@@ -118,7 +118,12 @@ authLogin:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/auth.yaml#/LoginResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/auth.yaml#/LoginResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -139,7 +144,7 @@ authLogout:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
 
@@ -154,7 +159,12 @@ authMe:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/auth.yaml#/MeResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/auth.yaml#/MeResponse
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
 
@@ -181,7 +191,7 @@ authForgotPassword:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "429":
@@ -210,7 +220,7 @@ authResetPassword:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "404":
@@ -238,7 +248,7 @@ authChangePassword:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":

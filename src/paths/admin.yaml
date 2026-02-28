@@ -62,7 +62,12 @@ adminUsers:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/admin.yaml#/AdminUserListResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/admin.yaml#/AdminUserListResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -89,7 +94,12 @@ adminUserById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/admin.yaml#/AdminUserDetail
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/admin.yaml#/AdminUserDetail
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -126,7 +136,7 @@ adminUserLock:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -157,7 +167,7 @@ adminUserUnlock:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -197,7 +207,12 @@ adminUserResetPassword:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/admin.yaml#/AdminResetPasswordResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/admin.yaml#/AdminResetPasswordResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":

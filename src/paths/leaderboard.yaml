@@ -42,7 +42,12 @@ contestLeaderboard:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/leaderboard.yaml#/LeaderboardPagedResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/leaderboard.yaml#/LeaderboardPagedResponse
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":

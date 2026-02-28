@@ -10,7 +10,12 @@ healthRoot:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/health.yaml#/HealthResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/health.yaml#/HealthResponse
 
 healthJudge:
   get:
@@ -24,4 +29,9 @@ healthJudge:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/health.yaml#/JudgeHealthResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/health.yaml#/JudgeHealthResponse

@@ -84,5 +84,6 @@ SuccessResponseVoid:
       enum: [true]
       example: true
     data:
+      type: object
       nullable: true
       example: null
