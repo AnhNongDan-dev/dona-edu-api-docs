@@ -182,6 +182,35 @@ authForgotPassword:
       "429":
         $ref: ../components/responses/errors.yaml#/Error429
 
+authResetPassword:
+  post:
+    tags: [Auth]
+    summary: Reset password using token
+    operationId: authResetPassword
+    security: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/auth.yaml#/ResetPasswordRequest
+          examples:
+            sample:
+              value:
+                token: "rst_eyJhbGciOi..."
+                newPassword: "NewP@ssw0rd123"
+    responses:
+      "200":
+        description: Reset success
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+
 authChangePassword:
   post:
     tags: [Auth]

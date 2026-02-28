@@ -214,6 +214,35 @@ paths:
           $ref: '#/components/responses/Error400'
         '429':
           $ref: '#/components/responses/Error429'
+  /auth/reset-password:
+    post:
+      tags:
+        - Auth
+      summary: Reset password using token
+      operationId: authResetPassword
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+            examples:
+              sample:
+                value:
+                  token: rst_eyJhbGciOi...
+                  newPassword: NewP@ssw0rd123
+      responses:
+        '200':
+          description: Reset success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleOkResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '404':
+          $ref: '#/components/responses/Error404'
   /auth/change-password:
     post:
       tags:
@@ -1933,6 +1962,21 @@ components:
           type: string
           format: email
           example: student01@dona.edu.vn
+    ResetPasswordRequest:
+      type: object
+      required:
+        - token
+        - newPassword
+      properties:
+        token:
+          type: string
+          description: Reset token from email
+          example: rst_eyJhbGciOi...
+        newPassword:
+          type: string
+          format: password
+          minLength: 8
+          example: NewP@ssw0rd123
     ChangePasswordRequest:
       type: object
       required:
@@ -3012,21 +3056,6 @@ components:
           type: object
           nullable: true
           additionalProperties: true
-    ResetPasswordRequest:
-      type: object
-      required:
-        - token
-        - newPassword
-      properties:
-        token:
-          type: string
-          description: Reset token from email
-          example: rst_eyJhbGciOi...
-        newPassword:
-          type: string
-          format: password
-          minLength: 8
-          example: NewP@ssw0rd123
   responses:
     Error400:
       description: Bad Request
