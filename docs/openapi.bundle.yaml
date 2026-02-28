@@ -3238,12 +3238,6 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            E_INVALID_REQUEST:
-              value:
-                success: false
-                message: Invalid request
-                errorCode: E_INVALID_REQUEST
-                errors: []
             E_VALIDATION:
               value:
                 success: false
@@ -3253,6 +3247,12 @@ components:
                   - fieldName: email
                     code: E_INVALID_FIELD_FORMAT
                     message: Email is invalid
+            E_INVALID_REQUEST:
+              value:
+                success: false
+                message: Invalid request
+                errorCode: E_INVALID_REQUEST
+                errors: []
             E_MISSING_FIELD:
               value:
                 success: false
