@@ -17,7 +17,12 @@ roomsCollection:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/room.yaml#/RoomCreateResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/room.yaml#/RoomCreateResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -72,7 +77,12 @@ roomsCollection:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/room.yaml#/RoomListResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/room.yaml#/RoomListResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -99,7 +109,12 @@ roomById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/room.yaml#/RoomDetail
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/room.yaml#/RoomDetail
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -123,7 +138,7 @@ roomById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -145,7 +160,7 @@ roomById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -174,7 +189,7 @@ roomArchive:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -232,17 +247,22 @@ roomMembers:
       - name: sort
         in: query
         required: false
-        description: "Example: createdAt,desc"
+        description: "Example: joinedAt,desc"
         schema:
           type: string
-          example: "createdAt,desc"
+          example: "joinedAt,desc"
     responses:
       "200":
         description: OK
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/room-member.yaml#/RoomMemberListResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/room-member.yaml#/RoomMemberListResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -273,7 +293,12 @@ roomMembers:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/room-member.yaml#/RoomMemberAddResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/room-member.yaml#/RoomMemberAddResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -310,7 +335,7 @@ roomMemberByUserId:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":

@@ -137,17 +137,22 @@ ForgotPasswordRequest:
 
 ResetPasswordRequest:
   type: object
-  required: [token, newPassword]
+  required: [email, token, newPassword]
   properties:
+    email:
+      type: string
+      format: email
+      example: "student01@dona.edu.vn"
+      description: "Email"
     token:
       type: string
+      example: "12345"
       description: Reset token from email
-      example: "rst_eyJhbGciOi..."
     newPassword:
       type: string
-      format: password
       minLength: 8
       example: "NewP@ssw0rd123"
+      description: "New password to be set for the user"
 
 ChangePasswordRequest:
   type: object

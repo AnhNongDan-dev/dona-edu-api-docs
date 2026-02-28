@@ -5,18 +5,54 @@ Error400:
       schema:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
-        E_INVALID_REQUEST:
-          value: { code: E_INVALID_REQUEST, message: "Invalid request" }
         E_VALIDATION:
-          value: { code: E_VALIDATION, message: "Validation error" }
+          value:
+            success: false
+            message: "Validation error"
+            errorCode: E_VALIDATION
+            errors:
+              - fieldName: "email"
+                code: "E_INVALID_FIELD_FORMAT"
+                message: "Email is invalid"
+        E_INVALID_REQUEST:
+          value:
+            success: false
+            message: "Invalid request"
+            errorCode: E_INVALID_REQUEST
+            errors: []
         E_MISSING_FIELD:
-          value: { code: E_MISSING_FIELD, message: "Missing required field" }
+          value:
+            success: false
+            message: "Missing required field"
+            errorCode: E_MISSING_FIELD
+            errors:
+              - fieldName: "password"
+                code: "required"
+                message: "Password is required"
         E_INVALID_FIELD_FORMAT:
-          value: { code: E_INVALID_FIELD_FORMAT, message: "Invalid field format" }
+          value:
+            success: false
+            message: "Invalid field format"
+            errorCode: E_INVALID_FIELD_FORMAT
+            errors:
+              - fieldName: "email"
+                code: "format"
+                message: "Email must be a valid email"
         E_INVALID_ENUM:
-          value: { code: E_INVALID_ENUM, message: "Invalid enum value" }
+          value:
+            success: false
+            message: "Invalid enum value"
+            errorCode: E_INVALID_ENUM
+            errors:
+              - fieldName: "role"
+                code: "enum"
+                message: "Role must be one of STUDENT, TEACHER"
         E_MALFORMED_JSON:
-          value: { code: E_MALFORMED_JSON, message: "Malformed JSON" }
+          value:
+            success: false
+            message: "Malformed JSON"
+            errorCode: E_MALFORMED_JSON
+            errors: []
 
 Error401:
   description: Unauthorized
@@ -26,17 +62,41 @@ Error401:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_AUTH_REQUIRED:
-          value: { code: E_AUTH_REQUIRED, message: "Authentication required" }
+          value:
+            success: false
+            message: "Authentication required"
+            errorCode: E_AUTH_REQUIRED
+            errors: []
         E_AUTH_INVALID_TOKEN:
-          value: { code: E_AUTH_INVALID_TOKEN, message: "Invalid token" }
+          value:
+            success: false
+            message: "Invalid token"
+            errorCode: E_AUTH_INVALID_TOKEN
+            errors: []
         E_AUTH_TOKEN_EXPIRED:
-          value: { code: E_AUTH_TOKEN_EXPIRED, message: "Token expired" }
+          value:
+            success: false
+            message: "Token expired"
+            errorCode: E_AUTH_TOKEN_EXPIRED
+            errors: []
         E_AUTH_SESSION_REVOKED:
-          value: { code: E_AUTH_SESSION_REVOKED, message: "Session revoked" }
+          value:
+            success: false
+            message: "Session revoked"
+            errorCode: E_AUTH_SESSION_REVOKED
+            errors: []
         E_AUTH_INVALID_CREDENTIALS:
-          value: { code: E_AUTH_INVALID_CREDENTIALS, message: "Invalid credentials" }
+          value:
+            success: false
+            message: "Invalid credentials"
+            errorCode: E_AUTH_INVALID_CREDENTIALS
+            errors: []
         E_AUTH_MFA_INVALID:
-          value: { code: E_AUTH_MFA_INVALID, message: "Invalid MFA/OTP" }
+          value:
+            success: false
+            message: "Invalid MFA/OTP"
+            errorCode: E_AUTH_MFA_INVALID
+            errors: []
 
 Error403:
   description: Forbidden
@@ -46,21 +106,53 @@ Error403:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_FORBIDDEN:
-          value: { code: E_FORBIDDEN, message: "Forbidden" }
+          value:
+            success: false
+            message: "Forbidden"
+            errorCode: E_FORBIDDEN
+            errors: []
         E_AUTH_ACCOUNT_DISABLED:
-          value: { code: E_AUTH_ACCOUNT_DISABLED, message: "Account disabled" }
+          value:
+            success: false
+            message: "Account disabled"
+            errorCode: E_AUTH_ACCOUNT_DISABLED
+            errors: []
         E_AUTH_NOT_VERIFIED:
-          value: { code: E_AUTH_NOT_VERIFIED, message: "Account not verified" }
+          value:
+            success: false
+            message: "Account not verified"
+            errorCode: E_AUTH_NOT_VERIFIED
+            errors: []
         E_AUTH_MFA_REQUIRED:
-          value: { code: E_AUTH_MFA_REQUIRED, message: "MFA required" }
+          value:
+            success: false
+            message: "MFA required"
+            errorCode: E_AUTH_MFA_REQUIRED
+            errors: []
         E_ROLE_NOT_ALLOWED:
-          value: { code: E_ROLE_NOT_ALLOWED, message: "Role not allowed" }
+          value:
+            success: false
+            message: "Role not allowed"
+            errorCode: E_ROLE_NOT_ALLOWED
+            errors: []
         E_RESOURCE_ACCESS_DENIED:
-          value: { code: E_RESOURCE_ACCESS_DENIED, message: "Resource access denied" }
+          value:
+            success: false
+            message: "Resource access denied"
+            errorCode: E_RESOURCE_ACCESS_DENIED
+            errors: []
         E_NOT_ALLOWED:
-          value: { code: E_NOT_ALLOWED, message: "Operation not allowed" }
+          value:
+            success: false
+            message: "Operation not allowed"
+            errorCode: E_NOT_ALLOWED
+            errors: []
         E_CAPTCHA_REQUIRED:
-          value: { code: E_CAPTCHA_REQUIRED, message: "Captcha required" }
+          value:
+            success: false
+            message: "Captcha required"
+            errorCode: E_CAPTCHA_REQUIRED
+            errors: []
 
 Error404:
   description: Not Found
@@ -70,11 +162,23 @@ Error404:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_NOT_FOUND:
-          value: { code: E_NOT_FOUND, message: "Not found" }
+          value:
+            success: false
+            message: "Not found"
+            errorCode: E_NOT_FOUND
+            errors: []
         E_REFERENCE_NOT_FOUND:
-          value: { code: E_REFERENCE_NOT_FOUND, message: "Referenced resource not found" }
+          value:
+            success: false
+            message: "Referenced resource not found"
+            errorCode: E_REFERENCE_NOT_FOUND
+            errors: []
         E_FILE_NOT_FOUND:
-          value: { code: E_FILE_NOT_FOUND, message: "File not found" }
+          value:
+            success: false
+            message: "File not found"
+            errorCode: E_FILE_NOT_FOUND
+            errors: []
 
 Error409:
   description: Conflict
@@ -84,21 +188,53 @@ Error409:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_CONFLICT:
-          value: { code: E_CONFLICT, message: "Conflict" }
+          value:
+            success: false
+            message: "Conflict"
+            errorCode: E_CONFLICT
+            errors: []
         E_ALREADY_EXISTS:
-          value: { code: E_ALREADY_EXISTS, message: "Already exists" }
+          value:
+            success: false
+            message: "Already exists"
+            errorCode: E_ALREADY_EXISTS
+            errors: []
         E_DUPLICATE:
-          value: { code: E_DUPLICATE, message: "Duplicate data" }
+          value:
+            success: false
+            message: "Duplicate data"
+            errorCode: E_DUPLICATE
+            errors: []
         E_VERSION_CONFLICT:
-          value: { code: E_VERSION_CONFLICT, message: "Version conflict" }
+          value:
+            success: false
+            message: "Version conflict"
+            errorCode: E_VERSION_CONFLICT
+            errors: []
         E_STATE_INVALID:
-          value: { code: E_STATE_INVALID, message: "Invalid state" }
+          value:
+            success: false
+            message: "Invalid state"
+            errorCode: E_STATE_INVALID
+            errors: []
         E_RULE_VIOLATION:
-          value: { code: E_RULE_VIOLATION, message: "Business rule violation" }
+          value:
+            success: false
+            message: "Business rule violation"
+            errorCode: E_RULE_VIOLATION
+            errors: []
         E_JOB_NOT_READY:
-          value: { code: E_JOB_NOT_READY, message: "Job not ready" }
+          value:
+            success: false
+            message: "Job not ready"
+            errorCode: E_JOB_NOT_READY
+            errors: []
         E_JOB_FAILED:
-          value: { code: E_JOB_FAILED, message: "Job failed" }
+          value:
+            success: false
+            message: "Job failed"
+            errorCode: E_JOB_FAILED
+            errors: []
 
 Error412:
   description: Precondition Failed
@@ -108,7 +244,11 @@ Error412:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_PRECONDITION_FAILED:
-          value: { code: E_PRECONDITION_FAILED, message: "Precondition failed" }
+          value:
+            success: false
+            message: "Precondition failed"
+            errorCode: E_PRECONDITION_FAILED
+            errors: []
 
 Error413:
   description: Payload Too Large
@@ -118,9 +258,17 @@ Error413:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_PAYLOAD_TOO_LARGE:
-          value: { code: E_PAYLOAD_TOO_LARGE, message: "Payload too large" }
+          value:
+            success: false
+            message: "Payload too large"
+            errorCode: E_PAYLOAD_TOO_LARGE
+            errors: []
         E_FILE_TOO_LARGE:
-          value: { code: E_FILE_TOO_LARGE, message: "File too large" }
+          value:
+            success: false
+            message: "File too large"
+            errorCode: E_FILE_TOO_LARGE
+            errors: []
 
 Error415:
   description: Unsupported Media Type
@@ -130,9 +278,17 @@ Error415:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_UNSUPPORTED_MEDIA_TYPE:
-          value: { code: E_UNSUPPORTED_MEDIA_TYPE, message: "Unsupported media type" }
+          value:
+            success: false
+            message: "Unsupported media type"
+            errorCode: E_UNSUPPORTED_MEDIA_TYPE
+            errors: []
         E_FILE_TYPE_NOT_ALLOWED:
-          value: { code: E_FILE_TYPE_NOT_ALLOWED, message: "File type not allowed" }
+          value:
+            success: false
+            message: "File type not allowed"
+            errorCode: E_FILE_TYPE_NOT_ALLOWED
+            errors: []
 
 Error422:
   description: Unprocessable Entity
@@ -142,7 +298,11 @@ Error422:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_UNPROCESSABLE_ENTITY:
-          value: { code: E_UNPROCESSABLE_ENTITY, message: "Unprocessable entity" }
+          value:
+            success: false
+            message: "Unprocessable entity"
+            errorCode: E_UNPROCESSABLE_ENTITY
+            errors: []
 
 Error429:
   description: Too Many Requests
@@ -152,9 +312,17 @@ Error429:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_RATE_LIMITED:
-          value: { code: E_RATE_LIMITED, message: "Rate limited" }
+          value:
+            success: false
+            message: "Rate limited"
+            errorCode: E_RATE_LIMITED
+            errors: []
         E_TOO_MANY_ATTEMPTS:
-          value: { code: E_TOO_MANY_ATTEMPTS, message: "Too many attempts" }
+          value:
+            success: false
+            message: "Too many attempts"
+            errorCode: E_TOO_MANY_ATTEMPTS
+            errors: []
 
 Error500:
   description: Internal Server Error
@@ -164,7 +332,11 @@ Error500:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_INTERNAL:
-          value: { code: E_INTERNAL, message: "Internal error" }
+          value:
+            success: false
+            message: "Internal error"
+            errorCode: E_INTERNAL
+            errors: []
 
 Error501:
   description: Not Implemented
@@ -174,7 +346,11 @@ Error501:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_NOT_IMPLEMENTED:
-          value: { code: E_NOT_IMPLEMENTED, message: "Not implemented" }
+          value:
+            success: false
+            message: "Not implemented"
+            errorCode: E_NOT_IMPLEMENTED
+            errors: []
 
 Error502:
   description: Bad Gateway
@@ -184,9 +360,17 @@ Error502:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_DEPENDENCY_FAILURE:
-          value: { code: E_DEPENDENCY_FAILURE, message: "Dependency failure" }
+          value:
+            success: false
+            message: "Dependency failure"
+            errorCode: E_DEPENDENCY_FAILURE
+            errors: []
         E_NETWORK_ERROR:
-          value: { code: E_NETWORK_ERROR, message: "Network error" }
+          value:
+            success: false
+            message: "Network error"
+            errorCode: E_NETWORK_ERROR
+            errors: []
 
 Error503:
   description: Service Unavailable
@@ -196,15 +380,35 @@ Error503:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_DEPENDENCY_UNAVAILABLE:
-          value: { code: E_DEPENDENCY_UNAVAILABLE, message: "Dependency unavailable" }
+          value:
+            success: false
+            message: "Dependency unavailable"
+            errorCode: E_DEPENDENCY_UNAVAILABLE
+            errors: []
         E_QUEUE_OVERLOADED:
-          value: { code: E_QUEUE_OVERLOADED, message: "Queue overloaded" }
+          value:
+            success: false
+            message: "Queue overloaded"
+            errorCode: E_QUEUE_OVERLOADED
+            errors: []
         E_RETRY_LATER:
-          value: { code: E_RETRY_LATER, message: "Retry later" }
+          value:
+            success: false
+            message: "Retry later"
+            errorCode: E_RETRY_LATER
+            errors: []
         E_STORAGE_FAILURE:
-          value: { code: E_STORAGE_FAILURE, message: "Storage failure" }
+          value:
+            success: false
+            message: "Storage failure"
+            errorCode: E_STORAGE_FAILURE
+            errors: []
         E_UNAVAILABLE:
-          value: { code: E_UNAVAILABLE, message: "Service unavailable" }
+          value:
+            success: false
+            message: "Service unavailable"
+            errorCode: E_UNAVAILABLE
+            errors: []
 
 Error504:
   description: Gateway Timeout
@@ -214,6 +418,14 @@ Error504:
         $ref: ../schemas/common.yaml#/ErrorResponse
       examples:
         E_DEPENDENCY_TIMEOUT:
-          value: { code: E_DEPENDENCY_TIMEOUT, message: "Dependency timeout" }
+          value:
+            success: false
+            message: "Dependency timeout"
+            errorCode: E_DEPENDENCY_TIMEOUT
+            errors: []
         E_TIMEOUT:
-          value: { code: E_TIMEOUT, message: "Timeout" }
+          value:
+            success: false
+            message: "Timeout"
+            errorCode: E_TIMEOUT
+            errors: []

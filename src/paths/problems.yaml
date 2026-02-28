@@ -23,7 +23,12 @@ roomProblemsCollection:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/problem.yaml#/ProblemCreateResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/problem.yaml#/ProblemCreateResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -83,7 +88,12 @@ roomProblemsCollection:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/problem.yaml#/ProblemListResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/problem.yaml#/ProblemListResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -112,7 +122,12 @@ problemById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/problem.yaml#/ProblemDetail
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/problem.yaml#/ProblemDetail
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -136,7 +151,7 @@ problemById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -158,7 +173,7 @@ problemById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -187,7 +202,7 @@ problemPublish:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -216,7 +231,7 @@ problemUnpublish:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":

@@ -23,7 +23,12 @@ roomContestsCollection:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/contest.yaml#/ContestCreateResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/contest.yaml#/ContestCreateResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -59,7 +64,6 @@ roomContestsCollection:
           format: int32
           default: 0
           minimum: 0
-
       - name: size
         in: query
         required: false
@@ -83,7 +87,12 @@ roomContestsCollection:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/contest.yaml#/ContestListResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/contest.yaml#/ContestListResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -112,7 +121,12 @@ contestById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/contest.yaml#/ContestDetail
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/contest.yaml#/ContestDetail
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -136,7 +150,7 @@ contestById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -158,7 +172,7 @@ contestById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -187,7 +201,7 @@ contestPublish:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -216,7 +230,7 @@ contestUnpublish:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -270,7 +284,12 @@ contestProblemsCollection:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/contest-problem.yaml#/ContestProblemListResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/contest-problem.yaml#/ContestProblemListResponse
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -304,7 +323,12 @@ contestProblemsCollection:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/contest-problem.yaml#/ContestProblemAssignResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/contest-problem.yaml#/ContestProblemAssignResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -341,7 +365,7 @@ contestProblemById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/common.yaml#/SimpleOkResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":

@@ -33,7 +33,12 @@ problemSubmissionsCreate:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/submission.yaml#/SubmissionCreatedResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/submission.yaml#/SubmissionCreatedResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -111,7 +116,12 @@ submissionsList:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/submission.yaml#/SubmissionListResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/submission.yaml#/SubmissionListResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -136,7 +146,12 @@ submissionById:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/submission.yaml#/SubmissionDetailResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/submission.yaml#/SubmissionDetailResponse
       "401":
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
@@ -222,7 +237,12 @@ roomSubmissionsList:
         content:
           application/json:
             schema:
-              $ref: ../components/schemas/submission.yaml#/SubmissionListResponse
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/submission.yaml#/SubmissionListResponse
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
