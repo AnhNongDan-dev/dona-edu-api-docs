@@ -38,7 +38,7 @@ authRegister:
 authVerify:
   post:
     tags: [Auth]
-    summary: Verify account email by token
+    summary: Verify account email by otp
     operationId: authVerify
     security: []
     requestBody:
@@ -50,7 +50,7 @@ authVerify:
           examples:
             sample:
               value:
-                token: "vfy_eyJhbGciOi..."
+                otp: "245869"
     responses:
       "200":
         description: Verified
@@ -200,7 +200,7 @@ authForgotPassword:
 authResetPassword:
   post:
     tags: [Auth]
-    summary: Reset password using token
+    summary: Reset password using otp
     operationId: authResetPassword
     security: []
     requestBody:
@@ -213,7 +213,7 @@ authResetPassword:
             sample:
               value:
                 email: "student01@dona.edu.vn"
-                token: "reset_token_12345"
+                otp: "347659"
                 newPassword: "NewP@ssw0rd123"
     responses:
       "200":

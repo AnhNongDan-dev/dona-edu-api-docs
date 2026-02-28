@@ -56,11 +56,11 @@ RegisterResponse:
 
 VerifyRequest:
   type: object
-  required: [token]
+  required: [otp]
   properties:
-    token:
+    otp:
       type: string
-      description: Verify token from email
+      description: Verify otp from email
       example: "vfy_eyJhbGciOi..."
 
 ResendVerifyRequest:
@@ -137,17 +137,17 @@ ForgotPasswordRequest:
 
 ResetPasswordRequest:
   type: object
-  required: [email, token, newPassword]
+  required: [email, otp, newPassword]
   properties:
     email:
       type: string
       format: email
       example: "student01@dona.edu.vn"
       description: "Email"
-    token:
+    otp:
       type: string
       example: "12345"
-      description: Reset token from email
+      description: Reset otp from email
     newPassword:
       type: string
       minLength: 8
