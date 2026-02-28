@@ -1836,37 +1836,45 @@ components:
         isVerified:
           type: boolean
           example: false
-    ErrorResponse:
+    ErrorItem:
       type: object
       required:
+        - fieldName
         - code
         - message
       properties:
+        fieldName:
+          type: string
+          example: email
         code:
           type: string
-          example: E_VALIDATION
+          example: E_INVALID_FIELD_FORMAT
         message:
           type: string
-          example: Invalid request
-        details:
-          type: object
-          additionalProperties: true
-          properties:
-            fieldErrors:
-              type: array
-              description: Validation errors per field
-              items:
-                type: object
-                required:
-                  - field
-                  - reason
-                properties:
-                  field:
-                    type: string
-                    example: email
-                  reason:
-                    type: string
-                    example: must be a well-formed email address
+          example: Email is invalid
+    ErrorResponse:
+      type: object
+      required:
+        - success
+        - message
+        - errorCode
+        - errors
+      properties:
+        success:
+          type: boolean
+          enum:
+            - false
+          example: false
+        message:
+          type: string
+          example: Validation failed
+        errorCode:
+          type: string
+          example: E_VALIDATION
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorItem'
     VerifyRequest:
       type: object
       required:
