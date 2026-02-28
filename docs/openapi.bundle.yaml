@@ -245,7 +245,8 @@ paths:
             examples:
               sample:
                 value:
-                  token: rst_eyJhbGciOi...
+                  email: student01@dona.edu.vn
+                  token: reset_token_12345
                   newPassword: NewP@ssw0rd123
       responses:
         '200':
@@ -2132,18 +2133,24 @@ components:
     ResetPasswordRequest:
       type: object
       required:
+        - email
         - token
         - newPassword
       properties:
+        email:
+          type: string
+          format: email
+          example: student01@dona.edu.vn
+          description: Email
         token:
           type: string
+          example: '12345'
           description: Reset token from email
-          example: rst_eyJhbGciOi...
         newPassword:
           type: string
-          format: password
           minLength: 8
           example: NewP@ssw0rd123
+          description: New password to be set for the user
     ChangePasswordRequest:
       type: object
       required:
