@@ -1,100 +1,100 @@
 # src/paths/index.yaml
 
 # Auth
-/auth/register:
+/api/v1/auth/register:
   $ref: ./auth.yaml#/authRegister
-/auth/verify:
+/api/v1/auth/verify:
   $ref: ./auth.yaml#/authVerify
-/auth/resend-verify:
+/api/v1/auth/resend-verify:
   $ref: ./auth.yaml#/authResendVerify
-/auth/login:
+/api/v1/auth/login:
   $ref: ./auth.yaml#/authLogin
-/auth/logout:
+/api/v1/auth/logout:
   $ref: ./auth.yaml#/authLogout
-/auth/me:
+/api/v1/auth/me:
   $ref: ./auth.yaml#/authMe
-/auth/forgot-password:
+/api/v1/auth/forgot-password:
   $ref: ./auth.yaml#/authForgotPassword
-/auth/reset-password:
+/api/v1/auth/reset-password:
   $ref: ./auth.yaml#/authResetPassword
-/auth/change-password:
+/api/v1/auth/change-password:
   $ref: ./auth.yaml#/authChangePassword
 
 # Admin
-/admin/users:
+/api/v1/admin/users:
   $ref: ./admin.yaml#/adminUsers
-/admin/users/{userId}:
+/api/v1/admin/users/{userId}:
   $ref: ./admin.yaml#/adminUserById
-/admin/users/{userId}/lock:
+/api/v1/admin/users/{userId}/lock:
   $ref: ./admin.yaml#/adminUserLock
-/admin/users/{userId}/unlock:
+/api/v1/admin/users/{userId}/unlock:
   $ref: ./admin.yaml#/adminUserUnlock
-/admin/users/{userId}/reset-password:
+/api/v1/admin/users/{userId}/reset-password:
   $ref: ./admin.yaml#/adminUserResetPassword
 
 # Users
-/users/search:
+/api/v1/users/search:
   $ref: ./users.yaml#/usersSearch
-/users/{userId}:
+/api/v1/users/{userId}:
   $ref: ./users.yaml#/userById
 
 # Rooms
-/rooms:
+/api/v1/rooms:
   $ref: ./rooms.yaml#/roomsCollection
-/rooms/{roomId}:
+/api/v1/rooms/{roomId}:
   $ref: ./rooms.yaml#/roomById
-/rooms/{roomId}/archive:
+/api/v1/rooms/{roomId}/archive:
   $ref: ./rooms.yaml#/roomArchive
 
 #Room member
-/rooms/{roomId}/members:
+/api/v1/rooms/{roomId}/members:
   $ref: ./rooms.yaml#/roomMembers
 
-/rooms/{roomId}/members/{userId}:
+/api/v1/rooms/{roomId}/members/{userId}:
   $ref: ./rooms.yaml#/roomMemberByUserId
 
 
 #contest
-/rooms/{roomId}/contests:
+/api/v1/rooms/{roomId}/contests:
   $ref: ./contests.yaml#/roomContestsCollection
-/contests/{contestId}:
+/api/v1/contests/{contestId}:
   $ref: ./contests.yaml#/contestById
-/contests/{contestId}/publish:
+/api/v1/contests/{contestId}/publish:
   $ref: ./contests.yaml#/contestPublish
-/contests/{contestId}/unpublish:
+/api/v1/contests/{contestId}/unpublish:
   $ref: ./contests.yaml#/contestUnpublish
 
 #contest problem
-/contests/{contestId}/problems:
+/api/v1/contests/{contestId}/problems:
   $ref: ./contests.yaml#/contestProblemsCollection
-/contests/{contestId}/problems/{problemId}:
+/api/v1/contests/{contestId}/problems/{problemId}:
   $ref: ./contests.yaml#/contestProblemById
 
 # problem
-/rooms/{roomId}/problems:
+/api/v1/rooms/{roomId}/problems:
   $ref: ./problems.yaml#/roomProblemsCollection
-/problems/{problemId}:
+/api/v1/problems/{problemId}:
   $ref: ./problems.yaml#/problemById
-/problems/{problemId}/publish:
+/api/v1/problems/{problemId}/publish:
   $ref: ./problems.yaml#/problemPublish
-/problems/{problemId}/unpublish:
+/api/v1/problems/{problemId}/unpublish:
   $ref: ./problems.yaml#/problemUnpublish
 
 #submission
-/problems/{problemId}/submissions:
+/api/v1/problems/{problemId}/submissions:
   $ref: ./submissions.yaml#/problemSubmissionsCreate
-/submissions:
+/api/v1/submissions:
   $ref: ./submissions.yaml#/submissionsList
-/submissions/{submissionId}:
+/api/v1/submissions/{submissionId}:
   $ref: ./submissions.yaml#/submissionById
 
-/rooms/{roomId}/submissions:
+/api/v1/rooms/{roomId}/submissions:
   $ref: ./submissions.yaml#/roomSubmissionsList
 
-/contests/{contestId}/leaderboard:
+/api/v1/contests/{contestId}/leaderboard:
   $ref: ./leaderboard.yaml#/contestLeaderboard
 
-/health:
+/api/v1/health:
   $ref: ./health.yaml#/healthRoot
-/health/judge:
+/api/v1/health/judge:
   $ref: ./health.yaml#/healthJudge

@@ -30,7 +30,7 @@ tags:
   - name: Health
     description: Health check APIs
 paths:
-  /auth/register:
+  /api/v1/auth/register:
     post:
       tags:
         - Auth
@@ -62,7 +62,7 @@ paths:
           $ref: '#/components/responses/Error400'
         '409':
           $ref: '#/components/responses/Error409'
-  /auth/verify:
+  /api/v1/auth/verify:
     post:
       tags:
         - Auth
@@ -90,7 +90,7 @@ paths:
           $ref: '#/components/responses/Error400'
         '404':
           $ref: '#/components/responses/Error404'
-  /auth/resend-verify:
+  /api/v1/auth/resend-verify:
     post:
       tags:
         - Auth
@@ -118,7 +118,7 @@ paths:
           $ref: '#/components/responses/Error400'
         '429':
           $ref: '#/components/responses/Error429'
-  /auth/login:
+  /api/v1/auth/login:
     post:
       tags:
         - Auth
@@ -155,7 +155,7 @@ paths:
           $ref: '#/components/responses/Error403'
         '429':
           $ref: '#/components/responses/Error429'
-  /auth/logout:
+  /api/v1/auth/logout:
     post:
       tags:
         - Auth
@@ -170,7 +170,7 @@ paths:
                 $ref: '#/components/schemas/SimpleOkResponse'
         '401':
           $ref: '#/components/responses/Error401'
-  /auth/me:
+  /api/v1/auth/me:
     get:
       tags:
         - Auth
@@ -185,7 +185,7 @@ paths:
                 $ref: '#/components/schemas/MeResponse'
         '401':
           $ref: '#/components/responses/Error401'
-  /auth/forgot-password:
+  /api/v1/auth/forgot-password:
     post:
       tags:
         - Auth
@@ -214,7 +214,7 @@ paths:
           $ref: '#/components/responses/Error400'
         '429':
           $ref: '#/components/responses/Error429'
-  /auth/reset-password:
+  /api/v1/auth/reset-password:
     post:
       tags:
         - Auth
@@ -243,7 +243,7 @@ paths:
           $ref: '#/components/responses/Error400'
         '404':
           $ref: '#/components/responses/Error404'
-  /auth/change-password:
+  /api/v1/auth/change-password:
     post:
       tags:
         - Auth
@@ -273,7 +273,7 @@ paths:
           $ref: '#/components/responses/Error401'
         '403':
           $ref: '#/components/responses/Error403'
-  /admin/users:
+  /api/v1/admin/users:
     get:
       tags:
         - Admin
@@ -338,7 +338,7 @@ paths:
           $ref: '#/components/responses/Error401'
         '403':
           $ref: '#/components/responses/Error403'
-  /admin/users/{userId}:
+  /api/v1/admin/users/{userId}:
     parameters:
       - name: userId
         in: path
@@ -364,7 +364,7 @@ paths:
           $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
-  /admin/users/{userId}/lock:
+  /api/v1/admin/users/{userId}/lock:
     parameters:
       - name: userId
         in: path
@@ -404,7 +404,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /admin/users/{userId}/unlock:
+  /api/v1/admin/users/{userId}/unlock:
     parameters:
       - name: userId
         in: path
@@ -432,7 +432,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /admin/users/{userId}/reset-password:
+  /api/v1/admin/users/{userId}/reset-password:
     parameters:
       - name: userId
         in: path
@@ -475,7 +475,7 @@ paths:
           $ref: '#/components/responses/Error409'
         '429':
           $ref: '#/components/responses/Error429'
-  /users/search:
+  /api/v1/users/search:
     get:
       tags:
         - Users
@@ -527,7 +527,7 @@ paths:
           $ref: '#/components/responses/Error401'
         '403':
           $ref: '#/components/responses/Error403'
-  /users/{userId}:
+  /api/v1/users/{userId}:
     parameters:
       - name: userId
         in: path
@@ -553,7 +553,7 @@ paths:
           $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
-  /rooms:
+  /api/v1/rooms:
     post:
       tags:
         - Rooms
@@ -631,7 +631,7 @@ paths:
           $ref: '#/components/responses/Error401'
         '403':
           $ref: '#/components/responses/Error403'
-  /rooms/{roomId}:
+  /api/v1/rooms/{roomId}:
     parameters:
       - name: roomId
         in: path
@@ -705,7 +705,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /rooms/{roomId}/archive:
+  /api/v1/rooms/{roomId}/archive:
     parameters:
       - name: roomId
         in: path
@@ -733,7 +733,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /rooms/{roomId}/members:
+  /api/v1/rooms/{roomId}/members:
     parameters:
       - name: roomId
         in: path
@@ -836,7 +836,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /rooms/{roomId}/members/{userId}:
+  /api/v1/rooms/{roomId}/members/{userId}:
     parameters:
       - name: roomId
         in: path
@@ -870,7 +870,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /rooms/{roomId}/contests:
+  /api/v1/rooms/{roomId}/contests:
     parameters:
       - name: roomId
         in: path
@@ -962,7 +962,7 @@ paths:
           $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
-  /contests/{contestId}:
+  /api/v1/contests/{contestId}:
     parameters:
       - name: contestId
         in: path
@@ -1036,7 +1036,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /contests/{contestId}/publish:
+  /api/v1/contests/{contestId}/publish:
     parameters:
       - name: contestId
         in: path
@@ -1064,7 +1064,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /contests/{contestId}/unpublish:
+  /api/v1/contests/{contestId}/unpublish:
     parameters:
       - name: contestId
         in: path
@@ -1092,7 +1092,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /contests/{contestId}/problems:
+  /api/v1/contests/{contestId}/problems:
     parameters:
       - name: contestId
         in: path
@@ -1181,7 +1181,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /contests/{contestId}/problems/{problemId}:
+  /api/v1/contests/{contestId}/problems/{problemId}:
     parameters:
       - name: contestId
         in: path
@@ -1215,7 +1215,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /rooms/{roomId}/problems:
+  /api/v1/rooms/{roomId}/problems:
     parameters:
       - name: roomId
         in: path
@@ -1307,7 +1307,7 @@ paths:
           $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
-  /problems/{problemId}:
+  /api/v1/problems/{problemId}:
     parameters:
       - name: problemId
         in: path
@@ -1381,7 +1381,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /problems/{problemId}/publish:
+  /api/v1/problems/{problemId}/publish:
     parameters:
       - name: problemId
         in: path
@@ -1409,7 +1409,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /problems/{problemId}/unpublish:
+  /api/v1/problems/{problemId}/unpublish:
     parameters:
       - name: problemId
         in: path
@@ -1437,7 +1437,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /problems/{problemId}/submissions:
+  /api/v1/problems/{problemId}/submissions:
     parameters:
       - name: problemId
         in: path
@@ -1487,7 +1487,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /submissions:
+  /api/v1/submissions:
     get:
       tags:
         - Submissions
@@ -1557,7 +1557,7 @@ paths:
           $ref: '#/components/responses/Error400'
         '401':
           $ref: '#/components/responses/Error401'
-  /submissions/{submissionId}:
+  /api/v1/submissions/{submissionId}:
     parameters:
       - name: submissionId
         in: path
@@ -1585,7 +1585,7 @@ paths:
           $ref: '#/components/responses/Error404'
         '409':
           $ref: '#/components/responses/Error409'
-  /rooms/{roomId}/submissions:
+  /api/v1/rooms/{roomId}/submissions:
     parameters:
       - name: roomId
         in: path
@@ -1667,7 +1667,7 @@ paths:
           $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
-  /contests/{contestId}/leaderboard:
+  /api/v1/contests/{contestId}/leaderboard:
     parameters:
       - name: contestId
         in: path
@@ -1718,7 +1718,7 @@ paths:
           $ref: '#/components/responses/Error403'
         '404':
           $ref: '#/components/responses/Error404'
-  /health:
+  /api/v1/health:
     get:
       tags:
         - Health
@@ -1732,7 +1732,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HealthResponse'
-  /health/judge:
+  /api/v1/health/judge:
     get:
       tags:
         - Health
