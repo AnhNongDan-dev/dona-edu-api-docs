@@ -7,7 +7,7 @@ adminUsers:
       - name: q
         in: query
         required: false
-        description: "Search by email/username/displayName"
+        description: "Search by email/username/fullName"
         schema:
           type: string
 

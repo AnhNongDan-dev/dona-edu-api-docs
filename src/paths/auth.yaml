@@ -16,7 +16,7 @@ authRegister:
                 email: "student01@dona.edu.vn"
                 username: "student01"
                 password: "P@ssw0rd123"
-                displayName: "Nguyễn Văn A"
+                fullName: "Nguyễn Văn A"
                 role: STUDENT
     responses:
       "201":

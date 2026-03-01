@@ -1,6 +1,6 @@
 RegisterRequest:
   type: object
-  required: [email, username, password, displayName]
+  required: [email, username, password, fullName]
   properties:
     email:
       type: string
@@ -22,7 +22,7 @@ RegisterRequest:
       maxLength: 72
       example: "P@ssw0rd123"
 
-    displayName:
+    fullName:
       type: string
       minLength: 1
       maxLength: 100
@@ -32,7 +32,7 @@ RegisterRequest:
 
 RegisterResponse:
   type: object
-  required: [userId, email, username, displayName, isVerified]
+  required: [userId, email, username, fullName, isVerified]
   properties:
     userId:
       type: integer
@@ -45,7 +45,7 @@ RegisterResponse:
     username:
       type: string
       example: "student01"
-    displayName:
+    fullName:
       type: string
       example: "Nguyễn Văn A"
     role:
@@ -108,12 +108,12 @@ TokenPair:
 
 MeResponse:
   type: object
-  required: [id, email, username, displayName, role, isVerified]
+  required: [id, email, username, fullName, role, isVerified]
   properties:
     id: { type: integer, format: int64, example: 1001 }
     email: { type: string, format: email, example: "student01@dona.edu.vn" }
     username: { type: string, example: "student01" }
-    displayName: { type: string, example: "Nguyễn Văn A" }
+    fullName: { type: string, example: "Nguyễn Văn A" }
     role: { type: string, example: "STUDENT" }
     isVerified: { type: boolean, example: true }
 

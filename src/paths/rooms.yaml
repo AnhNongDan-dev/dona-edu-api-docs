@@ -216,7 +216,7 @@ roomMembers:
       - name: q
         in: query
         required: false
-        description: "Search by username/displayName"
+        description: "Search by username/fullName"
         schema:
           type: string
       - name: roleInRoom

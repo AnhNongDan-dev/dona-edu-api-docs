@@ -1,6 +1,6 @@
 RoomMemberSummary:
   type: object
-  required: [userId, username, displayName, roleInRoom, joinedAt]
+  required: [userId, username, fullName, roleInRoom, joinedAt]
   properties:
     userId:
       type: integer
@@ -9,7 +9,7 @@ RoomMemberSummary:
     username:
       type: string
       example: "student01"
-    displayName:
+    fullName:
       type: string
       example: "Nguyễn Văn A"
     roleInRoom:

@@ -1,6 +1,6 @@
 UserPublicSummary:
   type: object
-  required: [id, username, displayName]
+  required: [id, username, fullName]
   properties:
     id:
       type: integer
@@ -9,7 +9,7 @@ UserPublicSummary:
     username:
       type: string
       example: "student01"
-    displayName:
+    fullName:
       type: string
       example: "Nguyễn Văn A"
     avatarUrl:
@@ -19,7 +19,7 @@ UserPublicSummary:
 
 UserPublicDetail:
   type: object
-  required: [id, username, displayName]
+  required: [id, username, fullName]
   properties:
     id:
       type: integer
@@ -28,7 +28,7 @@ UserPublicDetail:
     username:
       type: string
       example: "student01"
-    displayName:
+    fullName:
       type: string
       example: "Nguyễn Văn A"
     avatarUrl:

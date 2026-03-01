@@ -1,6 +1,6 @@
 LeaderboardRow:
   type: object
-  required: [rank, userId, username, displayName, totalScore]
+  required: [rank, userId, username, fullName, totalScore]
   properties:
     rank:
       type: integer
@@ -13,7 +13,7 @@ LeaderboardRow:
     username:
       type: string
       example: "student01"
-    displayName:
+    fullName:
       type: string
       example: "Nguyễn Văn A"
     problemScores:

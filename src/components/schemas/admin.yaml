@@ -1,11 +1,11 @@
 AdminUserSummary:
   type: object
-  required: [id, email, username, displayName, role, isVerified, isLocked, createdAt]
+  required: [id, email, username, fullName, role, isVerified, isLocked, createdAt]
   properties:
     id: { type: integer, format: int64, example: 1001 }
     email: { type: string, format: email, example: "student01@dona.edu.vn" }
     username: { type: string, example: "student01" }
-    displayName: { type: string, example: "Nguyễn Văn A" }
+    fullName: { type: string, example: "Nguyễn Văn A" }
     role: { type: string, example: "STUDENT" }
     isVerified: { type: boolean, example: true }
     isLocked: { type: boolean, example: false }
