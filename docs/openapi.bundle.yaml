@@ -2058,6 +2058,14 @@ components:
           type: string
           format: password
           example: P@ssw0rd123
+    LoginResponse:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
     MeResponse:
       type: object
       required:
@@ -2088,39 +2096,6 @@ components:
         isVerified:
           type: boolean
           example: true
-    TokenPair:
-      type: object
-      required:
-        - accessToken
-        - tokenType
-        - expiresIn
-      properties:
-        accessToken:
-          type: string
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-        tokenType:
-          type: string
-          example: Bearer
-        expiresIn:
-          type: integer
-          format: int32
-          description: seconds
-          example: 3600
-        refreshToken:
-          type: string
-          nullable: true
-          description: Optional (only if you implement refresh flow)
-          example: rfr_eyJhbGciOi...
-    LoginResponse:
-      type: object
-      required:
-        - user
-        - tokens
-      properties:
-        user:
-          $ref: '#/components/schemas/MeResponse'
-        tokens:
-          $ref: '#/components/schemas/TokenPair'
     ForgotPasswordRequest:
       type: object
       required:
@@ -3230,6 +3205,29 @@ components:
           type: object
           nullable: true
           additionalProperties: true
+    TokenPair:
+      type: object
+      required:
+        - accessToken
+        - tokenType
+        - expiresIn
+      properties:
+        accessToken:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        tokenType:
+          type: string
+          example: Bearer
+        expiresIn:
+          type: integer
+          format: int32
+          description: seconds
+          example: 3600
+        refreshToken:
+          type: string
+          nullable: true
+          description: Optional (only if you implement refresh flow)
+          example: rfr_eyJhbGciOi...
   responses:
     Error400:
       description: Bad Request

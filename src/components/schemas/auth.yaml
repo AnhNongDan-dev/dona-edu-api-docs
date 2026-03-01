@@ -119,12 +119,11 @@ MeResponse:
 
 LoginResponse:
   type: object
-  required: [user, tokens]
+  required: [token]
   properties:
-    user:
-      $ref: ./auth.yaml#/MeResponse
-    tokens:
-      $ref: ./auth.yaml#/TokenPair
+    token:
+      type: string
+      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 
 ForgotPasswordRequest:
   type: object
