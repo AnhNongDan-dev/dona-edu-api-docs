@@ -49,7 +49,7 @@ paths:
                   email: student01@dona.edu.vn
                   username: student01
                   password: P@ssw0rd123
-                  displayName: Nguyễn Văn A
+                  fullName: Nguyễn Văn A
                   role: STUDENT
       responses:
         '201':
@@ -299,7 +299,7 @@ paths:
         - name: q
           in: query
           required: false
-          description: Search by email/username/displayName
+          description: Search by email/username/fullName
           schema:
             type: string
         - name: role
@@ -516,7 +516,7 @@ paths:
         - name: q
           in: query
           required: true
-          description: Keyword to search by username or displayName
+          description: Keyword to search by username or fullName
           schema:
             type: string
             minLength: 1
@@ -806,7 +806,7 @@ paths:
         - name: q
           in: query
           required: false
-          description: Search by username/displayName
+          description: Search by username/fullName
           schema:
             type: string
         - name: roleInRoom
@@ -1906,7 +1906,7 @@ components:
         - email
         - username
         - password
-        - displayName
+        - fullName
       properties:
         email:
           type: string
@@ -1925,7 +1925,7 @@ components:
           minLength: 8
           maxLength: 72
           example: P@ssw0rd123
-        displayName:
+        fullName:
           type: string
           minLength: 1
           maxLength: 100
@@ -1950,7 +1950,7 @@ components:
         - userId
         - email
         - username
-        - displayName
+        - fullName
         - isVerified
       properties:
         userId:
@@ -1964,7 +1964,7 @@ components:
         username:
           type: string
           example: student01
-        displayName:
+        fullName:
           type: string
           example: Nguyễn Văn A
         role:
@@ -2064,7 +2064,7 @@ components:
         - id
         - email
         - username
-        - displayName
+        - fullName
         - role
         - isVerified
       properties:
@@ -2079,7 +2079,7 @@ components:
         username:
           type: string
           example: student01
-        displayName:
+        fullName:
           type: string
           example: Nguyễn Văn A
         role:
@@ -2172,7 +2172,7 @@ components:
         - id
         - email
         - username
-        - displayName
+        - fullName
         - role
         - isVerified
         - isLocked
@@ -2189,7 +2189,7 @@ components:
         username:
           type: string
           example: student01
-        displayName:
+        fullName:
           type: string
           example: Nguyễn Văn A
         role:
@@ -2299,7 +2299,7 @@ components:
       required:
         - id
         - username
-        - displayName
+        - fullName
       properties:
         id:
           type: integer
@@ -2308,7 +2308,7 @@ components:
         username:
           type: string
           example: student01
-        displayName:
+        fullName:
           type: string
           example: Nguyễn Văn A
         avatarUrl:
@@ -2332,7 +2332,7 @@ components:
       required:
         - id
         - username
-        - displayName
+        - fullName
       properties:
         id:
           type: integer
@@ -2341,7 +2341,7 @@ components:
         username:
           type: string
           example: student01
-        displayName:
+        fullName:
           type: string
           example: Nguyễn Văn A
         avatarUrl:
@@ -2483,7 +2483,7 @@ components:
       required:
         - userId
         - username
-        - displayName
+        - fullName
         - roleInRoom
         - joinedAt
       properties:
@@ -2494,7 +2494,7 @@ components:
         username:
           type: string
           example: student01
-        displayName:
+        fullName:
           type: string
           example: Nguyễn Văn A
         roleInRoom:
@@ -3141,7 +3141,7 @@ components:
         - rank
         - userId
         - username
-        - displayName
+        - fullName
         - totalScore
       properties:
         rank:
@@ -3155,7 +3155,7 @@ components:
         username:
           type: string
           example: student01
-        displayName:
+        fullName:
           type: string
           example: Nguyễn Văn A
         problemScores:
