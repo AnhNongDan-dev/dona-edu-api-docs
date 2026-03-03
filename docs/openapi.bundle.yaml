@@ -468,7 +468,7 @@ paths:
         schema:
           type: integer
           format: int64
-    put:
+    post:
       tags:
         - Admin
       summary: Reset user password (admin)
@@ -479,11 +479,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AdminResetPasswordRequest'
+              type: object
+              additionalProperties: false
             examples:
-              send_email:
-                value:
-                  sendEmail: true
+              empty:
+                value: {}
       responses:
         '200':
           description: Reset success
@@ -2398,14 +2398,6 @@ components:
           type: string
           maxLength: 255
           example: Suspicious activity / spam
-    AdminResetPasswordRequest:
-      type: object
-      properties:
-        sendEmail:
-          type: boolean
-          default: true
-          description: Send new password to user's email
-          example: true
     UserPublicSummary:
       type: object
       required:
