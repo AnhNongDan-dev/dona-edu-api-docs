@@ -45,7 +45,7 @@ roomProblemsCollection:
     summary: List problems in room
     operationId: problemListInRoom
     parameters:
-      - name: q
+      - name: query
         in: query
         required: false
         description: "Search by title"

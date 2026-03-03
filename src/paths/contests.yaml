@@ -45,7 +45,7 @@ roomContestsCollection:
     summary: List contests in room
     operationId: contestListInRoom
     parameters:
-      - name: q
+      - name: query
         in: query
         required: false
         description: "Search by title"

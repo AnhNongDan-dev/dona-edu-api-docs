@@ -296,7 +296,7 @@ paths:
       summary: List users (admin)
       operationId: adminListUsers
       parameters:
-        - name: q
+        - name: query
           in: query
           required: false
           description: Search by email/username/fullName
@@ -306,7 +306,7 @@ paths:
           in: query
           required: false
           schema:
-            type: string
+            $ref: '#/components/schemas/RegisterRole'
         - name: isLocked
           in: query
           required: false
@@ -513,7 +513,7 @@ paths:
       summary: Search users
       operationId: usersSearch
       parameters:
-        - name: q
+        - name: query
           in: query
           required: true
           description: Keyword to search by username or fullName
@@ -630,7 +630,7 @@ paths:
       summary: List rooms
       operationId: roomList
       parameters:
-        - name: q
+        - name: query
           in: query
           required: false
           schema:
@@ -803,7 +803,7 @@ paths:
       summary: List room members
       operationId: roomListMembers
       parameters:
-        - name: q
+        - name: query
           in: query
           required: false
           description: Search by username/fullName
@@ -983,7 +983,7 @@ paths:
       summary: List contests in room
       operationId: contestListInRoom
       parameters:
-        - name: q
+        - name: query
           in: query
           required: false
           description: Search by title
@@ -1353,7 +1353,7 @@ paths:
       summary: List problems in room
       operationId: problemListInRoom
       parameters:
-        - name: q
+        - name: query
           in: query
           required: false
           description: Search by title

@@ -4,7 +4,7 @@ adminUsers:
     summary: List users (admin)
     operationId: adminListUsers
     parameters:
-      - name: q
+      - name: query
         in: query
         required: false
         description: "Search by email/username/fullName"
@@ -15,7 +15,7 @@ adminUsers:
         in: query
         required: false
         schema:
-          type: string
+          $ref: ../components/schemas/auth.yaml#/RegisterRole
 
       - name: isLocked
         in: query

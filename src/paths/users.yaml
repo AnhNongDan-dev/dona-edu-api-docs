@@ -4,7 +4,7 @@ usersSearch:
     summary: Search users
     operationId: usersSearch
     parameters:
-      - name: q
+      - name: query
         in: query
         required: true
         description: "Keyword to search by username or fullName"

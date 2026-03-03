@@ -35,7 +35,7 @@ roomsCollection:
     summary: List rooms
     operationId: roomList
     parameters:
-      - name: q
+      - name: query
         in: query
         required: false
         schema:
@@ -213,7 +213,7 @@ roomMembers:
     summary: List room members
     operationId: roomListMembers
     parameters:
-      - name: q
+      - name: query
         in: query
         required: false
         description: "Search by username/fullName"
