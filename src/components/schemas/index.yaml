@@ -30,8 +30,6 @@ AdminUserListResponse:
   $ref: ./admin.yaml#/AdminUserListResponse
 AdminLockRequest:
   $ref: ./admin.yaml#/AdminLockRequest
-AdminResetPasswordRequest:
-  $ref: ./admin.yaml#/AdminResetPasswordRequest
 
 
 UserPublicSummary:
