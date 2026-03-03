@@ -207,12 +207,7 @@ adminUserResetPassword:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: ../components/schemas/common.yaml#/SuccessResponse
-                - type: object
-                  properties:
-                    data:
-                      $ref: ../components/schemas/admin.yaml#/AdminResetPasswordResponse
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":

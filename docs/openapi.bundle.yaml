@@ -29,6 +29,8 @@ tags:
     description: Leaderboard APIs
   - name: Health
     description: Health check APIs
+  - name: Dashboard
+    description: Dashboard & statistics APIs
 paths:
   /api/v1/auth/register:
     post:
@@ -488,12 +490,7 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - $ref: '#/components/schemas/SuccessResponse'
-                  - type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/AdminResetPasswordResponse'
+                $ref: '#/components/schemas/SuccessResponseVoid'
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -1887,6 +1884,159 @@ paths:
                     properties:
                       data:
                         $ref: '#/components/schemas/JudgeHealthResponse'
+  /contests/active-upcoming:
+    get:
+      tags:
+        - Dashboard
+      summary: List active & upcoming contests
+      operationId: contestsActiveUpcoming
+      parameters:
+        - name: roomId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+            minimum: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+            minimum: 1
+            maximum: 100
+        - name: sort
+          in: query
+          required: false
+          description: 'Example: startAt,asc'
+          schema:
+            type: string
+            example: startAt,asc
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ContestActiveUpcomingPagedResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+  /stats/top-ac-users:
+    get:
+      tags:
+        - Dashboard
+      summary: Top users by AC count
+      operationId: statsTopAcUsers
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 5
+            minimum: 1
+            maximum: 50
+        - name: roomId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/TopAcUsersResponse'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+  /me/problems/next-unsolved:
+    get:
+      tags:
+        - Dashboard
+      summary: Get latest problem that current user has not solved (no AC yet)
+      operationId: meNextUnsolvedProblem
+      parameters:
+        - name: roomId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/NextUnsolvedProblemResponse'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+  /me/problems/progress:
+    get:
+      tags:
+        - Dashboard
+      summary: Get current user AC progress by difficulty
+      operationId: meProblemProgress
+      parameters:
+        - name: roomId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ProblemProgressResponse'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
 components:
   securitySchemes:
     BearerAuth:
@@ -2256,19 +2406,6 @@ components:
           default: true
           description: Send new password to user's email
           example: true
-    AdminResetPasswordResponse:
-      type: object
-      required:
-        - ok
-      properties:
-        ok:
-          type: boolean
-          example: true
-        tempPassword:
-          type: string
-          nullable: true
-          description: Optional. Only returned if server policy allows showing it to admin.
-          example: X9p2@K1m
     UserPublicSummary:
       type: object
       required:
@@ -3205,6 +3342,114 @@ components:
           type: object
           nullable: true
           additionalProperties: true
+    ContestActiveUpcomingPagedResponse:
+      type: object
+      required:
+        - data
+        - paging
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContestSummary'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    TopAcUserRow:
+      type: object
+      required:
+        - rank
+        - userId
+        - username
+        - displayName
+        - acCount
+      properties:
+        rank:
+          type: integer
+          format: int32
+          example: 1
+        userId:
+          type: integer
+          format: int64
+          example: 1001
+        username:
+          type: string
+          example: student01
+        displayName:
+          type: string
+          example: Nguyễn Văn A
+        acCount:
+          type: integer
+          format: int32
+          example: 120
+    TopAcUsersResponse:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopAcUserRow'
+    NextUnsolvedProblem:
+      type: object
+      required:
+        - problemId
+        - title
+        - difficulty
+      properties:
+        problemId:
+          type: integer
+          format: int64
+          example: 101
+        roomId:
+          type: integer
+          format: int64
+          nullable: true
+          example: 1
+        title:
+          type: string
+          example: A + B
+        difficulty:
+          type: string
+          example: EASY
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
+    NextUnsolvedProblemResponse:
+      type: object
+      required:
+        - problem
+      properties:
+        problem:
+          $ref: '#/components/schemas/NextUnsolvedProblem'
+    ProgressBucket:
+      type: object
+      required:
+        - difficulty
+        - ac
+        - total
+      properties:
+        difficulty:
+          type: string
+          example: HARD
+        ac:
+          type: integer
+          format: int32
+          example: 5
+        total:
+          type: integer
+          format: int32
+          example: 10
+    ProblemProgressResponse:
+      type: object
+      required:
+        - buckets
+      properties:
+        buckets:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProgressBucket'
     TokenPair:
       type: object
       required:

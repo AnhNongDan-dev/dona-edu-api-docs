@@ -32,8 +32,6 @@ AdminLockRequest:
   $ref: ./admin.yaml#/AdminLockRequest
 AdminResetPasswordRequest:
   $ref: ./admin.yaml#/AdminResetPasswordRequest
-AdminResetPasswordResponse:
-  $ref: ./admin.yaml#/AdminResetPasswordResponse
 
 
 UserPublicSummary:
@@ -144,3 +142,17 @@ ErrorResponse:
 RegisterRole:
   $ref: ./auth.yaml#/RegisterRole
 
+ContestActiveUpcomingPagedResponse:
+  $ref: ./dashboard.yaml#/ContestActiveUpcomingPagedResponse
+TopAcUserRow:
+  $ref: ./dashboard.yaml#/TopAcUserRow
+TopAcUsersResponse:
+  $ref: ./dashboard.yaml#/TopAcUsersResponse
+NextUnsolvedProblem:
+  $ref: ./dashboard.yaml#/NextUnsolvedProblem
+NextUnsolvedProblemResponse:
+  $ref: ./dashboard.yaml#/NextUnsolvedProblemResponse
+ProgressBucket:
+  $ref: ./dashboard.yaml#/ProgressBucket
+ProblemProgressResponse:
+  $ref: ./dashboard.yaml#/ProblemProgressResponse

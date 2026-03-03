@@ -28,6 +28,8 @@ tags:
     description: Leaderboard APIs
   - name: Health
     description: Health check APIs
+  - name: Dashboard
+    description: Dashboard & statistics APIs
 
 paths:
   $ref: ./paths/index.yaml

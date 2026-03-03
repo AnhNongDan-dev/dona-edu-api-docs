@@ -1,0 +1,63 @@
+ContestActiveUpcomingPagedResponse:
+  type: object
+  required: [data, paging]
+  properties:
+    data:
+      type: array
+      items:
+        $ref: ./contest.yaml#/ContestSummary
+    paging:
+      $ref: ./common.yaml#/Paging
+
+TopAcUserRow:
+  type: object
+  required: [rank, userId, username, displayName, acCount]
+  properties:
+    rank: { type: integer, format: int32, example: 1 }
+    userId: { type: integer, format: int64, example: 1001 }
+    username: { type: string, example: "student01" }
+    displayName: { type: string, example: "Nguyễn Văn A" }
+    acCount: { type: integer, format: int32, example: 120 }
+
+TopAcUsersResponse:
+  type: object
+  required: [items]
+  properties:
+    items:
+      type: array
+      items:
+        $ref: ./dashboard.yaml#/TopAcUserRow
+
+NextUnsolvedProblem:
+  type: object
+  required: [problemId, title, difficulty]
+  properties:
+    problemId: { type: integer, format: int64, example: 101 }
+    roomId: { type: integer, format: int64, nullable: true, example: 1 }
+    title: { type: string, example: "A + B" }
+    difficulty: { type: string, example: "EASY" }
+    createdAt: { type: string, format: date-time, nullable: true }
+
+NextUnsolvedProblemResponse:
+  type: object
+  required: [problem]
+  properties:
+    problem:
+      $ref: ./dashboard.yaml#/NextUnsolvedProblem
+
+ProgressBucket:
+  type: object
+  required: [difficulty, ac, total]
+  properties:
+    difficulty: { type: string, example: "HARD" }
+    ac: { type: integer, format: int32, example: 5 }
+    total: { type: integer, format: int32, example: 10 }
+
+ProblemProgressResponse:
+  type: object
+  required: [buckets]
+  properties:
+    buckets:
+      type: array
+      items:
+        $ref: ./dashboard.yaml#/ProgressBucket

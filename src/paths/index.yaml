@@ -98,3 +98,12 @@
   $ref: ./health.yaml#/healthRoot
 /api/v1/health/judge:
   $ref: ./health.yaml#/healthJudge
+
+/contests/active-upcoming:
+  $ref: ./dashboard.yaml#/contestsActiveUpcoming
+/stats/top-ac-users:
+  $ref: ./dashboard.yaml#/statsTopAcUsers
+/me/problems/next-unsolved:
+  $ref: ./dashboard.yaml#/meNextUnsolvedProblem
+/me/problems/progress:
+  $ref: ./dashboard.yaml#/meProblemProgress

@@ -48,14 +48,3 @@ AdminResetPasswordRequest:
       default: true
       description: Send new password to user's email
       example: true
-
-AdminResetPasswordResponse:
-  type: object
-  required: [ok]
-  properties:
-    ok: { type: boolean, example: true }
-    tempPassword:
-      type: string
-      nullable: true
-      description: Optional. Only returned if server policy allows showing it to admin.
-      example: "X9p2@K1m"
