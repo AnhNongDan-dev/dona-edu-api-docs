@@ -2880,7 +2880,7 @@ components:
       required:
         - userId
         - username
-        - displayName
+        - fullName
         - roleInRoom
         - joinedAt
       properties:
@@ -2891,7 +2891,7 @@ components:
         username:
           type: string
           example: student01
-        displayName:
+        fullName:
           type: string
           example: Nguyễn Văn A
         roleInRoom:
@@ -2921,12 +2921,12 @@ components:
         data:
           - userId: 1001
             username: student01
-            displayName: Nguyễn Văn A
+            fullName: Nguyễn Văn A
             roleInRoom: STUDENT
             joinedAt: '2026-03-01T09:00:00Z'
           - userId: 9001
             username: teacher01
-            displayName: Trần Thị B
+            fullName: Trần Thị B
             roleInRoom: TEACHER
             joinedAt: '2026-03-01T08:00:00Z'
         paging:

@@ -1,10 +1,10 @@
 RoomMemberSummary:
   type: object
-  required: [userId, username, displayName, roleInRoom, joinedAt]
+  required: [userId, username, fullName, roleInRoom, joinedAt]
   properties:
     userId: { type: integer, format: int64, example: 1001 }
     username: { type: string, example: "student01" }
-    displayName: { type: string, example: "Nguyễn Văn A" }
+    fullName: { type: string, example: "Nguyễn Văn A" }
     roleInRoom:
       type: string
       enum: [OWNER, TEACHER, STUDENT]
@@ -25,12 +25,12 @@ RoomMemberListResponse:
     data:
       - userId: 1001
         username: "student01"
-        displayName: "Nguyễn Văn A"
+        fullName: "Nguyễn Văn A"
         roleInRoom: STUDENT
         joinedAt: "2026-03-01T09:00:00Z"
       - userId: 9001
         username: "teacher01"
-        displayName: "Trần Thị B"
+        fullName: "Trần Thị B"
         roleInRoom: TEACHER
         joinedAt: "2026-03-01T08:00:00Z"
     paging:
