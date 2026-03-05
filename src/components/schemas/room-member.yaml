@@ -1,26 +1,15 @@
 RoomMemberSummary:
   type: object
-  required: [userId, username, fullName, roleInRoom, joinedAt]
+  required: [userId, username, displayName, roleInRoom, joinedAt]
   properties:
-    userId:
-      type: integer
-      format: int64
-      example: 1001
-    username:
-      type: string
-      example: "student01"
-    fullName:
-      type: string
-      example: "Nguyễn Văn A"
+    userId: { type: integer, format: int64, example: 1001 }
+    username: { type: string, example: "student01" }
+    displayName: { type: string, example: "Nguyễn Văn A" }
     roleInRoom:
       type: string
-      description: Role of the user inside the room
       enum: [OWNER, TEACHER, STUDENT]
       example: STUDENT
-    joinedAt:
-      type: string
-      format: date-time
-      example: "2026-02-26T10:00:00Z"
+    joinedAt: { type: string, format: date-time, example: "2026-03-01T09:00:00Z" }
 
 RoomMemberListResponse:
   type: object
@@ -32,6 +21,24 @@ RoomMemberListResponse:
         $ref: ./room-member.yaml#/RoomMemberSummary
     paging:
       $ref: ./common.yaml#/Paging
+  example:
+    data:
+      - userId: 1001
+        username: "student01"
+        displayName: "Nguyễn Văn A"
+        roleInRoom: STUDENT
+        joinedAt: "2026-03-01T09:00:00Z"
+      - userId: 9001
+        username: "teacher01"
+        displayName: "Trần Thị B"
+        roleInRoom: TEACHER
+        joinedAt: "2026-03-01T08:00:00Z"
+    paging:
+      page: 0
+      size: 20
+      totalElements: 35
+      totalPages: 2
+      hasNext: true
 
 RoomMemberAddRequest:
   type: object

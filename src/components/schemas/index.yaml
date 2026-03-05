@@ -46,6 +46,8 @@ RoomUpdateRequest:
   $ref: ./room.yaml#/RoomUpdateRequest
 RoomSummary:
   $ref: ./room.yaml#/RoomSummary
+RoomListItem:
+    $ref: ./room.yaml#/RoomListItem
 RoomDetail:
   $ref: ./room.yaml#/RoomDetail
 RoomCreateResponse:
