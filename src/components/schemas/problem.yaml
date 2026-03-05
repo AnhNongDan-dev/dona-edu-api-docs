@@ -102,19 +102,11 @@ ProblemUpdateRequest:
 
 ProblemSummary:
   type: object
-  required: [id, roomId, title, difficulty, isPublished, createdAt, createdBy]
+  required: [id, roomId, title, difficulty, categories, isPublished, createdAt, createdBy]
   properties:
-    id:
-      type: integer
-      format: int64
-      example: 101
-    roomId:
-      type: integer
-      format: int64
-      example: 1
-    title:
-      type: string
-      example: "A + B"
+    id: { type: integer, format: int64, example: 101 }
+    roomId: { type: integer, format: int64, example: 1 }
+    title: { type: string, example: "A + B" }
 
     difficulty:
       $ref: ./problem.yaml#/ProblemDifficulty
@@ -123,42 +115,100 @@ ProblemSummary:
       type: array
       items:
         $ref: ./problem.yaml#/CategorySummary
-      example:
-        - id: 10
-          type: "PROBLEM_CATEGORY"
-          name: "Math"
-          description: "Basic math problems"
+
+    isPublished: { type: boolean, example: false }
+
+    createdAt: { type: string, format: date-time }
+    createdBy: { type: integer, format: int64, example: 9001 }
+
+ProblemDetail:
+  type: object
+  required:
+    - id
+    - roomId
+    - title
+    - statement
+    - difficulty
+    - categories
+    - timeLimitMs
+    - memoryLimitMb
+    - isPublished
+    - createdAt
+    - createdBy
+  properties:
+    id: { type: integer, format: int64, example: 101 }
+    roomId: { type: integer, format: int64, example: 1 }
+
+    title: { type: string, example: "A + B" }
+
+    difficulty:
+      $ref: ./problem.yaml#/ProblemDifficulty
+
+    categories:
+      type: array
+      items:
+        $ref: ./problem.yaml#/CategorySummary
+
+    statement:
+      type: string
+      example: "Given two integers a and b, output a+b."
+
+    inputSpec:
+      type: string
+      nullable: true
+      example: "Two integers a and b."
+
+    outputSpec:
+      type: string
+      nullable: true
+      example: "Print a+b."
+
+    constraints:
+      type: string
+      nullable: true
+      example: "0 ≤ a,b ≤ 10^9"
+
+    timeLimitMs:
+      type: integer
+      format: int32
+      example: 1000
+
+    memoryLimitMb:
+      type: integer
+      format: int32
+      example: 256
 
     isPublished:
       type: boolean
       example: false
 
+    publishedAt:
+      type: string
+      format: date-time
+      nullable: true
+      example: null
+
     createdAt:
       type: string
       format: date-time
+      example: "2026-03-05T09:00:00Z"
 
     createdBy:
       type: integer
       format: int64
       example: 9001
 
-ProblemDetail:
-  allOf:
-    - $ref: ./problem.yaml#/ProblemSummary
-    - type: object
-      properties:
-        statement:
-          type: string
-        timeLimitMs:
-          type: integer
-          format: int32
-        memoryLimitMb:
-          type: integer
-          format: int32
-        publishedAt:
-          type: string
-          format: date-time
-          nullable: true
+    updatedAt:
+      type: string
+      format: date-time
+      nullable: true
+      example: "2026-03-05T09:30:00Z"
+
+    updatedBy:
+      type: integer
+      format: int64
+      nullable: true
+      example: 9001
 
 ProblemCreateResponse:
   type: object
@@ -179,3 +229,35 @@ ProblemListResponse:
         $ref: ./problem.yaml#/ProblemSummary
     paging:
       $ref: ./common.yaml#/Paging
+  example:
+    data:
+      - id: 101
+        roomId: 1
+        title: "A + B"
+        difficulty: EASY
+        categories:
+          - id: 10
+            type: "PROBLEM_CATEGORY"
+            name: "Math"
+            description: "Basic math problems"
+        isPublished: true
+        createdAt: "2026-03-05T09:00:00Z"
+        createdBy: 9001
+      - id: 102
+        roomId: 1
+        title: "Two Sum"
+        difficulty: MEDIUM
+        categories:
+          - id: 12
+            type: "PROBLEM_CATEGORY"
+            name: "Array"
+            description: null
+        isPublished: false
+        createdAt: "2026-03-05T09:10:00Z"
+        createdBy: 9001
+    paging:
+      page: 0
+      size: 20
+      totalElements: 1250
+      totalPages: 63
+      hasNext: true
