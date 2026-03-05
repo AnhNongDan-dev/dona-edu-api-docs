@@ -2981,6 +2981,11 @@ components:
           type: string
           nullable: true
           example: Techniques for solving optimization problems
+      example:
+        id: 10
+        type: PROBLEM_CATEGORY
+        name: Math
+        description: Basic math problems
     ProblemSummary:
       type: object
       required:
