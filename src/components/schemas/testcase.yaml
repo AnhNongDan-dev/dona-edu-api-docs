@@ -1,0 +1,123 @@
+TestcaseCreateItem:
+  type: object
+  required: [ordinal, inputKey, outputKey]
+  properties:
+    ordinal:
+      type: integer
+      format: int32
+      minimum: 1
+      example: 1
+    isHidden:
+      type: boolean
+      default: false
+      example: false
+    score:
+      type: number
+      format: double
+      minimum: 0
+      maximum: 999.99
+      example: 10.0
+    inputKey:
+      type: string
+      maxLength: 200
+      description: Storage key of input file (e.g. S3 key)
+      example: "elp/testcases/problem-101/in/001.txt"
+    outputKey:
+      type: string
+      maxLength: 200
+      description: Storage key of output file (e.g. S3 key)
+      example: "elp/testcases/problem-101/out/001.txt"
+    timeLimitMs:
+      type: integer
+      format: int32
+      nullable: true
+      description: Optional override per testcase
+      example: 1000
+    memoryLimitMb:
+      type: integer
+      format: int32
+      nullable: true
+      description: Optional override per testcase
+      example: 256
+
+TestcaseUploadRequest:
+  type: object
+  description: Upload/replace testcase set for a problem
+  properties:
+    mode:
+      type: string
+      enum: [REPLACE]
+      default: REPLACE
+      example: REPLACE
+    file:
+      type: string
+      format: binary
+      description: Zip file containing testcases (inputs/outputs + optional manifest)
+    manifest:
+      type: string
+      nullable: true
+      description: Optional JSON manifest (if provided as a text field in multipart). See TestcaseManifest.
+      example: null
+
+TestcaseManifest:
+  type: object
+  required: [items]
+  properties:
+    items:
+      type: array
+      items:
+        $ref: ./testcase.yaml#/TestcaseCreateItem
+
+TestcaseUploadResponse:
+  type: object
+  required: [problemId, totalTests, totalSizeBytes]
+  properties:
+    problemId:
+      type: integer
+      format: int64
+      example: 101
+    totalTests:
+      type: integer
+      format: int32
+      example: 20
+    totalSizeBytes:
+      type: integer
+      format: int64
+      example: 5242880
+
+TestcaseMetaResponse:
+  type: object
+  required: [problemId, totalTests, totalSizeBytes, updatedAt]
+  properties:
+    problemId:
+      type: integer
+      format: int64
+      example: 101
+    totalTests:
+      type: integer
+      format: int32
+      example: 20
+    totalSizeBytes:
+      type: integer
+      format: int64
+      example: 5242880
+    hasHidden:
+      type: boolean
+      example: true
+    updatedAt:
+      type: string
+      format: date-time
+      example: "2026-03-05T10:00:00Z"
+
+TestcaseDeleteResponse:
+  type: object
+  required: [problemId, deletedCount]
+  properties:
+    problemId:
+      type: integer
+      format: int64
+      example: 101
+    deletedCount:
+      type: integer
+      format: int32
+      example: 20

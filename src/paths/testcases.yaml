@@ -1,0 +1,115 @@
+problemTestcases:
+  parameters:
+    - name: problemId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  post:
+    tags: [Problems]
+    summary: Upload/Replace testcase set
+    description: |
+      Upload a zip file containing testcases and replace the whole set for the problem.
+      Server extracts zip, validates ordinals, stores files, and updates testcase records.
+    operationId: problemTestcasesUpload
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            $ref: ../components/schemas/testcase.yaml#/TestcaseUploadRequest
+          examples:
+            replace_zip:
+              summary: Replace testcase set with a zip file
+              value:
+                mode: REPLACE
+    responses:
+      "200":
+        description: Uploaded/Replaced
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/testcase.yaml#/TestcaseUploadResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
+      "413":
+        $ref: ../components/responses/errors.yaml#/Error413
+      "415":
+        $ref: ../components/responses/errors.yaml#/Error415
+
+  delete:
+    tags: [Problems]
+    summary: Delete all testcases of a problem
+    operationId: problemTestcasesDeleteAll
+    responses:
+      "200":
+        description: Deleted
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/testcase.yaml#/TestcaseDeleteResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
+
+problemTestcasesMeta:
+  parameters:
+    - name: problemId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  get:
+    tags: [Problems]
+    summary: Get testcase set metadata
+    description: |
+      Returns metadata of current testcase set:
+      - totalTests
+      - totalSizeBytes
+      - hasHidden
+    operationId: problemTestcasesGetMeta
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/testcase.yaml#/TestcaseMetaResponse
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404

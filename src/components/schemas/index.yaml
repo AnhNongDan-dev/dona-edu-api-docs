@@ -100,6 +100,12 @@ ProblemDetail:
 ProblemListResponse:
   $ref: ./problem.yaml#/ProblemListResponse
 
+TestcaseCreateItem: { $ref: ./testcase.yaml#/TestcaseCreateItem }
+TestcaseUploadRequest: { $ref: ./testcase.yaml#/TestcaseUploadRequest }
+TestcaseUploadResponse: { $ref: ./testcase.yaml#/TestcaseUploadResponse }
+TestcaseMetaResponse: { $ref: ./testcase.yaml#/TestcaseMetaResponse }
+TestcaseDeleteResponse: { $ref: ./testcase.yaml#/TestcaseDeleteResponse }
+
 LanguageCode:
   $ref: ./submission.yaml#/LanguageCode
 JudgeStatus:

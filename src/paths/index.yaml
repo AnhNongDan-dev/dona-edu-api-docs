@@ -80,6 +80,12 @@
 /api/v1/problems/{problemId}/unpublish:
   $ref: ./problems.yaml#/problemUnpublish
 
+#test case
+/api/v1/problems/{problemId}/testcases:
+  $ref: ./testcases.yaml#/problemTestcases
+/api/v1/problems/{problemId}/testcases/meta:
+  $ref: ./testcases.yaml#/problemTestcasesMeta
+
 #submission
 /api/v1/problems/{problemId}/submissions:
   $ref: ./submissions.yaml#/problemSubmissionsCreate
