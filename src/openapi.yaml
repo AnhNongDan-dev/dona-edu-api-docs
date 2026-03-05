@@ -22,6 +22,8 @@ tags:
     description: Contest management APIs
   - name: Problems
     description: Problem management APIs
+  - name: Testcases
+    description: Testcase management APIs
   - name: Submissions
     description: Submission & judging APIs
   - name: Leaderboard

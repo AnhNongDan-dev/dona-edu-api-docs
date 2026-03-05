@@ -23,6 +23,8 @@ tags:
     description: Contest management APIs
   - name: Problems
     description: Problem management APIs
+  - name: Testcases
+    description: Testcase management APIs
   - name: Submissions
     description: Submission & judging APIs
   - name: Leaderboard
@@ -1561,7 +1563,7 @@ paths:
           format: int64
     post:
       tags:
-        - Problems
+        - Testcases
       summary: Upload/Replace testcase set
       description: |
         Upload a zip file containing testcases and replace the whole set for the problem.
@@ -1606,7 +1608,7 @@ paths:
           $ref: '#/components/responses/Error415'
     delete:
       tags:
-        - Problems
+        - Testcases
       summary: Delete all testcases of a problem
       operationId: problemTestcasesDeleteAll
       responses:
@@ -1639,7 +1641,7 @@ paths:
           format: int64
     get:
       tags:
-        - Problems
+        - Testcases
       summary: Get testcase set metadata
       description: |
         Returns metadata of current testcase set:

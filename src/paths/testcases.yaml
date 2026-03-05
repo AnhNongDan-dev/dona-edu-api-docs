@@ -8,7 +8,7 @@ problemTestcases:
         format: int64
 
   post:
-    tags: [Problems]
+    tags: [Testcases]
     summary: Upload/Replace testcase set
     description: |
       Upload a zip file containing testcases and replace the whole set for the problem.
@@ -53,7 +53,7 @@ problemTestcases:
         $ref: ../components/responses/errors.yaml#/Error415
 
   delete:
-    tags: [Problems]
+    tags: [Testcases]
     summary: Delete all testcases of a problem
     operationId: problemTestcasesDeleteAll
     responses:
@@ -87,7 +87,7 @@ problemTestcasesMeta:
         format: int64
 
   get:
-    tags: [Problems]
+    tags: [Testcases]
     summary: Get testcase set metadata
     description: |
       Returns metadata of current testcase set:
