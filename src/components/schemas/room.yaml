@@ -28,21 +28,20 @@ RoomUpdateRequest:
       type: string
       minLength: 1
       maxLength: 200
+      example: "Lớp 10A1 - Tin học"
     description:
       type: string
       nullable: true
       maxLength: 2000
-    startAt:
+      example: "Phòng luyện tập và thi thử"
+    password:
       type: string
-      format: date-time
       nullable: true
-    endAt:
-      type: string
-      format: date-time
-      nullable: true
+      example: "Truongtho@1"
     isPublic:
       type: boolean
-      nullable: true
+      default: false
+      example: false
 
 RoomSummary:
   type: object
