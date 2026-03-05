@@ -158,21 +158,6 @@ ProblemDetail:
       type: string
       example: "Given two integers a and b, output a+b."
 
-    inputSpec:
-      type: string
-      nullable: true
-      example: "Two integers a and b."
-
-    outputSpec:
-      type: string
-      nullable: true
-      example: "Print a+b."
-
-    constraints:
-      type: string
-      nullable: true
-      example: "0 ≤ a,b ≤ 10^9"
-
     timeLimitMs:
       type: integer
       format: int32
@@ -225,9 +210,6 @@ ProblemDetail:
         name: "Math"
         description: "Basic math problems"
     statement: "Given two integers a and b, output a+b."
-    inputSpec: "Two integers a and b."
-    outputSpec: "Print a+b."
-    constraints: "0 ≤ a,b ≤ 10^9"
     timeLimitMs: 1000
     memoryLimitMb: 256
     isPublished: false
