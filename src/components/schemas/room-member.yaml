@@ -59,3 +59,30 @@ RoomMemberAddResponse:
       type: integer
       format: int32
       example: 2
+
+RoomJoinRequest:
+  type: object
+  required: [code, password]
+  properties:
+    code:
+      type: string
+      description: Room join code
+      minLength: 3
+      maxLength: 50
+      example: "BL-2026-A1"
+    password:
+      type: string
+      format: password
+      description: Room password
+      minLength: 1
+      maxLength: 100
+      example: "room@123"
+
+RoomJoinResponse:
+  type: object
+  required: [roomId]
+  properties:
+    roomId:
+      type: integer
+      format: int64
+      example: 1

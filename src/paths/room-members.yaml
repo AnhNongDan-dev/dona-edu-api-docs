@@ -1,0 +1,77 @@
+roomJoin:
+  parameters:
+    - name: roomId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  post:
+    tags: [Rooms]
+    summary: Join room (self) by code and password
+    operationId: roomJoin
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/room-member.yaml#/RoomJoinRequest
+          examples:
+            sample:
+              value:
+                code: "BL-2026-A1"
+                password: "room@123"
+    responses:
+      "200":
+        description: Joined
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/room-member.yaml#/RoomJoinResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
+      "429":
+        $ref: ../components/responses/errors.yaml#/Error429
+
+roomLeaveMe:
+  parameters:
+    - name: roomId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  delete:
+    tags: [Rooms]
+    summary: Leave room (self)
+    operationId: roomLeaveMe
+    responses:
+      "200":
+        description: Left
+        content:
+          application/json:
+            schema:
+              $ref: ../components/schemas/common.yaml#/SuccessResponseVoid
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "404":
+        $ref: ../components/responses/errors.yaml#/Error404
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409

@@ -2037,6 +2037,82 @@ paths:
           $ref: '#/components/responses/Error401'
         '403':
           $ref: '#/components/responses/Error403'
+  /rooms/{roomId}/join:
+    parameters:
+      - name: roomId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    post:
+      tags:
+        - Rooms
+      summary: Join room (self) by code and password
+      operationId: roomJoin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoomJoinRequest'
+            examples:
+              sample:
+                value:
+                  code: BL-2026-A1
+                  password: room@123
+      responses:
+        '200':
+          description: Joined
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/RoomJoinResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
+        '429':
+          $ref: '#/components/responses/Error429'
+  /rooms/{roomId}/members/me:
+    parameters:
+      - name: roomId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    delete:
+      tags:
+        - Rooms
+      summary: Leave room (self)
+      operationId: roomLeaveMe
+      responses:
+        '200':
+          description: Left
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponseVoid'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '409':
+          $ref: '#/components/responses/Error409'
 components:
   securitySchemes:
     BearerAuth:
@@ -3442,6 +3518,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProgressBucket'
+    RoomJoinRequest:
+      type: object
+      required:
+        - code
+        - password
+      properties:
+        code:
+          type: string
+          description: Room join code
+          minLength: 3
+          maxLength: 50
+          example: BL-2026-A1
+        password:
+          type: string
+          format: password
+          description: Room password
+          minLength: 1
+          maxLength: 100
+          example: room@123
+    RoomJoinResponse:
+      type: object
+      required:
+        - roomId
+      properties:
+        roomId:
+          type: integer
+          format: int64
+          example: 1
     TokenPair:
       type: object
       required:
