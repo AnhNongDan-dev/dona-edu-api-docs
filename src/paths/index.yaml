@@ -71,6 +71,8 @@
   $ref: ./contests.yaml#/contestProblemById
 
 # problem
+/api/v1/problems:
+  $ref: ./problems.yaml#/problemsCollection
 /api/v1/rooms/{roomId}/problems:
   $ref: ./problems.yaml#/roomProblemsCollection
 /api/v1/problems/{problemId}:

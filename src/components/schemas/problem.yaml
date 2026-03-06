@@ -13,61 +13,97 @@ CategorySummary:
       example: 10
     type:
       type: string
-      description: Category type from DB (e.g. PROBLEM_CATEGORY, TOPIC, ...)
       example: "PROBLEM_CATEGORY"
     name:
       type: string
-      example: "Dynamic Programming"
+      example: "Math"
     description:
       type: string
       nullable: true
-      example: "Techniques for solving optimization problems"
-  example:
-    id: 10
-    type: "PROBLEM_CATEGORY"
-    name: "Math"
-    description: "Basic math problems"
+      example: "Basic math problems"
+
+ProblemSample:
+  type: object
+  required: [input, output]
+  properties:
+    input:
+      type: string
+      example: "1 2"
+    output:
+      type: string
+      example: "3"
+
+ProblemLanguageConfig:
+  type: object
+  required: [id, memoryLimitMb, timeLimitMs]
+  properties:
+    id:
+      type: integer
+      format: int64
+      example: 1
+    memoryLimitMb:
+      type: integer
+      format: int32
+      example: 256
+    timeLimitMs:
+      type: integer
+      format: int32
+      example: 1000
 
 ProblemCreateRequest:
   type: object
-  required: [title, statement, difficulty, timeLimitMs, memoryLimitMb]
+  required: [title, statement, difficulty, sampleInput, samples, languages]
   properties:
     title:
       type: string
       minLength: 1
       maxLength: 200
       example: "A + B"
-
     statement:
       type: string
       minLength: 1
       maxLength: 50000
       example: "Given two integers a and b, output a+b."
-
     difficulty:
       $ref: ./problem.yaml#/ProblemDifficulty
 
     categoryIds:
       type: array
-      description: "Category IDs (CATEGORY.id). Problem can belong to multiple categories."
       items:
         type: integer
         format: int64
       example: [10, 12]
 
-    timeLimitMs:
-      type: integer
-      format: int32
-      minimum: 100
-      maximum: 60000
-      example: 1000
+    solution:
+      type: string
+      nullable: true
+      example: "Use operator + to compute result."
 
-    memoryLimitMb:
-      type: integer
-      format: int32
-      minimum: 32
-      maximum: 2048
-      example: 256
+    inputDescription:
+      type: string
+      nullable: true
+      example: "Two integers a and b."
+
+    outputDescription:
+      type: string
+      nullable: true
+      example: "Print one integer, the sum of a and b."
+
+    sampleInput:
+      type: string
+      example: "1 2"
+
+    samples:
+      type: array
+      minItems: 1
+      items:
+        $ref: ./problem.yaml#/ProblemSample
+
+    languages:
+      type: array
+      minItems: 1
+      items:
+        $ref: ./problem.yaml#/ProblemLanguageConfig
 
 ProblemUpdateRequest:
   type: object
@@ -76,148 +112,43 @@ ProblemUpdateRequest:
       type: string
       minLength: 1
       maxLength: 200
-
     statement:
       type: string
       minLength: 1
       maxLength: 50000
-
     difficulty:
       $ref: ./problem.yaml#/ProblemDifficulty
 
     categoryIds:
       type: array
-      description: "Replace categories by IDs (CATEGORY.id)"
       items:
         type: integer
         format: int64
-      example: [10, 12]
 
-    timeLimitMs:
-      type: integer
-      format: int32
-      minimum: 100
-      maximum: 60000
+    solution:
+      type: string
+      nullable: true
 
-    memoryLimitMb:
-      type: integer
-      format: int32
-      minimum: 32
-      maximum: 2048
+    inputDescription:
+      type: string
+      nullable: true
 
-ProblemSummary:
-  type: object
-  required: [id, roomId, title, difficulty, categories, isPublished, createdAt, createdBy]
-  properties:
-    id: { type: integer, format: int64, example: 101 }
-    roomId: { type: integer, format: int64, example: 1 }
-    title: { type: string, example: "A + B" }
+    outputDescription:
+      type: string
+      nullable: true
 
-    difficulty:
-      $ref: ./problem.yaml#/ProblemDifficulty
+    sampleInput:
+      type: string
 
-    categories:
+    samples:
       type: array
       items:
-        $ref: ./problem.yaml#/CategorySummary
+        $ref: ./problem.yaml#/ProblemSample
 
-    isPublished: { type: boolean, example: false }
-
-    createdAt: { type: string, format: date-time }
-    createdBy: { type: integer, format: int64, example: 9001 }
-
-ProblemDetail:
-  type: object
-  required:
-    - id
-    - roomId
-    - title
-    - statement
-    - difficulty
-    - categories
-    - timeLimitMs
-    - memoryLimitMb
-    - isPublished
-    - createdAt
-    - createdBy
-  properties:
-    id: { type: integer, format: int64, example: 101 }
-    roomId: { type: integer, format: int64, example: 1 }
-
-    title: { type: string, example: "A + B" }
-
-    difficulty:
-      $ref: ./problem.yaml#/ProblemDifficulty
-
-    categories:
+    languages:
       type: array
       items:
-        $ref: ./problem.yaml#/CategorySummary
-
-    statement:
-      type: string
-      example: "Given two integers a and b, output a+b."
-
-    timeLimitMs:
-      type: integer
-      format: int32
-      example: 1000
-
-    memoryLimitMb:
-      type: integer
-      format: int32
-      example: 256
-
-    isPublished:
-      type: boolean
-      example: false
-
-    publishedAt:
-      type: string
-      format: date-time
-      nullable: true
-      example: null
-
-    createdAt:
-      type: string
-      format: date-time
-      example: "2026-03-05T09:00:00Z"
-
-    createdBy:
-      type: integer
-      format: int64
-      example: 9001
-
-    updatedAt:
-      type: string
-      format: date-time
-      nullable: true
-      example: "2026-03-05T09:30:00Z"
-
-    updatedBy:
-      type: integer
-      format: int64
-      nullable: true
-      example: 9001
-  example:
-    id: 101
-    roomId: 1
-    title: "A + B"
-    difficulty: EASY
-    categories:
-      - id: 10
-        type: "PROBLEM_CATEGORY"
-        name: "Math"
-        description: "Basic math problems"
-    statement: "Given two integers a and b, output a+b."
-    timeLimitMs: 1000
-    memoryLimitMb: 256
-    isPublished: false
-    publishedAt: null
-    createdAt: "2026-03-05T09:00:00Z"
-    createdBy: 9001
-    updatedAt: "2026-03-05T09:30:00Z"
-    updatedBy: 9001
+        $ref: ./problem.yaml#/ProblemLanguageConfig
 
 ProblemCreateResponse:
   type: object
@@ -227,6 +158,119 @@ ProblemCreateResponse:
       type: integer
       format: int64
       example: 101
+
+ProblemSummary:
+  type: object
+  required: [id, title, difficulty, categories, isPublished, createdAt, createdBy]
+  properties:
+    id:
+      type: integer
+      format: int64
+      example: 101
+    title:
+      type: string
+      example: "A + B"
+    difficulty:
+      $ref: ./problem.yaml#/ProblemDifficulty
+    categories:
+      type: array
+      items:
+        $ref: ./problem.yaml#/CategorySummary
+    isPublished:
+      type: boolean
+      example: false
+    createdAt:
+      type: string
+      format: date-time
+    createdBy:
+      type: integer
+      format: int64
+      example: 9001
+
+ProblemDetail:
+  type: object
+  required:
+    - id
+    - title
+    - statement
+    - difficulty
+    - categories
+    - sampleInput
+    - samples
+    - languages
+    - isPublished
+    - createdAt
+    - createdBy
+  properties:
+    id:
+      type: integer
+      format: int64
+      example: 101
+    title:
+      type: string
+      example: "A + B"
+    statement:
+      type: string
+      example: "Given two integers a and b, output a+b."
+    difficulty:
+      $ref: ./problem.yaml#/ProblemDifficulty
+    categories:
+      type: array
+      items:
+        $ref: ./problem.yaml#/CategorySummary
+
+    solution:
+      type: string
+      nullable: true
+      example: "Use operator +."
+
+    inputDescription:
+      type: string
+      nullable: true
+      example: "Two integers a and b."
+
+    outputDescription:
+      type: string
+      nullable: true
+      example: "Print one integer."
+
+    sampleInput:
+      type: string
+      example: "1 2"
+
+    samples:
+      type: array
+      items:
+        $ref: ./problem.yaml#/ProblemSample
+
+    languages:
+      type: array
+      items:
+        $ref: ./problem.yaml#/ProblemLanguageConfig
+
+    isPublished:
+      type: boolean
+      example: false
+    publishedAt:
+      type: string
+      format: date-time
+      nullable: true
+
+    createdAt:
+      type: string
+      format: date-time
+    createdBy:
+      type: integer
+      format: int64
+      example: 9001
+    updatedAt:
+      type: string
+      format: date-time
+      nullable: true
+    updatedBy:
+      type: integer
+      format: int64
+      nullable: true
 
 ProblemListResponse:
   type: object
@@ -238,35 +282,25 @@ ProblemListResponse:
         $ref: ./problem.yaml#/ProblemSummary
     paging:
       $ref: ./common.yaml#/Paging
-  example:
-    data:
-      - id: 101
-        roomId: 1
-        title: "A + B"
-        difficulty: EASY
-        categories:
-          - id: 10
-            type: "PROBLEM_CATEGORY"
-            name: "Math"
-            description: "Basic math problems"
-        isPublished: true
-        createdAt: "2026-03-05T09:00:00Z"
-        createdBy: 9001
-      - id: 102
-        roomId: 1
-        title: "Two Sum"
-        difficulty: MEDIUM
-        categories:
-          - id: 12
-            type: "PROBLEM_CATEGORY"
-            name: "Array"
-            description: null
-        isPublished: false
-        createdAt: "2026-03-05T09:10:00Z"
-        createdBy: 9001
-    paging:
-      page: 0
-      size: 20
-      totalElements: 1250
-      totalPages: 63
-      hasNext: true
+
+RoomProblemAddRequest:
+  type: object
+  required: [problemId]
+  properties:
+    problemId:
+      type: integer
+      format: int64
+      example: 101
+
+RoomProblemAddResponse:
+  type: object
+  required: [roomId, problemId]
+  properties:
+    roomId:
+      type: integer
+      format: int64
+      example: 1
+    problemId:
+      type: integer
+      format: int64
+      example: 101

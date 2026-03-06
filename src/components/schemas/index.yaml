@@ -89,18 +89,12 @@ ContestProblemAssignRequest:
 ContestProblemAssignResponse:
   $ref: ./contest-problem.yaml#/ContestProblemAssignResponse
 
-ProblemCreateRequest:
-  $ref: ./problem.yaml#/ProblemCreateRequest
-ProblemUpdateRequest:
-  $ref: ./problem.yaml#/ProblemUpdateRequest
-ProblemCreateResponse:
-  $ref: ./problem.yaml#/ProblemCreateResponse
-ProblemSummary:
-  $ref: ./problem.yaml#/ProblemSummary
-ProblemDetail:
-  $ref: ./problem.yaml#/ProblemDetail
-ProblemListResponse:
-  $ref: ./problem.yaml#/ProblemListResponse
+ProblemDifficulty: { $ref: ./problem.yaml#/ProblemDifficulty }
+CategorySummary: { $ref: ./problem.yaml#/CategorySummary }
+ProblemSample: { $ref: ./problem.yaml#/ProblemSample }
+ProblemLanguageConfig: { $ref: ./problem.yaml#/ProblemLanguageConfig }
+RoomProblemAddRequest: { $ref: ./problem.yaml#/RoomProblemAddRequest }
+RoomProblemAddResponse: { $ref: ./problem.yaml#/RoomProblemAddResponse }
 
 TestcaseCreateItem: { $ref: ./testcase.yaml#/TestcaseCreateItem }
 TestcaseUploadRequest: { $ref: ./testcase.yaml#/TestcaseUploadRequest }
