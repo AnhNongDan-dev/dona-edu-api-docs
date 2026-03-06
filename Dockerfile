@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN npm i -g @stoplight/prism-cli
 
-COPY src/openapi.yaml /app/openapi.yaml
+COPY docs/openapi.bundle.yaml /app/openapi.yaml
 
 EXPOSE 4010
 

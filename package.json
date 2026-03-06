@@ -2,11 +2,13 @@
   "name": "school-api-contract",
   "private": true,
   "devDependencies": {
-    "@redocly/cli": "^1.30.0"
+    "@redocly/cli": "^1.30.0",
+    "@stoplight/prism-cli": "^5.14.2"
   },
   "scripts": {
     "lint": "redocly lint src/openapi.yaml",
     "bundle": "redocly bundle src/openapi.yaml -o docs/openapi.bundle.yaml",
-    "build": "npm run lint && npm run bundle"
+    "build": "npm run lint && npm run bundle",
+    "mock": "prism mock docs/openapi.bundle.yaml -h 0.0.0.0 -p 4010 --cors"
   }
 }
