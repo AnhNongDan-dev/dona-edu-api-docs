@@ -1433,6 +1433,7 @@ paths:
                     size: 20
                     totalElements: 2
                     totalPages: 1
+                    hasNext: false
         '400':
           $ref: '#/components/responses/Error400'
         '401':
