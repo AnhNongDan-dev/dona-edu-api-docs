@@ -1,12 +1,4 @@
 roomJoin:
-  parameters:
-    - name: roomId
-      in: path
-      required: true
-      schema:
-        type: integer
-        format: int64
-
   post:
     tags: [Rooms]
     summary: Join room (self) by code and password

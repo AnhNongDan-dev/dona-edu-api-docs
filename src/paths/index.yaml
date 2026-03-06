@@ -116,7 +116,7 @@
 /me/problems/progress:
   $ref: ./dashboard.yaml#/meProblemProgress
 
-/rooms/{roomId}/join:
+/rooms/join:
   $ref: ./room-members.yaml#/roomJoin
 /rooms/{roomId}/members/me:
   $ref: ./room-members.yaml#/roomLeaveMe
