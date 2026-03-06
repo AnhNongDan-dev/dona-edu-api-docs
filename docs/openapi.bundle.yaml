@@ -1312,7 +1312,7 @@ paths:
       summary: List problems
       operationId: problemList
       parameters:
-        - name: q
+        - name: query
           in: query
           required: false
           schema:
@@ -1420,7 +1420,7 @@ paths:
       summary: List problems in room
       operationId: problemListInRoom
       parameters:
-        - name: q
+        - name: query
           in: query
           required: false
           schema:
@@ -1477,6 +1477,39 @@ paths:
                     properties:
                       data:
                         $ref: '#/components/schemas/ProblemListResponse'
+              example:
+                success: true
+                data:
+                  data:
+                    - id: 101
+                      title: A + B
+                      difficulty: EASY
+                      categories:
+                        - id: 10
+                          type: PROBLEM_CATEGORY
+                          name: Math
+                          description: Basic math problems
+                      solutionGuide: Read two integers, compute their sum, then print the result.
+                      isPublished: false
+                      createdAt: '2026-03-05T09:00:00Z'
+                      createdBy: 9001
+                    - id: 102
+                      title: Max of Three Numbers
+                      difficulty: MEDIUM
+                      categories:
+                        - id: 11
+                          type: PROBLEM_CATEGORY
+                          name: Implementation
+                          description: Implementation problems
+                      solutionGuide: Compare three numbers and keep the maximum value.
+                      isPublished: true
+                      createdAt: '2026-03-05T10:00:00Z'
+                      createdBy: 9001
+                  paging:
+                    page: 0
+                    size: 20
+                    totalElements: 2
+                    totalPages: 1
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -3383,11 +3416,7 @@ components:
       type: object
       required:
         - title
-        - statement
         - difficulty
-        - sampleInput
-        - samples
-        - languages
       properties:
         title:
           type: string

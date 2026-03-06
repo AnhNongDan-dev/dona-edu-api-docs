@@ -52,7 +52,7 @@ ProblemLanguageConfig:
 
 ProblemCreateRequest:
   type: object
-  required: [title, statement, difficulty, sampleInput, samples, languages]
+  required: [title, difficulty]
   properties:
     title:
       type: string
