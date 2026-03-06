@@ -1,6 +1,37 @@
 problemsCollection:
-  get:
+  post:
     tags: [Problems]
+    summary: Create problem
+    operationId: problemCreate
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/problem.yaml#/ProblemCreateRequest
+    responses:
+      "201":
+        description: Created
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: ../components/schemas/common.yaml#/SuccessResponse
+                - type: object
+                  properties:
+                    data:
+                      $ref: ../components/schemas/problem.yaml#/ProblemCreateResponse
+      "400":
+        $ref: ../components/responses/errors.yaml#/Error400
+      "401":
+        $ref: ../components/responses/errors.yaml#/Error401
+      "403":
+        $ref: ../components/responses/errors.yaml#/Error403
+      "409":
+        $ref: ../components/responses/errors.yaml#/Error409
+
+  get:
+    tags: [ Problems ]
     summary: List problems
     operationId: problemList
     parameters:
@@ -100,37 +131,6 @@ problemsCollection:
         $ref: ../components/responses/errors.yaml#/Error401
       "403":
         $ref: ../components/responses/errors.yaml#/Error403
-
-  post:
-    tags: [Problems]
-    summary: Create problem
-    operationId: problemCreate
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: ../components/schemas/problem.yaml#/ProblemCreateRequest
-    responses:
-      "201":
-        description: Created
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: ../components/schemas/common.yaml#/SuccessResponse
-                - type: object
-                  properties:
-                    data:
-                      $ref: ../components/schemas/problem.yaml#/ProblemCreateResponse
-      "400":
-        $ref: ../components/responses/errors.yaml#/Error400
-      "401":
-        $ref: ../components/responses/errors.yaml#/Error401
-      "403":
-        $ref: ../components/responses/errors.yaml#/Error403
-      "409":
-        $ref: ../components/responses/errors.yaml#/Error409
 
 problemById:
   parameters:
@@ -341,6 +341,41 @@ roomProblemsCollection:
                   properties:
                     data:
                       $ref: ../components/schemas/problem.yaml#/ProblemListResponse
+            example:
+              success: true
+              data:
+                data:
+                  - id: 101
+                    title: "A + B"
+                    difficulty: "EASY"
+                    categories:
+                      - id: 10
+                        type: "PROBLEM_CATEGORY"
+                        name: "Math"
+                        description: "Basic math problems"
+                    solutionGuide: "Read two integers, compute their sum, then print the result."
+                    isPublished: false
+                    createdAt: "2026-03-05T09:00:00Z"
+                    createdBy: 9001
+                  - id: 102
+                    title: "Max of Three Numbers"
+                    difficulty: "MEDIUM"
+                    categories:
+                      - id: 11
+                        type: "PROBLEM_CATEGORY"
+                        name: "Implementation"
+                        description: "Implementation problems"
+                    solutionGuide: "Compare three numbers and keep the maximum value."
+                    isPublished: true
+                    createdAt: "2026-03-05T10:00:00Z"
+                    createdBy: 9001
+                paging:
+                  page: 0
+                  size: 20
+                  totalElements: 2
+                  totalPages: 1
+                  hasNext: false
+
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":
@@ -372,6 +407,11 @@ roomProblemsCollection:
                   properties:
                     data:
                       $ref: ../components/schemas/problem.yaml#/RoomProblemAddResponse
+              example:
+                success: true
+                data:
+                  roomId: 1
+                  problemId: 101
       "400":
         $ref: ../components/responses/errors.yaml#/Error400
       "401":

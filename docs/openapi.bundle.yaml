@@ -1306,6 +1306,37 @@ paths:
         '409':
           $ref: '#/components/responses/Error409'
   /api/v1/problems:
+    post:
+      tags:
+        - Problems
+      summary: Create problem
+      operationId: problemCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProblemCreateRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/SuccessResponse'
+                  - type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/ProblemCreateResponse'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '409':
+          $ref: '#/components/responses/Error409'
     get:
       tags:
         - Problems
@@ -1408,37 +1439,6 @@ paths:
           $ref: '#/components/responses/Error401'
         '403':
           $ref: '#/components/responses/Error403'
-    post:
-      tags:
-        - Problems
-      summary: Create problem
-      operationId: problemCreate
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ProblemCreateRequest'
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: '#/components/schemas/SuccessResponse'
-                  - type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/ProblemCreateResponse'
-        '400':
-          $ref: '#/components/responses/Error400'
-        '401':
-          $ref: '#/components/responses/Error401'
-        '403':
-          $ref: '#/components/responses/Error403'
-        '409':
-          $ref: '#/components/responses/Error409'
   /api/v1/rooms/{roomId}/problems:
     parameters:
       - name: roomId
@@ -1510,6 +1510,40 @@ paths:
                     properties:
                       data:
                         $ref: '#/components/schemas/ProblemListResponse'
+              example:
+                success: true
+                data:
+                  data:
+                    - id: 101
+                      title: A + B
+                      difficulty: EASY
+                      categories:
+                        - id: 10
+                          type: PROBLEM_CATEGORY
+                          name: Math
+                          description: Basic math problems
+                      solutionGuide: Read two integers, compute their sum, then print the result.
+                      isPublished: false
+                      createdAt: '2026-03-05T09:00:00Z'
+                      createdBy: 9001
+                    - id: 102
+                      title: Max of Three Numbers
+                      difficulty: MEDIUM
+                      categories:
+                        - id: 11
+                          type: PROBLEM_CATEGORY
+                          name: Implementation
+                          description: Implementation problems
+                      solutionGuide: Compare three numbers and keep the maximum value.
+                      isPublished: true
+                      createdAt: '2026-03-05T10:00:00Z'
+                      createdBy: 9001
+                  paging:
+                    page: 0
+                    size: 20
+                    totalElements: 2
+                    totalPages: 1
+                    hasNext: false
         '400':
           $ref: '#/components/responses/Error400'
         '401':
@@ -1541,6 +1575,11 @@ paths:
                     properties:
                       data:
                         $ref: '#/components/schemas/RoomProblemAddResponse'
+                example:
+                  success: true
+                  data:
+                    roomId: 1
+                    problemId: 101
         '400':
           $ref: '#/components/responses/Error400'
         '401':
