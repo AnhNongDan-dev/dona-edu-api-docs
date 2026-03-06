@@ -66,39 +66,33 @@ ProblemCreateRequest:
       example: "Given two integers a and b, output a+b."
     difficulty:
       $ref: ./problem.yaml#/ProblemDifficulty
-
     categoryIds:
       type: array
       items:
         type: integer
         format: int64
       example: [10, 12]
-
     solution:
       type: string
       nullable: true
       example: "Use operator + to compute result."
-
+    solutionGuide:
+      type: string
+      nullable: true
+      example: "Read two integers, compute their sum, then print the result."
     inputDescription:
       type: string
       nullable: true
-      example: "Two integers a and b."
-
     outputDescription:
       type: string
       nullable: true
-      example: "Print one integer, the sum of a and b."
-
     sampleInput:
       type: string
-      example: "1 2"
-
     samples:
       type: array
       minItems: 1
       items:
         $ref: ./problem.yaml#/ProblemSample
-
     languages:
       type: array
       minItems: 1
@@ -126,6 +120,10 @@ ProblemUpdateRequest:
         format: int64
 
     solution:
+      type: string
+      nullable: true
+
+    solutionGuide:
       type: string
       nullable: true
 
@@ -218,36 +216,33 @@ ProblemDetail:
       type: array
       items:
         $ref: ./problem.yaml#/CategorySummary
-
     solution:
       type: string
       nullable: true
       example: "Use operator +."
-
+    solutionGuide:
+      type: string
+      nullable: true
+      example: "Read two integers, compute their sum, then print the result."
     inputDescription:
       type: string
       nullable: true
       example: "Two integers a and b."
-
     outputDescription:
       type: string
       nullable: true
       example: "Print one integer."
-
     sampleInput:
       type: string
       example: "1 2"
-
     samples:
       type: array
       items:
         $ref: ./problem.yaml#/ProblemSample
-
     languages:
       type: array
       items:
         $ref: ./problem.yaml#/ProblemLanguageConfig
-
     isPublished:
       type: boolean
       example: false
@@ -255,7 +250,6 @@ ProblemDetail:
       type: string
       format: date-time
       nullable: true
-
     createdAt:
       type: string
       format: date-time
